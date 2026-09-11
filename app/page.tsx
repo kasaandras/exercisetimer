@@ -80,7 +80,9 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         aria-label={program.name}
       >
         <div className="phase">
-          <span>{finished ? t.sessionComplete : (segment?.name ?? t.ready)}</span>
+          <span className="phaseName">
+            {finished ? t.sessionComplete : (segment?.name ?? t.ready)}
+          </span>
           {segment && !finished && <span className="kindTag">{kindLabel}</span>}
         </div>
 
@@ -114,8 +116,11 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         <aside className="brief">
           <div className="briefCell">
             <span className="briefLabel">{t.labelNow}</span>
-            <span className="briefName">{segment.name}</span>
-            {segment.note && <p className="briefNote">{segment.note}</p>}
+            {segment.note ? (
+              <p className="briefNote strong">{segment.note}</p>
+            ) : (
+              <span className="briefName">{segment.name}</span>
+            )}
           </div>
           <div className="briefCell muted-cell">
             <span className="briefLabel">{t.labelNext}</span>
