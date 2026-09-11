@@ -57,19 +57,33 @@ const coolDownEnd = (): Block[] => [
   w('Ülve, hosszú kilégzés', 60, 'Kb. 6 légvétel/perc.'),
 ]
 
-/** One pass of the first session's main circuit. */
-const mainRound = (index: number, withRest: boolean): Round => ({
-  name: `Fő rész — ${index}. kör`,
-  blocks: [
+/**
+ * One pass of the first session's main circuit.
+ *
+ * The 15 s Átvezetés sits *between* exercises, which is where the time to
+ * change position is actually needed. There is none before the Pihenő: the
+ * 60 s break begins the moment the last exercise of the round ends.
+ */
+const mainRound = (index: number, withRest: boolean): Round => {
+  const exercises = [
     w('Helyben járás', 45, 'Könnyítés: lassabb tempó.'),
     w('Magas fekvőtámasz padon', 45, PUSHUP_NOTE),
     w('Oldallépés sarokemeléssel', 45, 'Bicepszhajlítással; talp a földön marad.'),
     w('Lábszár izometrikus tartás', 45, 'Fal közelében; egyenletes légzés.'),
-    r('Átvezetés', 15, 'Biztonságos testhelyzetváltás.'),
-    // The document places the 60 s break after rounds 1 and 2 only.
-    ...(withRest ? [r('Pihenő', 60, BREAK_NOTE)] : []),
-  ],
-})
+  ]
+
+  const blocks: Block[] = []
+  exercises.forEach((exercise, i) => {
+    blocks.push(exercise)
+    if (i < exercises.length - 1) {
+      blocks.push(r('Átvezetés', 15, 'Biztonságos testhelyzetváltás.'))
+    }
+  })
+  // The document places the 60 s break after rounds 1 and 2 only.
+  if (withRest) blocks.push(r('Pihenő', 60, BREAK_NOTE))
+
+  return { name: `Fő rész — ${index}. kör`, blocks }
+}
 
 const sorozat1: Program = {
   id: 'kk-sorozat-1',
