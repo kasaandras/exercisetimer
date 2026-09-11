@@ -27,12 +27,17 @@ export type SessionView = {
 
 const PIP_OFFSETS = [3, 2, 1]
 
-export function useSession(program: Program, speak: boolean, speechLang: string) {
+export function useSession(
+  program: Program,
+  speak: boolean,
+  speechLang: string,
+  prepLabel: string,
+) {
   const engineRef = useRef<CueEngine | null>(null)
   const wakeLockRef = useRef<WakeLockSentinel | null>(null)
   const spokenRef = useRef<string | null>(null)
 
-  const segments = useMemo(() => expandProgram(program), [program])
+  const segments = useMemo(() => expandProgram(program, prepLabel), [program, prepLabel])
   const duration = useMemo(() => totalSeconds(segments), [segments])
   const events = useMemo(() => planCues(segments), [segments])
 

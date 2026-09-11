@@ -44,7 +44,7 @@ type RunnerProps = {
 }
 
 function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerProps) {
-  const { view, toggle, reset } = useSession(program, speak, speechLang)
+  const { view, toggle, reset } = useSession(program, speak, speechLang, t.getReady)
   const { state, segment, nextSegment, remaining, remainingTotal, litPips } = view
 
   const finished = state === 'finished'
@@ -101,9 +101,14 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         </p>
 
         <p className="meta">
-          {segment && segment.pass > 0 && !finished
-            ? `${t.roundOf(segment.pass, segment.passCount)} — ${t.leftInSession(formatClock(remainingTotal))}`
-            : t.leftInSession(formatClock(finished ? 0 : remainingTotal))}
+          {segment && segment.roundOrdinal > 0 && !finished && (
+            <>
+              {segment.roundName}
+              {segment.roundTotal > 1 && ` · ${segment.roundOrdinal}/${segment.roundTotal}`}
+              {' — '}
+            </>
+          )}
+          {t.leftInSession(formatClock(finished ? 0 : remainingTotal))}
         </p>
       </section>
 
@@ -113,9 +118,9 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
       </p>
 
       <div className="track" aria-hidden="true">
-        {Array.from({ length: view.passCount }, (_, i) => {
+        {Array.from({ length: segment?.roundTotal ?? view.passCount }, (_, i) => {
           const n = i + 1
-          const current = segment?.pass ?? 0
+          const current = segment?.roundOrdinal ?? 0
           return <b key={i} className={finished || n < current ? 'done' : n === current ? 'now' : undefined} />
         })}
       </div>

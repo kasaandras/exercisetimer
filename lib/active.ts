@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { builtinPrograms } from './builtins'
 import { examplePrograms } from './examples'
 import { dictionaries, type Lang } from './i18n'
 import type { Program } from './program'
@@ -20,7 +21,8 @@ export function setActiveProgramId(id: string): void {
 export function allPrograms(lang: Lang): Program[] {
   const saved = programStore.list()
   const savedIds = new Set(saved.map((p) => p.id))
-  return [...saved, ...examplePrograms(dictionaries[lang]).filter((p) => !savedIds.has(p.id))]
+  const shipped = [...builtinPrograms(), ...examplePrograms(dictionaries[lang])]
+  return [...saved, ...shipped.filter((p) => !savedIds.has(p.id))]
 }
 
 /**

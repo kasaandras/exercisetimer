@@ -33,6 +33,9 @@ export type Segment = {
   pass: number
   passCount: number
   roundName: string
+  /** 1-based position of this round across the whole session; 0 for prep. */
+  roundOrdinal: number
+  roundTotal: number
 }
 
 export type CueEvent = { at: number; cue: CueName }
@@ -46,10 +49,12 @@ export function makeId(): string {
  * an optional prep block, then every round's blocks, repeated `repeatRounds`
  * times. Offsets are absolute seconds from the start of the session.
  */
-export function expandProgram(program: Program): Segment[] {
+export function expandProgram(program: Program, prepLabel = 'Get ready'): Segment[] {
   const segments: Segment[] = []
   const passCount = Math.max(1, Math.floor(program.repeatRounds))
+  const roundTotal = passCount * program.rounds.length
   let at = 0
+  let roundOrdinal = 0
 
   const push = (
     name: string,
@@ -68,16 +73,19 @@ export function expandProgram(program: Program): Segment[] {
       pass,
       passCount,
       roundName,
+      roundOrdinal,
+      roundTotal,
     })
     at += seconds
   }
 
   if (program.prepSeconds > 0) {
-    push('Get ready', 'prep', program.prepSeconds, 0, '')
+    push(prepLabel, 'prep', program.prepSeconds, 0, '')
   }
 
   for (let pass = 1; pass <= passCount; pass++) {
     for (const round of program.rounds) {
+      roundOrdinal++
       for (const block of round.blocks) {
         push(block.name, block.kind, block.seconds, pass, round.name)
       }
