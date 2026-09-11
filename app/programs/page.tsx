@@ -282,7 +282,8 @@ function Editor({ draft, setDraft, onSave, onCancel, t }: EditorProps) {
         <section key={ri} style={{ marginTop: 26 }}>
           <h2>{round.name || t.roundLabel(ri + 1)}</h2>
           {round.blocks.map((block, bi) => (
-            <div className="blockRow" key={block.id}>
+            <div className="blockGroup" key={block.id}>
+            <div className="blockRow">
               <div>
                 <label htmlFor={`n-${block.id}`}>{t.blockName}</label>
                 <input
@@ -317,6 +318,16 @@ function Editor({ draft, setDraft, onSave, onCancel, t }: EditorProps) {
               <button className="danger tiny" onClick={() => removeBlock(ri, bi)} aria-label={`${t.removeBlock}: ${block.name}`}>
                 ✕
               </button>
+            </div>
+            <div className="noteRow">
+              <label htmlFor={`note-${block.id}`}>{t.noteLabel}</label>
+              <input
+                id={`note-${block.id}`}
+                type="text"
+                value={block.note ?? ''}
+                onChange={(e) => patchBlock(ri, bi, { note: e.target.value || undefined })}
+              />
+            </div>
             </div>
           ))}
           <button className="ghost tiny" onClick={() => addBlock(ri)}>{t.addBlock}</button>

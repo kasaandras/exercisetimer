@@ -17,12 +17,16 @@ export function setActiveProgramId(id: string): void {
   }
 }
 
-/** Saved programs first, then the shipped examples, deduplicated by id. */
+/** What ships with the app: the real sessions first, then the samples. */
+export function shippedPrograms(lang: Lang): Program[] {
+  return [...builtinPrograms(), ...examplePrograms(dictionaries[lang])]
+}
+
+/** Saved programs first, then everything shipped, deduplicated by id. */
 export function allPrograms(lang: Lang): Program[] {
   const saved = programStore.list()
   const savedIds = new Set(saved.map((p) => p.id))
-  const shipped = [...builtinPrograms(), ...examplePrograms(dictionaries[lang])]
-  return [...saved, ...shipped.filter((p) => !savedIds.has(p.id))]
+  return [...saved, ...shippedPrograms(lang).filter((p) => !savedIds.has(p.id))]
 }
 
 /**
@@ -34,9 +38,7 @@ export function useActiveProgram(lang: Lang): { program: Program | null; fromLin
   // Seed with the first shipped example so the timer is on screen from the
   // very first paint. Examples are deterministic, so this matches the
   // prerendered markup; storage and share links are applied just after.
-  const [program, setProgram] = useState<Program | null>(
-    () => examplePrograms(dictionaries[lang])[0] ?? null,
-  )
+  const [program, setProgram] = useState<Program | null>(() => shippedPrograms(lang)[0] ?? null)
   const [fromLink, setFromLink] = useState(false)
 
   useEffect(() => {

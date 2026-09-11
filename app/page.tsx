@@ -96,10 +96,6 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
           <span className="lbl">{state === 'running' ? t.countingDown : t.countdownPips}</span>
         </div>
 
-        <p className="next">
-          {finished ? '' : nextSegment ? t.upNext(nextSegment.name) : t.nothingNext}
-        </p>
-
         <p className="meta">
           {segment && segment.roundOrdinal > 0 && !finished && (
             <>
@@ -112,9 +108,38 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         </p>
       </section>
 
+      {/* What to do now and what is coming, in smaller type beside the clock.
+          Shown before the session starts too, so the first move is known. */}
+      {!finished && segment && (
+        <aside className="brief">
+          <div className="briefCell">
+            <span className="briefLabel">{t.labelNow}</span>
+            <span className="briefName">{segment.name}</span>
+            {segment.note && <p className="briefNote">{segment.note}</p>}
+          </div>
+          <div className="briefCell muted-cell">
+            <span className="briefLabel">{t.labelNext}</span>
+            {nextSegment ? (
+              <>
+                <span className="briefName">
+                  {nextSegment.name} · {formatClock(nextSegment.seconds)}
+                </span>
+                {nextSegment.note && <p className="briefNote">{nextSegment.note}</p>}
+              </>
+            ) : (
+              <span className="briefName">{t.nothingNext}</span>
+            )}
+          </div>
+        </aside>
+      )}
+
       {/* Screen-reader announcement of the block, since the clock is silent. */}
       <p className="visually-hidden" role="status" aria-live="polite">
-        {finished ? t.sessionComplete : segment ? `${kindLabel}: ${segment.name}` : t.ready}
+        {finished
+          ? t.sessionComplete
+          : segment
+            ? `${kindLabel}: ${segment.name}${segment.note ? `. ${segment.note}` : ''}`
+            : t.ready}
       </p>
 
       <div className="track" aria-hidden="true">

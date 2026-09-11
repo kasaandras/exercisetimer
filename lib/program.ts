@@ -7,6 +7,8 @@ export type Block = {
   name: string
   seconds: number
   kind: BlockKind
+  /** Coaching note: form cue, breathing, or the easier variant. */
+  note?: string
 }
 
 export type Round = {
@@ -27,6 +29,7 @@ export type Segment = {
   name: string
   kind: BlockKind
   seconds: number
+  note?: string
   startsAt: number
   endsAt: number
   /** 1-based pass through the circuit; 0 for the prep segment. */
@@ -62,12 +65,14 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     seconds: number,
     pass: number,
     roundName: string,
+    note?: string,
   ) => {
     if (seconds <= 0) return
     segments.push({
       name,
       kind,
       seconds,
+      note,
       startsAt: at,
       endsAt: at + seconds,
       pass,
@@ -87,7 +92,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     for (const round of program.rounds) {
       roundOrdinal++
       for (const block of round.blocks) {
-        push(block.name, block.kind, block.seconds, pass, round.name)
+        push(block.name, block.kind, block.seconds, pass, round.name, block.note)
       }
     }
   }
@@ -182,6 +187,7 @@ export function normaliseProgram(input: unknown): Program | null {
                     name: typeof b.name === 'string' ? b.name.slice(0, 80) : 'Block',
                     seconds,
                     kind,
+                    note: typeof b.note === 'string' ? b.note.slice(0, 240) : undefined,
                   }
                 })
                 .filter((b): b is Block => b !== null)

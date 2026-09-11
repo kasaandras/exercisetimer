@@ -23,6 +23,9 @@ export type Dict = {
   leftInSession: (clock: string) => string
   upNext: (name: string) => string
   nothingNext: string
+  labelNow: string
+  labelNext: string
+  noteLabel: string
   countdownPips: string
   countingDown: string
   getReady: string
@@ -113,6 +116,9 @@ const en: Dict = {
   leftInSession: (clock) => `${clock} left in the session`,
   upNext: (name) => `Next: ${name}`,
   nothingNext: 'Last block',
+  labelNow: 'Now',
+  labelNext: 'Next',
+  noteLabel: 'Instruction / easier variant',
   countdownPips: 'countdown pips',
   countingDown: 'counting down',
   getReady: 'Get ready',
@@ -207,6 +213,9 @@ const es: Dict = {
   leftInSession: (clock) => `Quedan ${clock} de sesión`,
   upNext: (name) => `Siguiente: ${name}`,
   nothingNext: 'Último bloque',
+  labelNow: 'Ahora',
+  labelNext: 'Siguiente',
+  noteLabel: 'Indicación / variante fácil',
   countdownPips: 'pitidos de cuenta atrás',
   countingDown: 'contando atrás',
   getReady: 'Prepárate',
@@ -301,6 +310,9 @@ const hu: Dict = {
   leftInSession: (clock) => `Még ${clock} van hátra`,
   upNext: (name) => `Következik: ${name}`,
   nothingNext: 'Utolsó blokk',
+  labelNow: 'Most',
+  labelNext: 'Következik',
+  noteLabel: 'Jelzés / könnyített változat',
   countdownPips: 'visszaszámláló csipogások',
   countingDown: 'visszaszámlálás',
   getReady: 'Készülj',
