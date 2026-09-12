@@ -9,6 +9,8 @@ export type Block = {
   kind: BlockKind
   /** Coaching note: form cue, breathing, or the easier variant. */
   note?: string
+  /** Talking points to work through while this block runs. */
+  points?: string[]
 }
 
 export type Round = {
@@ -30,6 +32,7 @@ export type Segment = {
   kind: BlockKind
   seconds: number
   note?: string
+  points?: string[]
   startsAt: number
   endsAt: number
   /** 1-based pass through the circuit; 0 for the prep segment. */
@@ -66,6 +69,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     pass: number,
     roundName: string,
     note?: string,
+    points?: string[],
   ) => {
     if (seconds <= 0) return
     segments.push({
@@ -73,6 +77,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
       kind,
       seconds,
       note,
+      points,
       startsAt: at,
       endsAt: at + seconds,
       pass,
@@ -92,7 +97,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     for (const round of program.rounds) {
       roundOrdinal++
       for (const block of round.blocks) {
-        push(block.name, block.kind, block.seconds, pass, round.name, block.note)
+        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points)
       }
     }
   }
@@ -188,6 +193,12 @@ export function normaliseProgram(input: unknown): Program | null {
                     seconds,
                     kind,
                     note: typeof b.note === 'string' ? b.note.slice(0, 240) : undefined,
+                    points: Array.isArray(b.points)
+                      ? b.points
+                          .filter((x): x is string => typeof x === 'string')
+                          .slice(0, 12)
+                          .map((x) => x.slice(0, 160))
+                      : undefined,
                   }
                 })
                 .filter((b): b is Block => b !== null)

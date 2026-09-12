@@ -116,7 +116,13 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         <aside className="brief">
           <div className="briefCell">
             <span className="briefLabel">{t.labelNow}</span>
-            {segment.note ? (
+            {segment.points ? (
+              <ul className="briefPoints">
+                {segment.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            ) : segment.note ? (
               <p className="briefNote strong">{segment.note}</p>
             ) : (
               <span className="briefName">{segment.name}</span>

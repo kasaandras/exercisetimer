@@ -26,9 +26,42 @@ const SAFETY = 'Folyamatos légzés; szédülés esetén abbahagyni.'
 const BREAK_NOTE = 'Pulzus rendezése, ivás.'
 const PUSHUP_NOTE = 'Kilégzés a tolásra. Könnyítés: falnyomás.'
 
+/**
+ * Lay out exercises with a 15 s Átvezetés between each one, which is where the
+ * time to change position is actually needed. There is none before the break:
+ * the Pihenő starts the moment the last exercise of the round ends.
+ */
+const circuit = (exercises: Block[], breakSeconds = 0): Block[] => {
+  const blocks: Block[] = []
+  exercises.forEach((exercise, i) => {
+    blocks.push(exercise)
+    if (i < exercises.length - 1) {
+      blocks.push(r('Átvezetés', 15, 'Biztonságos testhelyzetváltás.'))
+    }
+  })
+  if (breakSeconds > 0) blocks.push(r('Pihenő', breakSeconds, BREAK_NOTE))
+  return blocks
+}
+
+/** What the presenter works through on camera before the warm-up. */
+const INTRO_POINTS = [
+  'Köszöntés, a videó hossza és felépítése',
+  'Orvosi konzultáció mozgás előtt',
+  'Leállás és orvoshoz fordulás tünet esetén',
+  'Szükséges eszközök',
+  'Folyamatos légzés, levegő-visszatartás tilos',
+  'Könnyített változat minden gyakorlathoz',
+  'Saját tempó',
+]
+
 const intro = (): Round => ({
   name: 'Bevezető',
-  blocks: [p('Bemutatkozás, biztonsági jelzések', 30, SAFETY)],
+  blocks: [
+    {
+      ...p('Bemutatkozás, biztonsági jelzések', 30, SAFETY),
+      points: INTRO_POINTS,
+    },
+  ],
 })
 
 /** Six exercises, rising tempo — 3:40. Identical in both sessions. */
@@ -57,33 +90,20 @@ const coolDownEnd = (): Block[] => [
   w('Ülve, hosszú kilégzés', 60, 'Kb. 6 légvétel/perc.'),
 ]
 
-/**
- * One pass of the first session's main circuit.
- *
- * The 15 s Átvezetés sits *between* exercises, which is where the time to
- * change position is actually needed. There is none before the Pihenő: the
- * 60 s break begins the moment the last exercise of the round ends.
- */
-const mainRound = (index: number, withRest: boolean): Round => {
-  const exercises = [
-    w('Helyben járás', 45, 'Könnyítés: lassabb tempó.'),
-    w('Magas fekvőtámasz padon', 45, PUSHUP_NOTE),
-    w('Oldallépés sarokemeléssel', 45, 'Bicepszhajlítással; talp a földön marad.'),
-    w('Lábszár izometrikus tartás', 45, 'Fal közelében; egyenletes légzés.'),
-  ]
-
-  const blocks: Block[] = []
-  exercises.forEach((exercise, i) => {
-    blocks.push(exercise)
-    if (i < exercises.length - 1) {
-      blocks.push(r('Átvezetés', 15, 'Biztonságos testhelyzetváltás.'))
-    }
-  })
+/** One pass of the first session's main circuit. */
+const mainRound = (index: number, withRest: boolean): Round => ({
+  name: `Fő rész — ${index}. kör`,
   // The document places the 60 s break after rounds 1 and 2 only.
-  if (withRest) blocks.push(r('Pihenő', 60, BREAK_NOTE))
-
-  return { name: `Fő rész — ${index}. kör`, blocks }
-}
+  blocks: circuit(
+    [
+      w('Helyben járás', 45, 'Könnyítés: lassabb tempó.'),
+      w('Magas fekvőtámasz padon', 45, PUSHUP_NOTE),
+      w('Oldallépés sarokemeléssel', 45, 'Bicepszhajlítással; talp a földön marad.'),
+      w('Lábszár izometrikus tartás', 45, 'Fal közelében; egyenletes légzés.'),
+    ],
+    withRest ? 60 : 0,
+  ),
+})
 
 const sorozat1: Program = {
   id: 'kk-sorozat-1',
@@ -100,10 +120,14 @@ const sorozat1: Program = {
   ],
 }
 
-/** Second session: cardio — strength/hold — cardio — break, three times. */
+/**
+ * Second session: cardio — strength/hold — cardio — break, three times.
+ * The role prefix is part of the name because that structure is the point of
+ * this session, not incidental labelling.
+ */
 const block = (index: number, cardioA: Block, middle: Block, cardioB: Block): Round => ({
   name: `${index}. blokk`,
-  blocks: [cardioA, middle, cardioB, r('Pihenő', 60, BREAK_NOTE)],
+  blocks: circuit([cardioA, middle, cardioB], 60),
 })
 
 // Rep-based in the document ("10 ism."); timed at 45 s to match what the first
@@ -120,30 +144,29 @@ const sorozat2: Program = {
     warmUp(),
     block(
       1,
-      w('Sarokfelrúgás helyben', 45, 'Könnyítés: lassú helyben járás.'),
-      w('Magas fekvőtámasz padon', REPS, PUSHUP_NOTE),
-      w('Gyors oldallépés karhúzással', 45, 'Könnyítés: lassabb, karhúzás nélkül.'),
+      w('Kardió: sarokfelrúgás helyben', 45, 'Könnyítés: lassú helyben járás.'),
+      w('Erő: magas fekvőtámasz padon', REPS, PUSHUP_NOTE),
+      w('Kardió: gyors oldallépés karhúzással', 45, 'Könnyítés: lassabb, karhúzás nélkül.'),
     ),
     block(
       2,
-      w('Tempós térdemelés', 45, 'Könnyítés: kisebb emelés.'),
-      w('Magas guggolótartás', 45, 'Fal közelében; térd nem lép a lábujjak elé.'),
-      w('Box step tempósan', 45, 'Négy sarokpont, előre–hátra.'),
+      w('Kardió: tempós térdemelés', 45, 'Könnyítés: kisebb emelés.'),
+      w('Tartás: magas guggolótartás', 45, 'Fal közelében; térd nem lép a lábujjak elé.'),
+      w('Kardió: box step tempósan', 45, 'Négy sarokpont, előre–hátra.'),
     ),
     block(
       3,
-      w('Kitörés hátra váltott lábbal', 45, 'Könnyítés: kisebb lépés, padra támaszkodás.'),
-      w('Felhúzás gumiszalaggal vagy súlyzóval', REPS, 'Könyök vállmagasságig, kéz nem a szegycsont fölé.'),
-      w('Oldallépés bicepszhajlítással', 45, 'Talp a földön marad.'),
+      w('Kardió: kitörés hátra váltott lábbal', 45, 'Könnyítés: kisebb lépés, padra támaszkodás.'),
+      w('Erő: felhúzás gumiszalaggal vagy súlyzóval', REPS, 'Könyök vállmagasságig, kéz nem a szegycsont fölé.'),
+      w('Kardió: oldallépés bicepszhajlítással', 45, 'Talp a földön marad.'),
     ),
     {
       name: 'Levezetés',
       blocks: [
         ...coolDownStart(),
-        // The second session adds shoulder and side stretches, placed before
-        // the seated finish so the rule "always ends seated" still holds.
+        // The second session adds a shoulder stretch, placed before the seated
+        // finish so the rule "always ends seated" still holds.
         w('Vállnyújtás', 30, 'Kar a test előtt át, váll lent.'),
-        w('Oldalra hajlás', 30, '15 mp / oldal.'),
         ...coolDownEnd(),
       ],
     },
