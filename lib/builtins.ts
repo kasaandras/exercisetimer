@@ -58,8 +58,8 @@ const intro = (): Round => ({
   name: 'Bevezető',
   blocks: [
     {
-      // 45 s rather than 30: seven talking points is a lot to get through.
-      ...p('Bemutatkozás, biztonsági jelzések', 45, SAFETY),
+      // A full minute: seven talking points, including the medical warnings.
+      ...p('Bemutatkozás, biztonsági jelzések', 60, SAFETY),
       points: INTRO_POINTS,
     },
   ],
