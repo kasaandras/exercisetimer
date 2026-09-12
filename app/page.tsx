@@ -1,15 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
-import Link from 'next/link'
 import { useSettings } from '@/components/Providers'
 import { useActiveProgram } from '@/lib/active'
-import { speechTag } from '@/lib/i18n'
 import { formatClock } from '@/lib/program'
 import { useSession } from '@/lib/useSession'
 
 export default function RunPage() {
-  const { t, lang, speak, setSpeak } = useSettings()
+  const { t, lang } = useSettings()
   const { program, fromLink } = useActiveProgram(lang)
 
   if (!program) {
@@ -26,9 +24,6 @@ export default function RunPage() {
       key={program.id}
       program={program}
       fromLink={fromLink}
-      speak={speak}
-      setSpeak={setSpeak}
-      speechLang={speechTag(lang)}
       t={t}
     />
   )
@@ -37,14 +32,11 @@ export default function RunPage() {
 type RunnerProps = {
   program: NonNullable<ReturnType<typeof useActiveProgram>['program']>
   fromLink: boolean
-  speak: boolean
-  setSpeak: (value: boolean) => void
-  speechLang: string
   t: ReturnType<typeof useSettings>['t']
 }
 
-function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerProps) {
-  const { view, toggle, reset } = useSession(program, speak, speechLang, t.getReady)
+function Runner({ program, fromLink, t }: RunnerProps) {
+  const { view, toggle, reset } = useSession(program, t.getReady)
   const { state, segment, nextSegment, remaining, remainingTotal, litPips } = view
 
   const finished = state === 'finished'
@@ -173,21 +165,6 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         </aside>
       )}
 
-      <div className="check">
-        <input
-          id="speak"
-          type="checkbox"
-          checked={speak}
-          onChange={(e) => setSpeak(e.target.checked)}
-        />
-        <label htmlFor="speak">{t.speakNames}</label>
-      </div>
-
-      <p className="meta">
-        {program.name} — {t.totalLength(formatClock(view.duration))}.{' '}
-        <Link href="/programs">{t.navPrograms}</Link>
-      </p>
-      <p className="meta">{t.keepScreenOn}</p>
         </div>
       </div>
     </main>

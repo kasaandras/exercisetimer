@@ -1,9 +1,9 @@
 export type Lang = 'en' | 'es' | 'hu'
 
-export const LANGS: { code: Lang; label: string; speech: string }[] = [
-  { code: 'en', label: 'English', speech: 'en-GB' },
-  { code: 'es', label: 'Español', speech: 'es-ES' },
-  { code: 'hu', label: 'Magyar', speech: 'hu-HU' },
+export const LANGS: { code: Lang; label: string }[] = [
+  { code: 'en', label: 'English' },
+  { code: 'es', label: 'Español' },
+  { code: 'hu', label: 'Magyar' },
 ]
 
 export type Dict = {
@@ -30,8 +30,6 @@ export type Dict = {
   countingDown: string
   getReady: string
   interrupted: string
-  keepScreenOn: string
-  speakNames: string
   totalLength: (clock: string) => string
 
   cuesTitle: string
@@ -124,8 +122,6 @@ const en: Dict = {
   getReady: 'Get ready',
   interrupted:
     'The audio was interrupted, so the timer is paused here. Press resume to carry on.',
-  keepScreenOn: 'Keep this screen on — the sound stops if the phone locks.',
-  speakNames: 'Say the block name out loud',
   totalLength: (clock) => `${clock} total`,
 
   cuesTitle: 'The cues',
@@ -221,8 +217,6 @@ const es: Dict = {
   getReady: 'Prepárate',
   interrupted:
     'El audio se interrumpió, así que el temporizador está en pausa aquí. Pulsa continuar para seguir.',
-  keepScreenOn: 'Mantén la pantalla encendida — el sonido se para si el móvil se bloquea.',
-  speakNames: 'Decir el nombre del bloque en voz alta',
   totalLength: (clock) => `${clock} en total`,
 
   cuesTitle: 'Las señales',
@@ -318,8 +312,6 @@ const hu: Dict = {
   getReady: 'Készülj',
   interrupted:
     'A hang megszakadt, ezért az időzítő itt megállt. Nyomd meg a folytatást.',
-  keepScreenOn: 'Hagyd bekapcsolva a képernyőt — a hang leáll, ha a telefon lezár.',
-  speakNames: 'Mondja ki a blokk nevét',
   totalLength: (clock) => `Összesen ${clock}`,
 
   cuesTitle: 'A hangjelzések',
@@ -398,8 +390,4 @@ export function detectLang(): Lang {
     if (code === 'hu' || code === 'es' || code === 'en') return code
   }
   return 'en'
-}
-
-export function speechTag(lang: Lang): string {
-  return LANGS.find((l) => l.code === lang)?.speech ?? 'en-GB'
 }

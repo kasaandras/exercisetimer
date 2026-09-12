@@ -27,15 +27,9 @@ export type SessionView = {
 
 const PIP_OFFSETS = [3, 2, 1]
 
-export function useSession(
-  program: Program,
-  speak: boolean,
-  speechLang: string,
-  prepLabel: string,
-) {
+export function useSession(program: Program, prepLabel: string) {
   const engineRef = useRef<CueEngine | null>(null)
   const wakeLockRef = useRef<WakeLockSentinel | null>(null)
-  const spokenRef = useRef<string | null>(null)
 
   const segments = useMemo(() => expandProgram(program, prepLabel), [program, prepLabel])
   const duration = useMemo(() => totalSeconds(segments), [segments])
@@ -62,7 +56,6 @@ export function useSession(
     const engine = engineRef.current
     if (!engine) return
     engine.load(events, duration)
-    spokenRef.current = null
     setView({
       state: 'idle',
       remaining: segments[0]?.seconds ?? 0,
@@ -140,22 +133,6 @@ export function useSession(
     return () => cancelAnimationFrame(frame)
   }, [segments, duration])
 
-  // Speak the block name as it begins. Not sample-accurate and does not need
-  // to be — it is a label, not a cue.
-  useEffect(() => {
-    if (!speak || view.state !== 'running' || !view.segment) return
-    if (typeof window === 'undefined' || !window.speechSynthesis) return
-    const key = `${view.segment.startsAt}:${view.segment.name}`
-    if (spokenRef.current === key) return
-    spokenRef.current = key
-    if (view.segment.kind === 'prep') return
-    const utterance = new SpeechSynthesisUtterance(view.segment.name)
-    utterance.lang = speechLang
-    utterance.rate = 1.05
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utterance)
-  }, [speak, speechLang, view.segment, view.state])
-
   // Hold the screen awake only while actually running.
   useEffect(() => {
     if (view.state === 'running') void requestWakeLock()
@@ -188,7 +165,6 @@ export function useSession(
   }, [])
 
   const reset = useCallback(() => {
-    spokenRef.current = null
     engineRef.current?.reset()
   }, [])
 

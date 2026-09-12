@@ -4,13 +4,10 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { detectLang, dictionaries, type Dict, type Lang } from '@/lib/i18n'
 
 const LANG_KEY = 'cue-timer.lang'
-const SPEAK_KEY = 'cue-timer.speak'
 
 type Settings = {
   lang: Lang
   setLang: (lang: Lang) => void
-  speak: boolean
-  setSpeak: (speak: boolean) => void
   t: Dict
 }
 
@@ -20,14 +17,12 @@ export function Providers({ children }: { children: ReactNode }) {
   // Start from a fixed language so the server-rendered markup and the first
   // client render agree; the stored preference is applied straight after.
   const [lang, setLangState] = useState<Lang>('en')
-  const [speak, setSpeakState] = useState(false)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(LANG_KEY)
       setLangState(stored === 'en' || stored === 'es' || stored === 'hu' ? stored : detectLang())
-      setSpeakState(window.localStorage.getItem(SPEAK_KEY) === '1')
     } catch {
       setLangState(detectLang())
     }
@@ -49,18 +44,9 @@ export function Providers({ children }: { children: ReactNode }) {
           // Preference simply will not persist.
         }
       },
-      speak,
-      setSpeak: (next) => {
-        setSpeakState(next)
-        try {
-          window.localStorage.setItem(SPEAK_KEY, next ? '1' : '0')
-        } catch {
-          // As above.
-        }
-      },
       t: dictionaries[lang],
     }),
-    [lang, speak],
+    [lang],
   )
 
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>
