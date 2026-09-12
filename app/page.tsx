@@ -138,7 +138,13 @@ function Runner({ program, fromLink, t }: RunnerProps) {
           <div className="briefCell">
             <span className="briefLabel">{t.labelNow}</span>
             {segment.points ? (
-              <ul className="briefPoints">
+              /* A few short cues can be large; a full script has to shrink to
+                 stay on screen without scrolling mid-take. */
+              <ul
+                className={
+                  segment.points.join(' ').length > 300 ? 'briefPoints dense' : 'briefPoints'
+                }
+              >
                 {segment.points.map((point) => (
                   <li key={point}>{point}</li>
                 ))}

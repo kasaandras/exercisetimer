@@ -99,14 +99,14 @@ const en: Copy = {
   intro: {
     name: 'Welcome and overview',
     note: 'Talk to your doctor before you start; stop if you feel dizzy or short of breath.',
+    // The spoken opening, line by line, to read from while on camera.
     points: [
-      'Welcome, how long the video is and how it is built up',
-      'Talk to your doctor before exercising',
-      'Stop and see a doctor if symptoms appear',
-      'Equipment you will need',
-      'Keep breathing — never hold your breath',
-      'An easier variant for every exercise',
-      'Work at your own pace',
+      'Hello, and a warm welcome to our very first exercise session.',
+      'Before you start, please check with your doctor that these workouts are right for you.',
+      'While we exercise — if your heart starts pounding, if you feel short of breath, or if anything else does not feel right, stop straight away. Call your doctor if you need to.',
+      'You will need a yoga mat and a bench. No bench? A chair or sofa works just as well — but put the chair against a wall, because we will be doing push-ups on it.',
+      'Work at your own pace throughout. There is no rush.',
+      'For every exercise I will show you an easier version, so take whichever one suits you today.',
     ],
   },
   section: {
