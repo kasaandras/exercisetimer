@@ -71,8 +71,11 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
     state === 'running' ? t.pause : state === 'paused' || state === 'interrupted' ? t.resume : t.start
 
   return (
-    <main className="wrap">
+    <main className="wrap run">
       {fromLink && <p className="toast">{t.importedProgram}</p>}
+
+      <div className="runGrid">
+        <div className="runMain">
 
       <section
         className="stage"
@@ -110,6 +113,32 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         </p>
       </section>
 
+      {/* Screen-reader announcement of the block, since the clock is silent. */}
+      <p className="visually-hidden" role="status" aria-live="polite">
+        {finished
+          ? t.sessionComplete
+          : segment
+            ? `${kindLabel}: ${segment.name}${segment.note ? `. ${segment.note}` : ''}`
+            : t.ready}
+      </p>
+
+      <div className="track" aria-hidden="true">
+        {Array.from({ length: segment?.roundTotal ?? view.passCount }, (_, i) => {
+          const n = i + 1
+          const current = segment?.roundOrdinal ?? 0
+          return <b key={i} className={finished || n < current ? 'done' : n === current ? 'now' : undefined} />
+        })}
+      </div>
+
+      <div className="row">
+        <button onClick={toggle}>{startLabel}</button>
+        <button className="ghost" onClick={reset}>{t.reset}</button>
+      </div>
+
+      {state === 'interrupted' && <p className="notice">{t.interrupted}</p>}
+        </div>
+
+        <div className="runSide">
       {/* What to do now and what is coming, in smaller type beside the clock.
           Shown before the session starts too, so the first move is known. */}
       {!finished && segment && (
@@ -144,30 +173,6 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         </aside>
       )}
 
-      {/* Screen-reader announcement of the block, since the clock is silent. */}
-      <p className="visually-hidden" role="status" aria-live="polite">
-        {finished
-          ? t.sessionComplete
-          : segment
-            ? `${kindLabel}: ${segment.name}${segment.note ? `. ${segment.note}` : ''}`
-            : t.ready}
-      </p>
-
-      <div className="track" aria-hidden="true">
-        {Array.from({ length: segment?.roundTotal ?? view.passCount }, (_, i) => {
-          const n = i + 1
-          const current = segment?.roundOrdinal ?? 0
-          return <b key={i} className={finished || n < current ? 'done' : n === current ? 'now' : undefined} />
-        })}
-      </div>
-
-      <div className="row">
-        <button onClick={toggle}>{startLabel}</button>
-        <button className="ghost" onClick={reset}>{t.reset}</button>
-      </div>
-
-      {state === 'interrupted' && <p className="notice">{t.interrupted}</p>}
-
       <div className="check">
         <input
           id="speak"
@@ -183,6 +188,8 @@ function Runner({ program, fromLink, speak, setSpeak, speechLang, t }: RunnerPro
         <Link href="/programs">{t.navPrograms}</Link>
       </p>
       <p className="meta">{t.keepScreenOn}</p>
+        </div>
+      </div>
     </main>
   )
 }

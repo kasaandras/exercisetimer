@@ -320,3 +320,30 @@ h2 { font-size: 17px; font-weight: 620; margin: 30px 0 12px; }
 }
 .briefPoints li { margin-top: 3px; overflow-wrap: anywhere; }
 .briefPoints li::marker { color: var(--muted); }
+
+/* ---- Tablet / landscape: instructions beside the clock, not beneath it ----
+   A single 680px column wastes most of an iPad in landscape and pushes the
+   brief box under the fold. Above 900px the timer and the instructions become
+   two columns and the page uses the width it has. */
+@media (min-width: 900px) {
+  .wrap.run { max-width: 1500px; padding: 18px 28px 44px; }
+  .runGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.9fr);
+    gap: 28px;
+    align-items: start;
+  }
+  /* The side column is too narrow for now and next to sit abreast. */
+  .runSide .brief { grid-template-columns: 1fr; margin-top: 0; }
+  .phaseName { font-size: clamp(28px, 5vh, 54px); }
+  .briefName { font-size: clamp(22px, 3.6vh, 36px); }
+  .briefNote { font-size: clamp(18px, 2.7vh, 28px); }
+  .briefPoints { font-size: clamp(16px, 2.3vh, 25px); }
+}
+
+/* A short landscape screen no longer has to shrink the clock: the instructions
+   moved out of the column, so the height they were taking is free again. */
+@media (min-width: 900px) and (max-height: 780px) {
+  .clock { font-size: clamp(96px, 34vh, 280px); margin: 6px 0 12px; }
+  .stage { padding: 22px 24px 20px; }
+}
