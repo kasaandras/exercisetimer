@@ -43,6 +43,8 @@ function Runner({ program, fromLink, t }: RunnerProps) {
   const kindLabel =
     segment?.kind === 'work' ? t.kindWork : segment?.kind === 'rest' ? t.kindRest : t.getReady
   const accent = finished ? 'done' : (segment?.kind ?? 'ready')
+  // A block with a read-aloud script needs the room more than the clock does.
+  const scripted = !finished && (segment?.points?.join(' ').length ?? 0) > 300
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -66,7 +68,7 @@ function Runner({ program, fromLink, t }: RunnerProps) {
     <main className="wrap run">
       {fromLink && <p className="toast">{t.importedProgram}</p>}
 
-      <div className="runGrid">
+      <div className={scripted ? 'runGrid scripted' : 'runGrid'}>
         <div className="runMain">
 
       <section
@@ -138,13 +140,7 @@ function Runner({ program, fromLink, t }: RunnerProps) {
           <div className="briefCell">
             <span className="briefLabel">{t.labelNow}</span>
             {segment.points ? (
-              /* A few short cues can be large; a full script has to shrink to
-                 stay on screen without scrolling mid-take. */
-              <ul
-                className={
-                  segment.points.join(' ').length > 300 ? 'briefPoints dense' : 'briefPoints'
-                }
-              >
+              <ul className={scripted ? 'briefPoints dense' : 'briefPoints'}>
                 {segment.points.map((point) => (
                   <li key={point}>{point}</li>
                 ))}
