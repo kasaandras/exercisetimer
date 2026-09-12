@@ -23,8 +23,8 @@ const r = make('rest')
 const p = make('prep')
 
 const SAFETY = 'Folyamatos légzés; szédülés esetén abbahagyni.'
-const BREAK_NOTE = 'Pulzus rendezése, ivás.'
-const PUSHUP_NOTE = 'Kilégzés a tolásra. Könnyítés: falnyomás.'
+const BREAK_NOTE = 'Pulzus csökkenése, ivás.'
+const PUSHUP_NOTE = '8–10 fekvőtámasz is elég, fokozatosan építsd fel. Kilégzés a tolásra. Könnyítés: falnyomás.'
 
 /**
  * Lay out exercises with a 15 s Átvezetés between each one, which is where the
@@ -80,13 +80,13 @@ const warmUp = (): Round => ({
 
 /** The shared cool-down — 5:30. Always finishes seated on a long exhale. */
 const coolDownStart = (): Block[] => [
-  w('Lassú séta', 60, 'Mozgás folytatása, nem megállni.'),
+  w('Lassú séta', 60, 'Mozogj tovább, nem megállni.'),
   w('Oldallépés lassan', 45, 'Csökkenő tempó.'),
   w('Mellkasnyitás karokkal', 30, 'Lapockák hátra.'),
 ]
 const coolDownEnd = (): Block[] => [
-  w('Combfeszítő nyújtása', 60, '30 mp / láb; padnak támaszkodva.'),
-  w('Combhajlító nyújtása padon', 45, 'Sarok a padon, egyenes háttal előredőlés.'),
+  w('Combfeszítő nyújtása', 60, '30 mp / láb; falnak támaszkodva.'),
+  w('Lábnyújtás szőnyegen', 45, 'Egyenes háttal előredőlés.'),
   w('Vádlinyújtás', 30, 'Padnak dőlve.'),
   w('Ülve, hosszú kilégzés', 60, 'Kb. 6 légvétel/perc.'),
 ]
@@ -97,9 +97,9 @@ const mainRound = (index: number, withRest: boolean): Round => ({
   // The document places the 60 s break after rounds 1 and 2 only.
   blocks: circuit(
     [
-      w('Helyben járás', 45, 'Könnyítés: lassabb tempó.'),
-      w('Magas fekvőtámasz padon', 45, PUSHUP_NOTE),
-      w('Oldallépés sarokemeléssel', 45, 'Bicepszhajlítással; talp a földön marad.'),
+      w('Helyben futás', 45, 'Könnyítés: lassabb tempó.'),
+      w('Magas fekvőtámasz padon/kanapén', 45, PUSHUP_NOTE),
+      w('Oldallépés sarokemeléssel', 45, 'Bicepszhajlítással.'),
       w('Lábszár izometrikus tartás', 45, 'Fal közelében; egyenletes légzés.'),
     ],
     withRest ? 60 : 0,
@@ -146,7 +146,7 @@ const sorozat2: Program = {
     block(
       1,
       w('Kardió: sarokfelrúgás helyben', 45, 'Könnyítés: lassú helyben járás.'),
-      w('Erő: magas fekvőtámasz padon', REPS, PUSHUP_NOTE),
+      w('Erő: magas fekvőtámasz padon/kanapén', REPS, PUSHUP_NOTE),
       w('Kardió: gyors oldallépés karhúzással', 45, 'Könnyítés: lassabb, karhúzás nélkül.'),
     ),
     block(
