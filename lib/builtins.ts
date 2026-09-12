@@ -22,7 +22,7 @@ const w = make('work')
 const r = make('rest')
 const p = make('prep')
 
-const SAFETY = 'Folyamatos légzés; szédülés esetén abbahagyni.'
+const SAFETY = 'Beszélj orvosoddal, mielőtt belekezdesz; szédülés, nehézlégzés esetén hagyd abba.'
 const BREAK_NOTE = 'Pulzus csökkenése, ivás.'
 const PUSHUP_NOTE = '8–10 fekvőtámasz is elég, fokozatosan építsd fel. Kilégzés a tolásra. Könnyítés: falnyomás.'
 
@@ -59,7 +59,7 @@ const intro = (): Round => ({
   blocks: [
     {
       // A full minute: seven talking points, including the medical warnings.
-      ...p('Bemutatkozás, biztonsági jelzések', 60, SAFETY),
+      ...p('Köszöntő, összefoglaló', 60, SAFETY),
       points: INTRO_POINTS,
     },
   ],
