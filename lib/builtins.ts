@@ -80,7 +80,7 @@ const warmUp = (): Round => ({
 
 /** The shared cool-down — 5:30. Always finishes seated on a long exhale. */
 const coolDownStart = (): Block[] => [
-  w('Lassú séta', 60, 'Mozogj tovább, nem megállni.'),
+  w('Lassú séta', 60, 'Mozogj tovább, ne állj meg.'),
   w('Oldallépés lassan', 45, 'Csökkenő tempó.'),
   w('Mellkasnyitás karokkal', 30, 'Lapockák hátra.'),
 ]
