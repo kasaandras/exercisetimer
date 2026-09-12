@@ -19,7 +19,7 @@ export function setActiveProgramId(id: string): void {
 
 /** What ships with the app: the real sessions first, then the samples. */
 export function shippedPrograms(lang: Lang): Program[] {
-  return [...builtinPrograms(), ...examplePrograms(dictionaries[lang])]
+  return [...builtinPrograms(lang), ...examplePrograms(dictionaries[lang])]
 }
 
 /** Saved programs first, then everything shipped, deduplicated by id. */

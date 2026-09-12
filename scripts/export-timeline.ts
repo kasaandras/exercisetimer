@@ -5,6 +5,7 @@
  * expansion, so the on-screen countdown and the cues cannot drift apart.
  *
  *   npm run timeline -- kk-sorozat-1 > timeline.json
+ *   npm run timeline -- kk-sorozat-1 en > timeline-en.json
  */
 import { expandProgram, planCues, totalSeconds } from '../lib/program.ts'
 import { builtinPrograms } from '../lib/builtins.ts'
@@ -12,7 +13,8 @@ import { examplePrograms } from '../lib/examples.ts'
 import { dictionaries } from '../lib/i18n.ts'
 
 const id = process.argv[2] ?? 'kk-sorozat-1'
-const all = [...builtinPrograms(), ...examplePrograms(dictionaries.en)]
+const lang = (process.argv[3] ?? 'hu') as 'hu' | 'en' | 'es'
+const all = [...builtinPrograms(lang), ...examplePrograms(dictionaries[lang])]
 const program = all.find((p) => p.id === id)
 
 if (!program) {

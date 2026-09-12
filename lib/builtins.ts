@@ -1,3 +1,4 @@
+import type { Lang } from './i18n'
 import type { Block, Program, Round } from './program'
 
 /**
@@ -22,7 +23,6 @@ const w = make('work')
 const r = make('rest')
 const p = make('prep')
 
-const SAFETY = 'Beszélj orvosoddal, mielőtt belekezdesz; szédülés, nehézlégzés esetén hagyd abba.'
 const BREAK_NOTE = 'Pulzus csökkenése, ivás.'
 const PUSHUP_NOTE = '8–10 fekvőtámasz is elég, fokozatosan építsd fel. Kilégzés a tolásra. Könnyítés: falnyomás.'
 
@@ -43,24 +43,62 @@ const circuit = (exercises: Block[], breakSeconds = 0): Block[] => {
   return blocks
 }
 
-/** What the presenter works through on camera before the warm-up. */
-const INTRO_POINTS = [
-  'Köszöntés, a videó hossza és felépítése',
-  'Orvosi konzultáció mozgás előtt',
-  'Leállás és orvoshoz fordulás tünet esetén',
-  'Szükséges eszközök',
-  'Folyamatos légzés, levegő-visszatartás tilos',
-  'Könnyített változat minden gyakorlathoz',
-  'Saját tempó',
-]
+/**
+ * The opening block, in each language the app speaks. The points are cue cards
+ * for whoever is presenting, not audience text — they are shown in the app but
+ * deliberately kept off the video overlay.
+ */
+type IntroCopy = { name: string; note: string; points: string[] }
 
-const intro = (): Round => ({
+const INTRO: Record<Lang, IntroCopy> = {
+  hu: {
+    name: 'Köszöntő, összefoglaló',
+    note: 'Beszélj orvosoddal, mielőtt belekezdesz; szédülés, nehézlégzés esetén hagyd abba.',
+    points: [
+      'Köszöntés, a videó hossza és felépítése',
+      'Orvosi konzultáció mozgás előtt',
+      'Leállás és orvoshoz fordulás tünet esetén',
+      'Szükséges eszközök',
+      'Folyamatos légzés, levegő-visszatartás tilos',
+      'Könnyített változat minden gyakorlathoz',
+      'Saját tempó',
+    ],
+  },
+  en: {
+    name: 'Welcome and overview',
+    note: 'Talk to your doctor before you start; stop if you feel dizzy or short of breath.',
+    points: [
+      'Welcome, how long the video is and how it is built up',
+      'Talk to your doctor before exercising',
+      'Stop and see a doctor if symptoms appear',
+      'Equipment you will need',
+      'Keep breathing — never hold your breath',
+      'An easier variant for every exercise',
+      'Work at your own pace',
+    ],
+  },
+  es: {
+    name: 'Bienvenida y resumen',
+    note: 'Habla con tu médico antes de empezar; para si sientes mareo o falta de aire.',
+    points: [
+      'Bienvenida, duración y estructura del vídeo',
+      'Consulta médica antes de hacer ejercicio',
+      'Parar y acudir al médico si aparecen síntomas',
+      'Material necesario',
+      'Respiración continua, nunca contengas la respiración',
+      'Variante más fácil para cada ejercicio',
+      'A tu propio ritmo',
+    ],
+  },
+}
+
+const intro = (lang: Lang): Round => ({
   name: 'Bevezető',
   blocks: [
     {
       // A full minute: seven talking points, including the medical warnings.
-      ...p('Köszöntő, összefoglaló', 60, SAFETY),
-      points: INTRO_POINTS,
+      ...p(INTRO[lang].name, 60, INTRO[lang].note),
+      points: INTRO[lang].points,
     },
   ],
 })
@@ -106,20 +144,20 @@ const mainRound = (index: number, withRest: boolean): Round => ({
   ),
 })
 
-const sorozat1: Program = {
+const sorozat1 = (lang: Lang): Program => ({
   id: 'kk-sorozat-1',
   name: 'Kíméletes Keringésfokozó — 1. sorozat',
   prepSeconds: 0,
   repeatRounds: 1,
   rounds: [
-    intro(),
+    intro(lang),
     warmUp(),
     mainRound(1, true),
     mainRound(2, true),
     mainRound(3, false),
     { name: 'Levezetés', blocks: [...coolDownStart(), ...coolDownEnd()] },
   ],
-}
+})
 
 /**
  * Second session: cardio — strength/hold — cardio — break, three times.
@@ -135,13 +173,13 @@ const block = (index: number, cardioA: Block, middle: Block, cardioB: Block): Ro
 // session gives the same movements.
 const REPS = 45
 
-const sorozat2: Program = {
+const sorozat2 = (lang: Lang): Program => ({
   id: 'kk-sorozat-2',
   name: 'Kíméletes Keringésfokozó — 2. sorozat',
   prepSeconds: 0,
   repeatRounds: 1,
   rounds: [
-    intro(),
+    intro(lang),
     warmUp(),
     block(
       1,
@@ -172,8 +210,8 @@ const sorozat2: Program = {
       ],
     },
   ],
-}
+})
 
-export function builtinPrograms(): Program[] {
-  return [sorozat1, sorozat2]
+export function builtinPrograms(lang: Lang = 'hu'): Program[] {
+  return [sorozat1(lang), sorozat2(lang)]
 }
