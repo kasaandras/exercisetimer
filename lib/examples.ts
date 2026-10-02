@@ -50,6 +50,69 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-kettlebell',
+      name: t.exampleKettlebell,
+      prepSeconds: 10,
+      repeatRounds: 4,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // 40 s on, 20 s off, six movements. The rest after the last one is
+          // trimmed by expandProgram, so the session ends on the curl.
+          blocks: [
+            block('kb-swing', t.blockSwing, 40),
+            block('kb-rest1', t.blockBreak, 20, 'rest'),
+            block('kb-thruster', t.blockThrusters, 40),
+            block('kb-rest2', t.blockBreak, 20, 'rest'),
+            block('kb-pushpull', t.blockPushUpPullThrough, 40),
+            block('kb-rest3', t.blockBreak, 20, 'rest'),
+            block('kb-row-l', t.blockRowLeft, 40),
+            block('kb-rest4', t.blockBreak, 20, 'rest'),
+            block('kb-row-r', t.blockRowRight, 40),
+            block('kb-rest5', t.blockBreak, 20, 'rest'),
+            block('kb-curl', t.blockBicepCurl, 40),
+            block('kb-rest6', t.blockBreak, 20, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
+      id: 'example-kettlebell-cardio',
+      name: t.exampleArmsChest,
+      prepSeconds: 10,
+      repeatRounds: 4,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // The simple kettlebell circuit, with the thruster split into a
+          // shoulder press and a bridge, and cardio threaded between the
+          // heavy lifts so the arms recover without the heart rate dropping.
+          // Four rounds, matching the simple kettlebell session. The trailing
+          // rest is trimmed by expandProgram.
+          blocks: [
+            block('kc-swing', t.blockSwing, 40),
+            block('kc-rest1', t.blockBreak, 20, 'rest'),
+            block('kc-press', t.blockShoulderPress, 40),
+            block('kc-rest2', t.blockBreak, 20, 'rest'),
+            block('kc-bridge', t.blockBridge, 40),
+            block('kc-rest3', t.blockBreak, 20, 'rest'),
+            block('kc-run', t.blockRunningOnSpot, 40),
+            block('kc-rest4', t.blockBreak, 20, 'rest'),
+            block('kc-pushpull', t.blockPushUpPullThrough, 40),
+            block('kc-rest5', t.blockBreak, 20, 'rest'),
+            block('kc-punches', t.blockPunches, 40),
+            block('kc-rest6', t.blockBreak, 20, 'rest'),
+            block('kc-row-l', t.blockRowLeft, 40),
+            block('kc-rest7', t.blockBreak, 20, 'rest'),
+            block('kc-row-r', t.blockRowRight, 40),
+            block('kc-rest8', t.blockBreak, 20, 'rest'),
+            block('kc-curl', t.blockBicepCurl, 40),
+            block('kc-rest9', t.blockBreak, 20, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,

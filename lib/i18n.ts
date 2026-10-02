@@ -84,6 +84,18 @@ export type Dict = {
   exampleSimple: string
   exampleCircuit: string
   exampleChair: string
+  exampleKettlebell: string
+  exampleArmsChest: string
+  blockSwing: string
+  blockThrusters: string
+  blockPushUpPullThrough: string
+  blockRowLeft: string
+  blockRowRight: string
+  blockBicepCurl: string
+  blockRunningOnSpot: string
+  blockPunches: string
+  blockShoulderPress: string
+  blockBridge: string
   blockMarching: string
   blockWallSit: string
   blockChestOpener: string
@@ -179,6 +191,18 @@ const en: Dict = {
   exampleSimple: 'Simple intervals',
   exampleCircuit: 'Blood pressure circuit',
   exampleChair: 'Chair-based warm-up',
+  exampleKettlebell: 'Simple kettlebell workout',
+  exampleArmsChest: 'Kettlebell workout with cardio',
+  blockSwing: 'Swing',
+  blockThrusters: 'Thrusters',
+  blockPushUpPullThrough: 'Push-up + pull-through',
+  blockRowLeft: 'Row, left',
+  blockRowRight: 'Row, right',
+  blockBicepCurl: 'Biceps curl',
+  blockRunningOnSpot: 'Running on the spot',
+  blockPunches: 'Punches',
+  blockShoulderPress: 'Shoulder press',
+  blockBridge: 'Glute bridge',
   blockMarching: 'Marching on the spot',
   blockWallSit: 'Wall sit',
   blockChestOpener: 'Chest opener',
@@ -274,6 +298,18 @@ const es: Dict = {
   exampleSimple: 'Intervalos simples',
   exampleCircuit: 'Circuito para la tensión',
   exampleChair: 'Calentamiento en silla',
+  exampleKettlebell: 'Entrenamiento sencillo con kettlebell',
+  exampleArmsChest: 'Entrenamiento con kettlebell y cardio',
+  blockSwing: 'Swing',
+  blockThrusters: 'Thrusters',
+  blockPushUpPullThrough: 'Flexión con arrastre',
+  blockRowLeft: 'Remo, izquierda',
+  blockRowRight: 'Remo, derecha',
+  blockBicepCurl: 'Curl de bíceps',
+  blockRunningOnSpot: 'Carrera en el sitio',
+  blockPunches: 'Puñetazos',
+  blockShoulderPress: 'Press de hombros',
+  blockBridge: 'Puente de glúteos',
   blockMarching: 'Marcha en el sitio',
   blockWallSit: 'Sentadilla isométrica en pared',
   blockChestOpener: 'Apertura de pecho',
@@ -369,6 +405,18 @@ const hu: Dict = {
   exampleSimple: 'Egyszerű intervallumok',
   exampleCircuit: 'Vérnyomáscsökkentő kör',
   exampleChair: 'Széken végezhető bemelegítés',
+  exampleKettlebell: 'Egyszerű kettlebell edzés',
+  exampleArmsChest: 'Kettlebell edzés kardióval',
+  blockSwing: 'Lendítés',
+  blockThrusters: 'Thruster',
+  blockPushUpPullThrough: 'Fekvőtámasz és áthúzás',
+  blockRowLeft: 'Evezés, bal',
+  blockRowRight: 'Evezés, jobb',
+  blockBicepCurl: 'Bicepszhajlítás',
+  blockRunningOnSpot: 'Helyben futás',
+  blockPunches: 'Ütések',
+  blockShoulderPress: 'Vállból nyomás',
+  blockBridge: 'Csípőemelés',
   blockMarching: 'Helyben járás',
   blockWallSit: 'Fali ülés',
   blockChestOpener: 'Mellkasnyitás',

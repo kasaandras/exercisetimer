@@ -29,6 +29,8 @@ console.log(
     {
       id: program.id,
       name: program.name,
+      // Overlay chrome, so the renderer does not hardcode one language.
+      nextLabel: { hu: 'KÖVETKEZIK', en: 'NEXT', es: 'SIGUIENTE' }[lang],
       duration: totalSeconds(segments),
       cues: planCues(segments),
       segments: segments.map((s) => ({
