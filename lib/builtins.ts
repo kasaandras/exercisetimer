@@ -1,4 +1,5 @@
 import type { Lang } from './i18n'
+import { handgripProgram, handgripScriptProgram } from './handgrip.ts'
 import type { Block, Program, Round } from './program'
 
 /**
@@ -20,6 +21,11 @@ type ExKey =
   | 'labnyujtas' | 'vadlinyujtas' | 'ulveKileges' | 'vallnyujtas'
   | 'sarokfelrugas' | 'gyorsOldallepes' | 'guggolotartas' | 'boxStep'
   | 'kitores' | 'felhuzas' | 'oldallepesBicepsz'
+  | 'jaras' | 'jarasKarkorzes' | 'valtottTerdemeles' | 'terdemelesFordulat'
+  | 'oldalraKoppintas' | 'guggolasKaremeles' | 'plankbaSetalas'
+  | 'setaOldalemeles' | 'tubefuzes' | 'vadlinyujtasLabankent' | 'elkoszones'
+  | 'kocogas' | 'lassuFekvotamasz' | 'tempoGuggolas' | 'gyorsTerdemeles'
+  | 'terpeszZar' | 'terdKonyok' | 'ollozo' | 'oldallepesSarokBicepsz'
 
 type Copy = {
   /** The opening block: cue cards for whoever is presenting. */
@@ -84,14 +90,39 @@ const hu: Copy = {
     vallnyujtas: { name: 'Vállnyújtás', note: 'Kar a test előtt át, váll lent.' },
     sarokfelrugas: { name: 'sarokfelrúgás helyben', note: 'Könnyítés: lassú helyben járás.' },
     gyorsOldallepes: { name: 'gyors oldallépés karhúzással', note: 'Könnyítés: lassabb, karhúzás nélkül.' },
-    guggolotartas: { name: 'magas guggolótartás', note: 'Fal közelében; térd nem lép a lábujjak elé.' },
+    guggolotartas: { name: 'Guggolótartás', note: 'Folyamatos légzés, levegő-visszatartás nélkül. Térd nem lép a lábujjak elé.' },
     boxStep: { name: 'box step tempósan', note: 'Négy sarokpont, előre–hátra.' },
     kitores: { name: 'kitörés hátra váltott lábbal', note: 'Könnyítés: kisebb lépés, padra támaszkodás.' },
     felhuzas: {
-      name: 'felhúzás gumiszalaggal vagy súlyzóval',
+      name: 'Felhúzás súlyzóval vagy gumiszalaggal',
       note: 'Könyök vállmagasságig, kéz nem a szegycsont fölé.',
     },
     oldallepesBicepsz: { name: 'oldallépés bicepszhajlítással', note: 'Talp a földön marad.' },
+    kocogas: { name: 'Kocogás egy helyben', note: 'Könnyítés: lassú helyben járás.' },
+    lassuFekvotamasz: { name: 'Lassú fekvőtámasz padon (10 ismétlés)', note: 'Lassan, kilégzés a tolásra. Könnyítés: falnyomás.' },
+    tempoGuggolas: { name: 'Tempós guggolás', note: 'Térd nem lép a lábujjak elé. Könnyítés: kisebb guggolás, padba kapaszkodva.' },
+    gyorsTerdemeles: { name: 'Gyors térdemelés', note: 'Törzs egyenes. Könnyítés: kisebb emelés, lassabban.' },
+    oldallepesSarokBicepsz: { name: 'Oldallépés sarokemeléssel és bicepszhajlítással', note: 'Lépés oldalra, sarok fel, közben karhajlítás. Könnyítés: sarokemelés nélkül.' },
+    terpeszZar: { name: 'Terpesz-zár szökdelés', note: 'Könnyítés: kilépés oldalra, karemeléssel, ugrás nélkül.' },
+    terdKonyok: { name: 'Térd-könyök érintés, gyorsan', note: 'Ellentétes könyök a térdhez, egyenes törzzsel. Könnyítés: lassabban.' },
+    ollozo: { name: 'Ollózó szökdelés', note: 'Ellentétes kar és láb előre. Könnyítés: ollózó lépés, ugrás nélkül.' },
+    setaOldalemeles: { name: 'Lassú séta oldalsó karemeléssel', note: 'Karok lassan oldalra, legfeljebb vállmagasságig. Folyamatos légzés.' },
+    vadlinyujtasLabankent: { name: 'Vádlinyújtás', note: '30 mp / láb; padnak dőlve.' },
+    elkoszones: { name: 'Elköszönés', note: 'Köszönöm, hogy velem tartottál!' },
+    tubefuzes: { name: 'Tűbefűzés nyújtás', note: 'Négykézláb, oldalanként 2-szer, váltva. Könnyítés: ülve, kar a test előtt át.' },
+    jaras: { name: 'Helyben járás', note: 'Nyugodt tempó, karok lazán.' },
+    jarasKarkorzes: { name: 'Helyben járás karkörzéssel', note: 'Előre, majd hátrafelé körözz.' },
+    valtottTerdemeles: { name: 'Váltott térdemelés járás közben', note: 'Törzs egyenes; könnyítés: kisebb emelés.' },
+    terdemelesFordulat: { name: 'Térdemelés törzsfordítással', note: 'Ellentétes könyök a térd felé.' },
+    oldalraKoppintas: { name: 'Oldalra koppintás karemeléssel', note: 'Lábujj oldalra, karok fel.' },
+    guggolasKaremeles: {
+      name: 'Guggolás karemeléssel',
+      note: 'Felálláskor emeld meg kicsit a lábad, karok fel. Könnyítés: lábemelés nélkül, padba kapaszkodva.',
+    },
+    plankbaSetalas: {
+      name: 'Kézzel előresétálás plankbe, karemeléssel',
+      note: 'Lassan fel, ne tartsd vissza a levegőt. Könnyítés: kéz a padon, fej nem kerül lejjebb.',
+    },
   },
 }
 
@@ -143,14 +174,39 @@ const en: Copy = {
     vallnyujtas: { name: 'Shoulder stretch', note: 'Arm across the body, shoulder down.' },
     sarokfelrugas: { name: 'heel flicks on the spot', note: 'Easier: slow marching on the spot.' },
     gyorsOldallepes: { name: 'fast side steps with arm pull', note: 'Easier: slower, without the arm pull.' },
-    guggolotartas: { name: 'high squat hold', note: 'Near a wall; knees stay behind your toes.' },
+    guggolotartas: { name: 'Squat hold', note: 'Keep breathing, don\'t hold your breath. Knees stay behind your toes.' },
     boxStep: { name: 'box step, brisk', note: 'Four corners, forward and back.' },
     kitores: { name: 'reverse lunges, alternating legs', note: 'Easier: shorter step, hold the bench.' },
     felhuzas: {
-      name: 'upright row with a band or dumbbell',
+      name: 'Upright row, dumbbell or band',
       note: 'Elbows to shoulder height, hands no higher than your breastbone.',
     },
     oldallepesBicepsz: { name: 'side steps with biceps curl', note: 'Soles stay on the floor.' },
+    kocogas: { name: 'Jogging on the spot', note: 'Easier: slow marching on the spot.' },
+    lassuFekvotamasz: { name: 'Slow push-ups on the bench (10 reps)', note: 'Go slowly, breathe out as you push. Easier: push against a wall.' },
+    tempoGuggolas: { name: 'Brisk squats', note: 'Knees stay behind your toes. Easier: smaller squat, hold the bench.' },
+    gyorsTerdemeles: { name: 'Fast knee lifts', note: 'Stand tall. Easier: lift lower, go slower.' },
+    oldallepesSarokBicepsz: { name: 'Side steps with heel raise and biceps curl', note: 'Step to the side, rise onto your toes, curl your arms. Easier: skip the heel raise.' },
+    terpeszZar: { name: 'Jumping jacks', note: 'Easier: step out to the side with arms up, no jump.' },
+    terdKonyok: { name: 'Fast knee to elbow', note: 'Opposite elbow to knee, stand tall. Easier: go slower.' },
+    ollozo: { name: 'Scissor hops', note: 'Opposite arm and leg forward. Easier: scissor steps, no hop.' },
+    setaOldalemeles: { name: 'Slow walk with side arm raises', note: 'Raise your arms slowly out to the side, no higher than your shoulders. Keep breathing.' },
+    vadlinyujtasLabankent: { name: 'Calf stretch', note: '30 seconds each leg. Lean on the bench.' },
+    elkoszones: { name: 'Goodbye', note: 'Thanks for joining me!' },
+    tubefuzes: { name: 'Thread the needle', note: 'On all fours, twice each side, alternating. Easier: seated, arm across the body.' },
+    jaras: { name: 'Marching on the spot', note: 'Easy pace, arms loose.' },
+    jarasKarkorzes: { name: 'Marching with arm circles', note: 'Circle forwards, then backwards.' },
+    valtottTerdemeles: { name: 'Alternating knee lifts', note: 'Stand tall. Easier: lift a bit lower.' },
+    terdemelesFordulat: { name: 'Knee lift with a twist', note: 'Bring the opposite elbow towards the knee.' },
+    oldalraKoppintas: { name: 'Side toe taps with arm raises', note: 'Tap out to the side, arms up.' },
+    guggolasKaremeles: {
+      name: 'Squat with arm raise',
+      note: 'As you stand, lift one foot a little and raise your arms. Easier: no foot lift, hold the bench.',
+    },
+    plankbaSetalas: {
+      name: 'Walk out to plank with arm raises',
+      note: 'Come up slowly and keep breathing. Easier: hands on the bench, head stays up.',
+    },
   },
 }
 
@@ -202,7 +258,7 @@ const es: Copy = {
     vallnyujtas: { name: 'Estiramiento de hombro', note: 'Brazo cruzado por delante, hombro bajo.' },
     sarokfelrugas: { name: 'talones al glúteo en el sitio', note: 'Más fácil: marcha lenta en el sitio.' },
     gyorsOldallepes: { name: 'pasos laterales rápidos con tracción de brazos', note: 'Más fácil: más lento, sin tracción.' },
-    guggolotartas: { name: 'sentadilla isométrica alta', note: 'Cerca de la pared; las rodillas no pasan los dedos del pie.' },
+    guggolotartas: { name: 'Sentadilla isométrica', note: 'Respira, no contengas el aire. Las rodillas no pasan los dedos del pie.' },
     boxStep: { name: 'box step con ritmo', note: 'Cuatro esquinas, adelante y atrás.' },
     kitores: { name: 'zancadas hacia atrás alternando piernas', note: 'Más fácil: paso más corto, apóyate en el banco.' },
     felhuzas: {
@@ -210,6 +266,31 @@ const es: Copy = {
       note: 'Codos a la altura del hombro, manos no por encima del esternón.',
     },
     oldallepesBicepsz: { name: 'pasos laterales con curl de bíceps', note: 'Las plantas no se despegan del suelo.' },
+    kocogas: { name: 'Trote en el sitio', note: 'Más fácil: marcha lenta en el sitio.' },
+    lassuFekvotamasz: { name: 'Flexiones lentas en el banco (10 repeticiones)', note: 'Despacio, espira al empujar. Más fácil: contra la pared.' },
+    tempoGuggolas: { name: 'Sentadillas con ritmo', note: 'Las rodillas no pasan los dedos del pie. Más fácil: menos profundidad, apóyate en el banco.' },
+    gyorsTerdemeles: { name: 'Elevación rápida de rodillas', note: 'Tronco recto. Más fácil: eleva menos, más despacio.' },
+    oldallepesSarokBicepsz: { name: 'Pasos laterales con elevación de talones y curl de bíceps', note: 'Paso lateral, talones arriba, flexiona los brazos. Más fácil: sin elevar los talones.' },
+    terpeszZar: { name: 'Jumping jacks', note: 'Más fácil: paso lateral con brazos arriba, sin salto.' },
+    terdKonyok: { name: 'Rodilla al codo, rápido', note: 'Codo contrario a la rodilla, tronco recto. Más fácil: más despacio.' },
+    ollozo: { name: 'Saltos de tijera', note: 'Brazo y pierna contrarios adelante. Más fácil: pasos de tijera, sin salto.' },
+    setaOldalemeles: { name: 'Paseo lento con elevaciones laterales', note: 'Brazos despacio hacia los lados, hasta la altura del hombro. Respira con normalidad.' },
+    vadlinyujtasLabankent: { name: 'Estiramiento de gemelos', note: '30 s por pierna; apoyado en el banco.' },
+    elkoszones: { name: 'Despedida', note: '¡Gracias por acompañarme!' },
+    tubefuzes: { name: 'Enhebrar la aguja', note: 'A cuatro patas, dos veces por lado, alternando. Más fácil: sentado, brazo cruzado por delante.' },
+    jaras: { name: 'Marcha en el sitio', note: 'Ritmo tranquilo, brazos sueltos.' },
+    jarasKarkorzes: { name: 'Marcha con círculos de brazos', note: 'Hacia delante y luego hacia atrás.' },
+    valtottTerdemeles: { name: 'Elevación alterna de rodillas', note: 'Tronco recto. Más fácil: eleva menos.' },
+    terdemelesFordulat: { name: 'Elevación de rodilla con giro', note: 'Codo contrario hacia la rodilla.' },
+    oldalraKoppintas: { name: 'Toques laterales con elevación de brazos', note: 'Punta del pie al lado, brazos arriba.' },
+    guggolasKaremeles: {
+      name: 'Sentadilla con elevación de brazos',
+      note: 'Al subir, levanta un poco un pie y los brazos. Más fácil: sin levantar el pie, apóyate en el banco.',
+    },
+    plankbaSetalas: {
+      name: 'Caminar con las manos a plancha con elevación de brazos',
+      note: 'Sube despacio y sigue respirando. Más fácil: manos en el banco, la cabeza no baja.',
+    },
   },
 }
 
@@ -247,7 +328,7 @@ const intro = (c: Copy): Round => ({
   ],
 })
 
-/** Six exercises, rising tempo — 3:40. Identical in both sessions. */
+/** Six exercises, rising tempo — 3:40. The first session's warm-up. */
 const warmUp = (c: Copy): Round => ({
   name: c.section.warmUp,
   blocks: [
@@ -259,6 +340,37 @@ const warmUp = (c: Copy): Round => ({
     block('work', c.ex.terdemeles, 30),
   ],
 })
+
+/** The second session's own warm-up — 4:45, ending on the floor-to-standing walk-out. */
+const warmUp2 = (c: Copy): Round => ({
+  name: c.section.warmUp,
+  blocks: [
+    block('work', c.ex.jaras, 45),
+    block('work', c.ex.jarasKarkorzes, 40),
+    block('work', c.ex.valtottTerdemeles, 40),
+    block('work', c.ex.terdemelesFordulat, 40),
+    block('work', c.ex.oldalraKoppintas, 40),
+    block('work', c.ex.guggolasKaremeles, 40),
+    block('work', c.ex.plankbaSetalas, 40),
+  ],
+})
+
+/**
+ * The second session's own cool-down — 6:45. Standing stretches first, then
+ * down to the floor once; it finishes seated on the leg stretch and a short
+ * goodbye, with no long exhale (dropped from both sessions).
+ */
+const coolDown2 = (c: Copy): Block[] => [
+  block('work', c.ex.lassuSeta, 60),
+  block('work', c.ex.oldallepesLassan, 45),
+  block('work', c.ex.setaOldalemeles, 40),
+  block('work', c.ex.combfeszito, 60),
+  block('work', c.ex.vadlinyujtasLabankent, 60),
+  block('work', c.ex.tubefuzes, 60),
+  block('work', c.ex.labnyujtas, 45),
+  // 'prep', not 'rest': trailing rests are trimmed from the timeline.
+  block('prep', c.ex.elkoszones, 15),
+]
 
 /** The shared cool-down — 5:30. Always finishes seated on a long exhale. */
 const coolDownStart = (c: Copy): Block[] => [
@@ -307,10 +419,6 @@ const sorozat1 = (lang: Lang): Program => {
   }
 }
 
-// Rep-based in the document ("10 ism."); timed at 45 s to match what the first
-// session gives the same movements.
-const REPS = 45
-
 /** Second session: cardio — strength/hold — cardio — break, three times. */
 const sessionBlock = (c: Copy, index: number, blocks: Block[]): Round => ({
   name: c.section.block(index),
@@ -326,36 +434,30 @@ const sorozat2 = (lang: Lang): Program => {
     repeatRounds: 1,
     rounds: [
       intro(c),
-      warmUp(c),
+      warmUp2(c),
       sessionBlock(c, 1, [
-        block('work', c.ex.sarokfelrugas, 45, c.role.cardio),
-        block('work', c.ex.fekvotamasz, REPS, c.role.strength),
-        block('work', c.ex.gyorsOldallepes, 45, c.role.cardio),
+        block('work', c.ex.kocogas, 60, c.role.cardio),
+        block('work', c.ex.lassuFekvotamasz, 60, c.role.strength),
+        block('work', c.ex.tempoGuggolas, 60, c.role.cardio),
       ]),
       sessionBlock(c, 2, [
-        block('work', c.ex.terdemeles, 45, c.role.cardio),
-        block('work', c.ex.guggolotartas, 45, c.role.hold),
-        block('work', c.ex.boxStep, 45, c.role.cardio),
+        block('work', c.ex.oldallepesSarokBicepsz, 60, c.role.cardio),
+        block('work', c.ex.felhuzas, 60, c.role.strength),
+        block('work', c.ex.terpeszZar, 60, c.role.cardio),
       ]),
       sessionBlock(c, 3, [
-        block('work', c.ex.kitores, 45, c.role.cardio),
-        block('work', c.ex.felhuzas, REPS, c.role.strength),
-        block('work', c.ex.oldallepesBicepsz, 45, c.role.cardio),
+        block('work', c.ex.terdKonyok, 60, c.role.cardio),
+        block('work', c.ex.guggolotartas, 60, c.role.hold),
+        block('work', c.ex.ollozo, 60, c.role.cardio),
       ]),
       {
         name: c.section.coolDown,
-        blocks: [
-          ...coolDownStart(c),
-          // The second session adds a shoulder stretch, before the seated
-          // finish so the rule "always ends seated" still holds.
-          block('work', c.ex.vallnyujtas, 30),
-          ...coolDownEnd(c),
-        ],
+        blocks: coolDown2(c),
       },
     ],
   }
 }
 
 export function builtinPrograms(lang: Lang = 'hu'): Program[] {
-  return [sorozat1(lang), sorozat2(lang)]
+  return [sorozat1(lang), sorozat2(lang), handgripProgram(lang), handgripScriptProgram()]
 }
