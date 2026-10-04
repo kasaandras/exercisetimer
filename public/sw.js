@@ -5,7 +5,7 @@
  *
  * Bump CACHE when the shell changes so old entries are evicted on activate.
  */
-const CACHE = 'cue-timer-v1'
+const CACHE = 'cue-timer-v2'
 const SHELL = ['/', '/programs/', '/cues/', '/manifest.json', '/icon-192.png', '/icon-512.png']
 
 self.addEventListener('install', (event) => {
@@ -34,22 +34,32 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url)
   if (url.origin !== self.location.origin) return
 
-  // Pages: go to the network first so an update is picked up while online,
-  // and fall back to the cached shell when there is none.
-  if (request.mode === 'navigate') {
+  // Only content-hashed build assets (and the icons) can be served from the cache
+  // without asking: their name changes whenever their content does. Everything else
+  // — pages, and the router payloads Next fetches on client-side navigation
+  // (index.txt, __next.*.txt), which keep the same name across builds — goes to the
+  // network first. Serving those cache-first once left the Run screen on a stale
+  // build after a deploy, falling back to the wrong program.
+  const immutable = url.pathname.startsWith('/_next/static/') || /^\/icon-\d+\.png$/.test(url.pathname)
+
+  if (request.mode === 'navigate' || !immutable) {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          const copy = response.clone()
-          caches.open(CACHE).then((cache) => cache.put(request, copy))
+          if (response.ok && response.type === 'basic') {
+            const copy = response.clone()
+            caches.open(CACHE).then((cache) => cache.put(request, copy))
+          }
           return response
         })
-        .catch(() => caches.match(request).then((hit) => hit || caches.match('/'))),
+        .catch(() =>
+          caches.match(request).then((hit) => hit || (request.mode === 'navigate' ? caches.match('/') : Response.error())),
+        ),
     )
     return
   }
 
-  // Build assets are content-hashed, so a cache hit is always correct.
+  // Content-hashed, so a cache hit is always correct.
   event.respondWith(
     caches.match(request).then(
       (hit) =>
