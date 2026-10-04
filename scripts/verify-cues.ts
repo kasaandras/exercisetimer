@@ -31,25 +31,33 @@ for (const program of [...examplePrograms(dictionaries.en), ...builtinPrograms()
     segments.every((s, i) => i === 0 || Math.abs(segments[i - 1].endsAt - s.startsAt) < 1e-9))
 
   // Every segment must open with the tone for its kind.
-  const opens = segments.every((s) =>
-    events.some((e) => Math.abs(e.at - s.startsAt) < 1e-9 && e.cue === s.kind))
-  check('every block opens with its own tone', opens)
+  // A quiet block is the exception: it must open with no tone at all.
+  const toneAt = (s: (typeof segments)[number]) =>
+    events.some((e) => Math.abs(e.at - s.startsAt) < 1e-9 && e.cue === s.kind)
+  const opens = segments.every((s) => (s.quiet ? !toneAt(s) : toneAt(s)))
+  check('every block opens with its own tone, quiet blocks with none', opens)
 
-  // Three pips before each boundary, except where the block is too short.
+  // Three pips before each boundary, except where the block is too short,
+  // and none at all into a quiet block.
   let pipProblems: string[] = []
-  for (const s of segments) {
+  segments.forEach((s, i) => {
+    const intoQuiet = segments[i + 1]?.quiet === true || s.quietEnd === true
     for (let k = 3; k >= 1; k--) {
       const at = s.endsAt - k
       if (at < s.startsAt) continue
       const found = events.some((e) => e.cue === 'pip' && Math.abs(e.at - at) < 1e-9)
-      if (!found) pipProblems.push(`${s.name} T-${k}`)
+      if (found === intoQuiet) pipProblems.push(`${s.name} T-${k}`)
     }
-  }
-  check('three pips before every boundary', pipProblems.length === 0, pipProblems.join(', '))
+  })
+  check('three pips before every boundary, none into a quiet block', pipProblems.length === 0, pipProblems.join(', '))
 
-  check('exactly one finish tone at the end',
-    events.filter((e) => e.cue === 'done').length === 1 &&
-    Math.abs(events[events.length - 1].at - total) < 1e-9)
+  // A session that ends on a quiet-ended block has no finish tone at all.
+  const dones = events.filter((e) => e.cue === 'done')
+  const quietFinish = segments[segments.length - 1]?.quietEnd === true
+  check('exactly one finish tone at the end, none after a quiet ending',
+    quietFinish
+      ? dones.length === 0
+      : dones.length === 1 && Math.abs(events[events.length - 1].at - total) < 1e-9)
 
   // Two cues landing on the same instant would collide audibly.
   const collisions = events.filter((e, i) =>

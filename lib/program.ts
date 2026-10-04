@@ -11,6 +11,15 @@ export type Block = {
   note?: string
   /** Talking points to work through while this block runs. */
   points?: string[]
+  /**
+   * Starts without a sound: no opening tone, and no pips counting into it.
+   * For a block that simply continues the one before, like an intro rolling
+   * straight into the setup talk.
+   */
+  quiet?: boolean
+  /** Ends without a sound: no pips counting out of it, and if it is the last
+   *  block, no finish tone. For a goodbye that should just fade out. */
+  quietEnd?: boolean
 }
 
 export type Round = {
@@ -33,6 +42,8 @@ export type Segment = {
   seconds: number
   note?: string
   points?: string[]
+  quiet?: boolean
+  quietEnd?: boolean
   startsAt: number
   endsAt: number
   /** 1-based pass through the circuit; 0 for the prep segment. */
@@ -70,6 +81,8 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     roundName: string,
     note?: string,
     points?: string[],
+    quiet?: boolean,
+    quietEnd?: boolean,
   ) => {
     if (seconds <= 0) return
     segments.push({
@@ -78,6 +91,8 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
       seconds,
       note,
       points,
+      ...(quiet ? { quiet } : {}),
+      ...(quietEnd ? { quietEnd } : {}),
       startsAt: at,
       endsAt: at + seconds,
       pass,
@@ -97,7 +112,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     for (const round of program.rounds) {
       roundOrdinal++
       for (const block of round.blocks) {
-        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points)
+        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points, block.quiet, block.quietEnd)
       }
     }
   }
@@ -116,22 +131,26 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
  *
  * Each segment opens with the tone for its kind, and the three pips sit at
  * T-3/T-2/T-1 before that segment *ends*, counting the listener into whatever
- * comes next. The session closes with the rising `done` tone.
+ * comes next. The session closes with the rising `done` tone. A quiet segment
+ * has neither its own tone nor the pips counting into it; a quiet-ended one
+ * has no pips counting out of it, and no finish tone when it closes the session.
  */
 export function planCues(segments: Segment[]): CueEvent[] {
   const events: CueEvent[] = []
 
-  for (const segment of segments) {
-    events.push({ at: segment.startsAt, cue: segment.kind })
+  segments.forEach((segment, i) => {
+    if (!segment.quiet) events.push({ at: segment.startsAt, cue: segment.kind })
+    if (segments[i + 1]?.quiet || segment.quietEnd) return
     for (let k = 3; k >= 1; k--) {
       const at = segment.endsAt - k
       // Skip pips that would land before the segment it counts down.
       if (at >= segment.startsAt) events.push({ at, cue: 'pip' })
     }
-  }
+  })
 
-  if (segments.length > 0) {
-    events.push({ at: segments[segments.length - 1].endsAt, cue: 'done' })
+  const last = segments[segments.length - 1]
+  if (last && !last.quietEnd) {
+    events.push({ at: last.endsAt, cue: 'done' })
   }
 
   return events.sort((a, b) => a.at - b.at)
