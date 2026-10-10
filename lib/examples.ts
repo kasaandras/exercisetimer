@@ -7,11 +7,12 @@ import type { Program } from './program'
  * and spoken aloud.
  */
 export function examplePrograms(t: Dict): Program[] {
-  const block = (id: string, name: string, seconds: number, kind: 'work' | 'rest' = 'work') => ({
+  const block = (id: string, name: string, seconds: number, kind: 'work' | 'rest' = 'work', note?: string) => ({
     id,
     name,
     seconds,
     kind,
+    ...(note ? { note } : {}),
   })
 
   return [
@@ -108,6 +109,32 @@ export function examplePrograms(t: Dict): Program[] {
             block('kc-rest8', t.blockBreak, 20, 'rest'),
             block('kc-curl', t.blockBicepCurl, 40),
             block('kc-rest9', t.blockBreak, 20, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
+      id: 'example-arms-200',
+      name: t.exampleArms200,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // Pavel Krotov's "200 reps, arms on fire": four kettlebell moves,
+          // 10 reps each, a short changeover between them and a long rest
+          // after the round, five rounds. The reps are untimed in the
+          // original; 40 s fits 10 reps with a press-weight bell. The last
+          // long rest is trimmed by expandProgram. 23:15 in all.
+          blocks: [
+            block('a2-curlpress', t.blockCurlToPress, 40, 'work', t.note10Reps),
+            block('a2-rest1', t.blockBreak, 15, 'rest'),
+            block('a2-extension', t.blockOverheadExtension, 40, 'work', t.note10Reps),
+            block('a2-rest2', t.blockBreak, 15, 'rest'),
+            block('a2-halo', t.blockHalo, 40, 'work', t.note10Reps),
+            block('a2-rest3', t.blockBreak, 15, 'rest'),
+            block('a2-crush', t.blockCrushPushUp, 40, 'work', t.note10Reps),
+            block('a2-longrest', t.blockLongRest, 90, 'rest'),
           ],
         },
       ],

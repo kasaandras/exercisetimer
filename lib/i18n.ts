@@ -104,6 +104,13 @@ export type Dict = {
   blockSitToStand: string
   blockArmCircles: string
   blockAnkleRaises: string
+  exampleArms200: string
+  blockCurlToPress: string
+  blockOverheadExtension: string
+  blockHalo: string
+  blockCrushPushUp: string
+  blockLongRest: string
+  note10Reps: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -211,6 +218,13 @@ const en: Dict = {
   blockSitToStand: 'Sit to stand',
   blockArmCircles: 'Arm circles',
   blockAnkleRaises: 'Ankle raises',
+  exampleArms200: '200-rep arm workout',
+  blockCurlToPress: 'Curl to press',
+  blockOverheadExtension: 'Overhead extension',
+  blockHalo: 'Halo',
+  blockCrushPushUp: 'Crush push-up',
+  blockLongRest: 'Long rest',
+  note10Reps: '10 reps',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -318,6 +332,13 @@ const es: Dict = {
   blockSitToStand: 'Levantarse y sentarse',
   blockArmCircles: 'Círculos de brazos',
   blockAnkleRaises: 'Elevación de talones',
+  exampleArms200: 'Brazos: 200 repeticiones',
+  blockCurlToPress: 'Curl con press',
+  blockOverheadExtension: 'Extensión sobre la cabeza',
+  blockHalo: 'Halo',
+  blockCrushPushUp: 'Flexiones sobre la kettlebell',
+  blockLongRest: 'Descanso largo',
+  note10Reps: '10 repeticiones',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -425,6 +446,13 @@ const hu: Dict = {
   blockSitToStand: 'Felállás és leülés',
   blockArmCircles: 'Karkörzés',
   blockAnkleRaises: 'Lábujjhegyre emelkedés',
+  exampleArms200: 'Karedzés — 200 ismétlés',
+  blockCurlToPress: 'Hajlítás és nyomás',
+  blockOverheadExtension: 'Fej feletti tricepsznyújtás',
+  blockHalo: 'Körzés a fej körül (halo)',
+  blockCrushPushUp: 'Fekvőtámasz a kettlebellen',
+  blockLongRest: 'Hosszú pihenő',
+  note10Reps: '10 ismétlés',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }
