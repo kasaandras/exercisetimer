@@ -368,8 +368,9 @@ const coolDown2 = (c: Copy): Block[] => [
   block('work', c.ex.vadlinyujtasLabankent, 60),
   block('work', c.ex.tubefuzes, 60),
   block('work', c.ex.labnyujtas, 45),
-  // 'prep', not 'rest': trailing rests are trimmed from the timeline.
-  block('prep', c.ex.elkoszones, 15),
+  // 'prep', not 'rest': trailing rests are trimmed from the timeline. Ends silently
+  // (no pips, no finish tone) so nothing beeps over the spoken goodbye.
+  { ...block('prep', c.ex.elkoszones, 15), quietEnd: true },
 ]
 
 /** The shared cool-down — 5:30. Always finishes seated on a long exhale. */
@@ -420,9 +421,9 @@ const sorozat1 = (lang: Lang): Program => {
 }
 
 /** Second session: cardio — strength/hold — cardio — break, three times. */
-const sessionBlock = (c: Copy, index: number, blocks: Block[]): Round => ({
+const sessionBlock = (c: Copy, index: number, blocks: Block[], breakSeconds = 60): Round => ({
   name: c.section.block(index),
-  blocks: circuit(c, blocks, 60),
+  blocks: circuit(c, blocks, breakSeconds),
 })
 
 const sorozat2 = (lang: Lang): Program => {
@@ -449,7 +450,9 @@ const sorozat2 = (lang: Lang): Program => {
         block('work', c.ex.terdKonyok, 60, c.role.cardio),
         block('work', c.ex.guggolotartas, 60, c.role.hold),
         block('work', c.ex.ollozo, 60, c.role.cardio),
-      ]),
+        // No rest after the last block: the cool-down's slow walk is the recovery,
+        // and a "Pihenő" card there contradicts what the presenter is doing.
+      ], 0),
       {
         name: c.section.coolDown,
         blocks: coolDown2(c),
