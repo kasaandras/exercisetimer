@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSettings } from '@/components/Providers'
 import { useActiveProgram } from '@/lib/active'
 import { formatClock } from '@/lib/program'
@@ -36,7 +36,7 @@ type RunnerProps = {
 }
 
 function Runner({ program, fromLink, t }: RunnerProps) {
-  const { view, toggle, reset } = useSession(program, t.getReady)
+  const { view, segments, toggle, reset } = useSession(program, t.getReady)
   const { state, segment, nextSegment, remaining, remainingTotal, litPips } = view
 
   const finished = state === 'finished'
@@ -63,6 +63,47 @@ function Runner({ program, fromLink, t }: RunnerProps) {
 
   const startLabel =
     state === 'running' ? t.pause : state === 'paused' || state === 'interrupted' ? t.resume : t.start
+
+  // A program with prompter lines gets the prompter layout throughout, so the screen does
+  // not jump between layouts from one block to the next.
+  const prompting = useMemo(() => segments.some((s) => s.prompt?.length), [segments])
+
+  if (prompting) {
+    const lines = segment?.prompt ?? []
+    const elapsed = segment && !finished ? segment.seconds - remaining : 0
+    let index = -1
+    lines.forEach((line, i) => {
+      if (line.at <= elapsed + 0.5) index = i
+    })
+    // Before a block's first line comes due, show it already (dimmed) so it can be read ahead.
+    const current = index >= 0 ? lines[index] : lines[0]
+    const upcoming = index < 0 && current !== undefined
+    const next = index >= 0 ? (lines[index + 1] ?? nextSegment?.prompt?.[0]) : lines[1] ?? nextSegment?.prompt?.[0]
+    return (
+      <main
+        className="wrap run prompter"
+        style={{ ['--accent' as string]: `var(--${accent})` }}
+        aria-label={program.name}
+      >
+        <div className="prompterHead">
+          <span className="prompterName">{finished ? t.sessionComplete : (segment?.name ?? t.ready)}</span>
+          <span className="prompterClock" role="timer" aria-live="off">
+            {formatClock(finished ? 0 : remaining)}
+          </span>
+        </div>
+        <p className={upcoming ? 'prompterLine upcoming' : 'prompterLine'} aria-live="polite">
+          {finished ? '' : (current?.text ?? segment?.name ?? '')}
+        </p>
+        <p className="prompterNext">{!finished && next ? `→ ${next.text}` : ''}</p>
+        <div className="row prompterControls">
+          <button onClick={toggle}>{startLabel}</button>
+          <button className="ghost" onClick={reset}>{t.reset}</button>
+          <span className="prompterMeta">{t.leftInSession(formatClock(finished ? 0 : remainingTotal))}</span>
+        </div>
+        {state === 'interrupted' && <p className="notice">{t.interrupted}</p>}
+      </main>
+    )
+  }
 
   return (
     <main className="wrap run">

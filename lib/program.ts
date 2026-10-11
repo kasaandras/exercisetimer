@@ -20,7 +20,14 @@ export type Block = {
   /** Ends without a sound: no pips counting out of it, and if it is the last
    *  block, no finish tone. For a goodbye that should just fade out. */
   quietEnd?: boolean
+  /**
+   * Lines to read, one at a time, for the prompter view: `at` is seconds into the
+   * block. Shown large, so a presenter can read them from across the room.
+   */
+  prompt?: PromptLine[]
 }
+
+export type PromptLine = { at: number; text: string }
 
 export type Round = {
   name: string
@@ -44,6 +51,7 @@ export type Segment = {
   points?: string[]
   quiet?: boolean
   quietEnd?: boolean
+  prompt?: PromptLine[]
   startsAt: number
   endsAt: number
   /** 1-based pass through the circuit; 0 for the prep segment. */
@@ -83,6 +91,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     points?: string[],
     quiet?: boolean,
     quietEnd?: boolean,
+    prompt?: PromptLine[],
   ) => {
     if (seconds <= 0) return
     segments.push({
@@ -93,6 +102,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
       points,
       ...(quiet ? { quiet } : {}),
       ...(quietEnd ? { quietEnd } : {}),
+      ...(prompt?.length ? { prompt } : {}),
       startsAt: at,
       endsAt: at + seconds,
       pass,
@@ -112,7 +122,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     for (const round of program.rounds) {
       roundOrdinal++
       for (const block of round.blocks) {
-        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points, block.quiet, block.quietEnd)
+        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points, block.quiet, block.quietEnd, block.prompt)
       }
     }
   }

@@ -1,5 +1,6 @@
 import type { Lang } from './i18n'
 import { handgripProgram, handgripScriptProgram } from './handgrip.ts'
+import { SOROZAT2_PROMPTER_EN } from './sorozat2PrompterEn.ts'
 import type { Block, Program, Round } from './program'
 
 /**
@@ -461,6 +462,33 @@ const sorozat2 = (lang: Lang): Program => {
   }
 }
 
+/**
+ * Series 2 in English with the prompter: each block carries the lines spoken during it,
+ * timed within the block, shown one at a time in large type. Timings and sounds are
+ * identical to `kk-sorozat-2`.
+ */
+const sorozat2Prompter = (): Program => {
+  const base = sorozat2('en')
+  let at = 0
+  return {
+    ...base,
+    id: 'kk-sorozat-2-en-prompter',
+    name: 'Circulation Booster — Series 2 · English prompter',
+    rounds: base.rounds.map((round) => ({
+      ...round,
+      blocks: round.blocks.map((b) => {
+        const start = at
+        at += b.seconds
+        const prompt = SOROZAT2_PROMPTER_EN.filter(([t]) => t >= start && t < at).map(([t, text]) => ({
+          at: t - start,
+          text,
+        }))
+        return { ...b, id: `${b.id}-prompter`, ...(prompt.length ? { prompt } : {}) }
+      }),
+    })),
+  }
+}
+
 export function builtinPrograms(lang: Lang = 'hu'): Program[] {
-  return [sorozat1(lang), sorozat2(lang), handgripProgram(lang), handgripScriptProgram()]
+  return [sorozat1(lang), sorozat2(lang), sorozat2Prompter(), handgripProgram(lang), handgripScriptProgram()]
 }
