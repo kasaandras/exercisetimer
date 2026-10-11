@@ -118,7 +118,7 @@ const hu: Copy = {
     oldalraKoppintas: { name: 'Oldalra koppintás karemeléssel', note: 'Lábujj oldalra, karok fel.' },
     guggolasKaremeles: {
       name: 'Guggolás karemeléssel',
-      note: 'Felálláskor emeld meg kicsit a lábad, karok fel. Könnyítés: lábemelés nélkül, padba kapaszkodva.',
+      note: 'Kis terpesz, guggolás, a karok kicsit vállmagasság fölé. Könnyítés: kisebb guggolás, padba kapaszkodva.',
     },
     plankbaSetalas: {
       name: 'Kézzel előresétálás plankbe, karemeléssel',
@@ -202,7 +202,7 @@ const en: Copy = {
     oldalraKoppintas: { name: 'Side toe taps with arm raises', note: 'Tap out to the side, arms up.' },
     guggolasKaremeles: {
       name: 'Squat with arm raise',
-      note: 'As you stand, lift one foot a little and raise your arms. Easier: no foot lift, hold the bench.',
+      note: 'Feet a little apart. Squat, arms just above shoulder height. Easier: a smaller squat, hold the bench.',
     },
     plankbaSetalas: {
       name: 'Walk out to plank with arm raises',
@@ -286,7 +286,7 @@ const es: Copy = {
     oldalraKoppintas: { name: 'Toques laterales con elevación de brazos', note: 'Punta del pie al lado, brazos arriba.' },
     guggolasKaremeles: {
       name: 'Sentadilla con elevación de brazos',
-      note: 'Al subir, levanta un poco un pie y los brazos. Más fácil: sin levantar el pie, apóyate en el banco.',
+      note: 'Pies un poco separados. Sentadilla, brazos un poco por encima de los hombros. Más fácil: menos profundidad, apóyate en el banco.',
     },
     plankbaSetalas: {
       name: 'Caminar con las manos a plancha con elevación de brazos',
