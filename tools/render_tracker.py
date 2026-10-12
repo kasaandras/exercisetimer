@@ -110,8 +110,8 @@ def breath_ring(seconds: int, breath_in: int, elapsed: int) -> Image.Image:
 
 def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
          breath_labels: dict | None = None, simple: bool = False) -> Image.Image:
-    """`simple`: name, clock and (in a breathing block) the ring only — no instruction,
-    no "next", no progress bar. For calm sessions where the card should stay quiet."""
+    """`simple`: no "next" and no progress bar, and a breathing block shows only its name,
+    clock and ring. For calm sessions where the card should stay quiet."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     seg = segment_at(segments, t)
     if seg is None:
@@ -132,7 +132,9 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
     inner = CARD_W - ACCENT - 2 * PAD
 
     name_lines = wrap(seg["name"], F_NAME, inner)
-    note_lines = wrap(seg["note"], F_NOTE, inner) if seg.get("note") and not simple else []
+    # The simple card keeps the instruction where there is time to read it (intro, setup,
+    # goodbye) and drops it in breathing blocks, where the ring says everything.
+    note_lines = wrap(seg["note"], F_NOTE, inner) if seg.get("note") and not (simple and breath) else []
     if simple:
         nxt = None
     next_lines = (
@@ -207,7 +209,7 @@ def main() -> None:
     ap.add_argument("--from", dest="start", type=float, default=0.0)
     ap.add_argument("--to", dest="end", type=float, default=None)
     ap.add_argument("--simple", action="store_true",
-                    help="name, clock and breathing ring only (no note, next or progress bar)")
+                    help="no next or progress bar; breathing blocks show name, clock and ring only")
     args = ap.parse_args()
 
     data = json.loads(args.timeline.read_text(encoding="utf-8"))
