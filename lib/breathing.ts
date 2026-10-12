@@ -19,7 +19,7 @@ import type { Block, Program } from './program'
  * a lower one to let go, soft pips before each breath as the cue to put the
  * trainer to your mouth. No rest blocks anywhere.
  *
- * 7:40 in all. Every visible string is in COPY; the timings are below, once.
+ * 7:45 in all. Every visible string is in COPY; the timings are below, once.
  */
 
 type Script = { name: string; note: string; points?: string[] }
@@ -248,7 +248,7 @@ export function breathingTrainerProgram(lang: Lang): Program {
       {
         name: c.section.intro,
         blocks: [
-          block('prep', c.intro.name, 65, c.intro.note, c.intro.points),
+          block('prep', c.intro.name, 70, c.intro.note, c.intro.points),
           // Rolls straight on from the welcome: the label changes, nothing sounds.
           { ...block('prep', c.setup.name, 60, c.setup.note, c.setup.points), quiet: true },
         ],
