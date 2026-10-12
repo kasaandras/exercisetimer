@@ -49,6 +49,14 @@ F_LABEL = ImageFont.truetype(BOLD, 15)
 
 NAME_LH, NOTE_LH, NEXT_LH = 34, 27, 24
 
+# Breathing blocks: the same ring as the app's run screen (components/BreathRing.tsx),
+# one piece per second, breathing in first (work colour), then breathing out (rest colour).
+RING_D, RING_STROKE, RING_SS = 132, 15, 4          # diameter, stroke, supersampling
+RING_GAP, RING_SPLIT_GAP = 2.2, 6.0                # degrees, as in the app
+F_RING_LEFT = ImageFont.truetype(REG, 48)
+F_RING_LABEL = ImageFont.truetype(BOLD, 22)
+PIECE_ALPHA = {"past": 0.55, "now": 1.0, "todo": 0.18}
+
 
 def clock(seconds: float) -> str:
     whole = max(0, int(seconds + 0.999))
@@ -78,7 +86,32 @@ def segment_at(segments: list[dict], t: float) -> dict | None:
     return None
 
 
-def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK") -> Image.Image:
+def breath_ring(seconds: int, breath_in: int, elapsed: int) -> Image.Image:
+    """The ring alone, drawn large and scaled down so the arcs come out smooth."""
+    size = RING_D * RING_SS
+    layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    step = 360 / seconds
+    pad = RING_STROKE * RING_SS / 2
+    box = [pad, pad, size - pad, size - pad]
+    for i in range(seconds):
+        start_gap = RING_SPLIT_GAP if i in (0, breath_in) else RING_GAP
+        end_gap = RING_SPLIT_GAP if i in (seconds - 1, breath_in - 1) else RING_GAP
+        a0 = i * step + start_gap / 2 - 90
+        a1 = (i + 1) * step - end_gap / 2 - 90
+        r, g, b, _ = KIND["work"] if i < breath_in else KIND["rest"]
+        state = "past" if i < elapsed else "now" if i == elapsed else "todo"
+        piece = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        ImageDraw.Draw(piece).arc(box, a0, a1, fill=(r, g, b, 255), width=RING_STROKE * RING_SS)
+        alpha = piece.getchannel("A").point(lambda v, k=PIECE_ALPHA[state]: int(v * k))
+        piece.putalpha(alpha)
+        layer.alpha_composite(piece)
+    return layer.resize((RING_D, RING_D), Image.LANCZOS)
+
+
+def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
+         breath_labels: dict | None = None, simple: bool = False) -> Image.Image:
+    """`simple`: name, clock and (in a breathing block) the ring only — no instruction,
+    no "next", no progress bar. For calm sessions where the card should stay quiet."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     seg = segment_at(segments, t)
     if seg is None:
@@ -87,11 +120,21 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK") -> Ima
     d = ImageDraw.Draw(img)
     accent = KIND.get(seg["kind"], INK)
     remaining = seg["endsAt"] - t
+    # A breathing block: which second of it we are in, and which half.
+    breath = None
+    if seg.get("breathIn"):
+        total = round(seg["endsAt"] - seg["startsAt"])
+        elapsed = min(int(t - seg["startsAt"] + 1e-6), total - 1)
+        inhaling = elapsed < seg["breathIn"]
+        breath = (total, seg["breathIn"], elapsed, inhaling)
+        accent = KIND["work"] if inhaling else KIND["rest"]
     nxt = segment_at(segments, seg["endsAt"] + 0.001)
     inner = CARD_W - ACCENT - 2 * PAD
 
     name_lines = wrap(seg["name"], F_NAME, inner)
-    note_lines = wrap(seg["note"], F_NOTE, inner) if seg.get("note") else []
+    note_lines = wrap(seg["note"], F_NOTE, inner) if seg.get("note") and not simple else []
+    if simple:
+        nxt = None
     next_lines = (
         wrap(f"{nxt['name']}  ·  {clock(nxt['seconds'])}", F_NEXT, inner) if nxt else []
     )
@@ -99,9 +142,10 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK") -> Ima
     # Only pay for the rows this block actually has.
     height = (
         16 + len(name_lines) * NAME_LH + 8 + F_CLOCK.size + 14
+        + (RING_D + 16 if breath else 0)
         + len(note_lines) * NOTE_LH
         + (10 + F_LABEL.size + 4 + len(next_lines) * NEXT_LH if nxt else 0)
-        + 14 + 5 + 16
+        + (14 + 5 + 16 if not simple else 0)
     )
     y0, y1 = BOTTOM - height, BOTTOM
 
@@ -119,6 +163,17 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK") -> Ima
     d.text((left, row), clock(remaining), font=F_CLOCK, fill=INK, anchor="lt")
     row += F_CLOCK.size + 14
 
+    if breath:
+        total, breath_in, elapsed, inhaling = breath
+        img.alpha_composite(breath_ring(total, breath_in, elapsed), (left, row))
+        cx, cy = left + RING_D // 2, row + RING_D // 2
+        left_in_part = (breath_in - elapsed) if inhaling else (total - elapsed)
+        d.text((cx, cy + 2), str(left_in_part), font=F_RING_LEFT, fill=INK, anchor="mm")
+        labels = breath_labels or {"in": "Belégzés", "out": "Kilégzés"}
+        d.text((left + RING_D + 14, cy), labels["in" if inhaling else "out"],
+               font=F_RING_LABEL, fill=accent, anchor="lm")
+        row += RING_D + 16
+
     for line in note_lines:
         d.text((left, row), line, font=F_NOTE, fill=MUTED, anchor="lt")
         row += NOTE_LH
@@ -130,6 +185,9 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK") -> Ima
         for line in next_lines:
             d.text((left, row), line, font=F_NEXT, fill=INK, anchor="lt")
             row += NEXT_LH
+
+    if simple:
+        return img
 
     # How far through the current block, so progress is readable at a glance.
     row += 14
@@ -148,17 +206,20 @@ def main() -> None:
     ap.add_argument("outdir", type=Path)
     ap.add_argument("--from", dest="start", type=float, default=0.0)
     ap.add_argument("--to", dest="end", type=float, default=None)
+    ap.add_argument("--simple", action="store_true",
+                    help="name, clock and breathing ring only (no note, next or progress bar)")
     args = ap.parse_args()
 
     data = json.loads(args.timeline.read_text(encoding="utf-8"))
     segments = data["segments"]
     next_label = data.get("nextLabel", "KÖVETKEZIK")
+    breath_labels = data.get("breathLabels")
     end = args.end if args.end is not None else data["duration"]
     args.outdir.mkdir(parents=True, exist_ok=True)
 
     count = int(end - args.start)
     for i in range(count):
-        draw(segments, args.start + i, next_label).save(args.outdir / f"f{i:05d}.png")
+        draw(segments, args.start + i, next_label, breath_labels, args.simple).save(args.outdir / f"f{i:05d}.png")
         if i % 120 == 0:
             print(f"\r  {i}/{count}", end="", flush=True)
     print(f"\r  {count}/{count} frames in {args.outdir}")

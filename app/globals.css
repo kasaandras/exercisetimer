@@ -192,6 +192,10 @@ a { color: var(--ink); }
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
+/* On the prompter the ring takes the place of the line, large enough to read across a room. */
+.prompterRing { display: flex; justify-content: center; flex: 1; align-items: center; }
+.prompterRing .breathRing { width: clamp(220px, 52vh, 560px); }
+
 @media (prefers-reduced-motion: no-preference) {
   .breathRing .piece { transition: opacity 0.4s ease; }
 }

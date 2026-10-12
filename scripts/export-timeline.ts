@@ -32,6 +32,10 @@ console.log(
       // Overlay chrome, so the renderer does not hardcode one language.
       nextLabel: { hu: 'KÖVETKEZIK', en: 'NEXT', es: 'SIGUIENTE' }[lang],
       sound: program.sound ?? 'standard',
+      breathLabels: {
+        in: { hu: 'Belégzés', en: 'Breathe in', es: 'Inspira' }[lang],
+        out: { hu: 'Kilégzés', en: 'Breathe out', es: 'Suelta el aire' }[lang],
+      },
       duration: totalSeconds(segments),
       cues: planCues(segments),
       segments: segments.map((s) => ({

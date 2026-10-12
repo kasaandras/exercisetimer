@@ -1,3 +1,4 @@
+import { BREATHING_PROMPTER_EN } from './breathingPrompterEn.ts'
 import type { Lang } from './i18n'
 import type { Block, Program } from './program'
 
@@ -261,5 +262,31 @@ export function breathingTrainerProgram(lang: Lang): Program {
         blocks: [{ ...block('prep', c.outro.name, 35, c.outro.note, c.outro.points), quietEnd: true }],
       },
     ],
+  }
+}
+
+/**
+ * The same session with András's English lines on the prompter, for recording the English
+ * take: timings, chimes and the breathing ring are identical to `legzotrener`.
+ */
+export function breathingPrompterProgram(): Program {
+  const base = breathingTrainerProgram('en')
+  let at = 0
+  return {
+    ...base,
+    id: 'legzotrener-en-prompter',
+    name: 'Breathing trainer — English prompter',
+    rounds: base.rounds.map((round) => ({
+      ...round,
+      blocks: round.blocks.map((b) => {
+        const start = at
+        at += b.seconds
+        const prompt = BREATHING_PROMPTER_EN.filter(([t]) => t >= start && t < at).map(([t, text]) => ({
+          at: t - start,
+          text,
+        }))
+        return { ...b, id: `${b.id}-prompter`, ...(prompt.length ? { prompt } : {}) }
+      }),
+    })),
   }
 }

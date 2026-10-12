@@ -108,9 +108,21 @@ function Runner({ program, fromLink, t }: RunnerProps) {
             {formatClock(finished ? 0 : remaining)}
           </span>
         </div>
-        <p className={upcoming ? 'prompterLine upcoming' : 'prompterLine'} aria-live="polite">
-          {finished ? '' : (current?.text ?? segment?.name ?? '')}
-        </p>
+        {breath && segment && !lines.length ? (
+          <div className="prompterRing">
+            <BreathRing
+              seconds={segment.seconds}
+              breathIn={breath.breathIn}
+              elapsed={breath.elapsed}
+              label={kindLabel}
+              left={breath.left}
+            />
+          </div>
+        ) : (
+          <p className={upcoming ? 'prompterLine upcoming' : 'prompterLine'} aria-live="polite">
+            {finished ? '' : (current?.text ?? segment?.name ?? '')}
+          </p>
+        )}
         <p className="prompterNext">{!finished && next ? `→ ${next.text}` : ''}</p>
         <div className="row prompterControls">
           <button onClick={toggle}>{startLabel}</button>
