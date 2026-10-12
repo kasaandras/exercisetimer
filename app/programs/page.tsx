@@ -157,6 +157,7 @@ function ProgramCard({ program, isSaved, onUse, onEdit, onDuplicate, onDelete, o
         duration,
         program.name,
         leadIn ? LEAD_IN_SECONDS : 0,
+        program.sound,
       )
       downloadBlob(blob, filename)
       onToast(t.exportSaved(formatClock(seconds)))

@@ -1,4 +1,4 @@
-import { CUES, scheduleTone } from './cues'
+import { PALETTES, scheduleTone, type CuePalette } from './cues'
 import type { CueEvent } from './program'
 
 const SAMPLE_RATE = 44_100
@@ -56,6 +56,7 @@ export async function renderCueTrack(
   duration: number,
   programName: string,
   leadIn = 0,
+  palette: CuePalette = 'standard',
 ): Promise<{ blob: Blob; filename: string; seconds: number }> {
   type WithWebkit = typeof globalThis & { webkitOfflineAudioContext?: typeof OfflineAudioContext }
   const Ctor = window.OfflineAudioContext ?? (globalThis as WithWebkit).webkitOfflineAudioContext
@@ -65,7 +66,7 @@ export async function renderCueTrack(
   const ctx = new Ctor(1, Math.ceil(seconds * SAMPLE_RATE), SAMPLE_RATE)
 
   for (const event of events) {
-    scheduleTone(ctx, CUES[event.cue], leadIn + event.at)
+    scheduleTone(ctx, PALETTES[palette][event.cue], leadIn + event.at)
   }
 
   const rendered = await ctx.startRendering()

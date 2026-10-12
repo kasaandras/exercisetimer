@@ -1,4 +1,4 @@
-import { CUES, scheduleTone, type CueName } from './cues'
+import { PALETTES, scheduleTone, type CueName, type CuePalette } from './cues'
 import type { CueEvent } from './program'
 
 /** How far ahead cues are committed to the audio clock. */
@@ -24,6 +24,7 @@ export type EngineState = 'idle' | 'running' | 'paused' | 'interrupted' | 'finis
 export class CueEngine {
   private ctx: AudioContext | null = null
   private events: CueEvent[] = []
+  private palette: CuePalette = 'standard'
   private duration = 0
   /** ctx.currentTime that corresponds to session position 0. */
   private anchor = 0
@@ -69,9 +70,10 @@ export class CueEngine {
     return this.duration
   }
 
-  load(events: CueEvent[], duration: number): void {
+  load(events: CueEvent[], duration: number, palette: CuePalette = 'standard'): void {
     this.cancelScheduled()
     this.events = events
+    this.palette = palette
     this.duration = duration
     this.heldPosition = 0
     this.nextIndex = 0
@@ -107,7 +109,7 @@ export class CueEngine {
 
     while (this.nextIndex < this.events.length && this.events[this.nextIndex].at <= horizon) {
       const event = this.events[this.nextIndex]
-      const node = scheduleTone(this.ctx, CUES[event.cue], this.anchor + event.at)
+      const node = scheduleTone(this.ctx, PALETTES[this.palette][event.cue], this.anchor + event.at)
       node.onended = () => {
         this.live = this.live.filter((n) => n !== node)
       }
@@ -176,16 +178,17 @@ export class CueEngine {
   }
 
   /** One-off cue for the cue-key page. */
-  preview(name: CueName): void {
+  preview(name: CueName, palette: CuePalette = 'standard'): void {
     const ctx = this.ensureContext()
+    const cues = PALETTES[palette]
     if (name === 'pip') {
       const t = ctx.currentTime + 0.01
-      scheduleTone(ctx, CUES.pip, t)
-      scheduleTone(ctx, CUES.pip, t + 0.55)
-      scheduleTone(ctx, CUES.pip, t + 1.1)
+      scheduleTone(ctx, cues.pip, t)
+      scheduleTone(ctx, cues.pip, t + 0.55)
+      scheduleTone(ctx, cues.pip, t + 1.1)
       return
     }
-    scheduleTone(ctx, CUES[name], ctx.currentTime + 0.01)
+    scheduleTone(ctx, cues[name], ctx.currentTime + 0.01)
   }
 
   dispose(): void {

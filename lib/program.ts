@@ -1,4 +1,4 @@
-import type { CueName } from './cues'
+import type { CueName, CuePalette } from './cues'
 
 export type BlockKind = 'work' | 'rest' | 'prep'
 
@@ -25,6 +25,12 @@ export type Block = {
    * block. Shown large, so a presenter can read them from across the room.
    */
   prompt?: PromptLine[]
+  /**
+   * A breathing block: the first `breathIn` seconds are breathing in, the rest
+   * breathing out. A softer, lower cue marks the switch, and the run screen
+   * shows the block as a ring split into the two parts.
+   */
+  breathIn?: number
 }
 
 export type PromptLine = { at: number; text: string }
@@ -40,6 +46,8 @@ export type Program = {
   prepSeconds: number
   rounds: Round[]
   repeatRounds: number
+  /** Which cue sounds the session uses; the standard workout set by default. */
+  sound?: CuePalette
 }
 
 /** One block laid out on the session timeline, with absolute offsets from t0. */
@@ -52,6 +60,7 @@ export type Segment = {
   quiet?: boolean
   quietEnd?: boolean
   prompt?: PromptLine[]
+  breathIn?: number
   startsAt: number
   endsAt: number
   /** 1-based pass through the circuit; 0 for the prep segment. */
@@ -92,6 +101,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     quiet?: boolean,
     quietEnd?: boolean,
     prompt?: PromptLine[],
+    breathIn?: number,
   ) => {
     if (seconds <= 0) return
     segments.push({
@@ -103,6 +113,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
       ...(quiet ? { quiet } : {}),
       ...(quietEnd ? { quietEnd } : {}),
       ...(prompt?.length ? { prompt } : {}),
+      ...(breathIn && breathIn > 0 && breathIn < seconds ? { breathIn } : {}),
       startsAt: at,
       endsAt: at + seconds,
       pass,
@@ -122,7 +133,7 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
     for (const round of program.rounds) {
       roundOrdinal++
       for (const block of round.blocks) {
-        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points, block.quiet, block.quietEnd, block.prompt)
+        push(block.name, block.kind, block.seconds, pass, round.name, block.note, block.points, block.quiet, block.quietEnd, block.prompt, block.breathIn)
       }
     }
   }
@@ -144,12 +155,14 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
  * comes next. The session closes with the rising `done` tone. A quiet segment
  * has neither its own tone nor the pips counting into it; a quiet-ended one
  * has no pips counting out of it, and no finish tone when it closes the session.
+ * A breathing block also marks the switch from breathing in to breathing out.
  */
 export function planCues(segments: Segment[]): CueEvent[] {
   const events: CueEvent[] = []
 
   segments.forEach((segment, i) => {
     if (!segment.quiet) events.push({ at: segment.startsAt, cue: segment.kind })
+    if (segment.breathIn) events.push({ at: segment.startsAt + segment.breathIn, cue: 'exhale' })
     if (segments[i + 1]?.quiet || segment.quietEnd) return
     for (let k = 3; k >= 1; k--) {
       const at = segment.endsAt - k
@@ -228,6 +241,9 @@ export function normaliseProgram(input: unknown): Program | null {
                           .slice(0, 12)
                           .map((x) => x.slice(0, 160))
                       : undefined,
+                    ...(typeof b.breathIn === 'number' && b.breathIn > 0 && b.breathIn < seconds
+                      ? { breathIn: Math.round(b.breathIn) }
+                      : {}),
                   }
                 })
                 .filter((b): b is Block => b !== null)
@@ -250,5 +266,6 @@ export function normaliseProgram(input: unknown): Program | null {
     prepSeconds: clampSeconds(raw.prepSeconds, 10),
     rounds,
     repeatRounds: Number.isFinite(repeat) ? Math.min(Math.max(Math.round(repeat), 1), 99) : 1,
+    ...(raw.sound === 'soft' ? { sound: 'soft' as const } : {}),
   }
 }

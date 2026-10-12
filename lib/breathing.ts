@@ -6,16 +6,18 @@ import type { Block, Program } from './program'
  *
  * The routine follows the YOGABODY practice András chose as the reference:
  * five minutes without breaks, one slow, strong breath in through the trainer
- * every 30 seconds (counting to eight), calm nose breathing in between, twice
- * a day. (The trials, e.g. Craighead et al. 2021, use 5 sets of 6 breaths with
+ * every 30 seconds, calm nose breathing in between, twice a day. Each half
+ * minute is split in two: 15 s breathing in (trying it, András could keep a
+ * steady breath in going for 12-14 s), then 15 s breathing out and resting. (The trials, e.g. Craighead et al. 2021, use 5 sets of 6 breaths with
  * rests instead; this follows the video on purpose.) A dial with six steps
- * shows no percentage, so the copy teaches the level as a feeling: the
- * eight-count breath is hard but doable.
+ * shows no percentage, so the copy teaches the level as a feeling: the long
+ * breath in is hard but doable.
  *
  * One take, like the handgrip: welcome and level-finding first, then the
  * practice, so the app's "Skip intro" can drop repeat users onto breath 1.
- * Each breath opens with the work tone; the pips before it are the cue to put
- * the trainer to your mouth. No rest tones anywhere.
+ * Calm session, so the soft bell cues: a higher chime to start breathing in,
+ * a lower one to let go, soft pips before each breath as the cue to put the
+ * trainer to your mouth. No rest blocks anywhere.
  *
  * 7:20 in all. Every visible string is in COPY; the timings are below, once.
  */
@@ -52,21 +54,22 @@ const hu: Copy = {
   },
   setup: {
     name: 'A jó fokozat',
-    note: 'A jó fokozat: a nyolcig tartó belégzés nehéz, de még végig megy.',
+    note: 'A jó fokozat: a hosszú belégzés nehéz, de még végig megy.',
     points: [
       'Ülj le kényelmesen, egyenes háttal, a talpad legyen a földön.',
       'Ennek a trénernek hat fokozata van. Az első alkalommal az egyesen kezdj.',
-      'Zárd körbe az ajkaddal a szájrészt, és szívd be erősen, nyolcig számolva.',
+      'Zárd körbe az ajkaddal a szájrészt, és szívd be lassan és erősen, amíg bírod.',
       'Ha könnyű volt, tekerd egy fokkal feljebb, és próbáld újra.',
       'Az a jó fokozat, ahol a belégzés nehéz, de még végig megy. Kb. a maximumod háromnegyede.',
       'Utána mindig ezen csináld. Ha egy-két hét után könnyű, lépj egyet feljebb.',
     ],
   },
-  breath: 'belégzés',
-  breathNote: 'Szívd be lassan és erősen, nyolcig számolva. Utána az orrodon át lélegezz.',
+  breath: 'kör',
+  breathNote: 'Lassan, erősen szívd be a mély hangig. Utána fújd ki, és az orrodon át lélegezz.',
   breathPoints: [
-    'Szájrész be, és szívd be lassan, erősen: egy… kettő… egészen nyolcig.',
-    'Fújd ki lazán, és csukott szájjal lélegezz az orrodon át.',
+    'Magas hang: szájrész be, és szívd be lassan, erősen, egyenletesen.',
+    'Mély hang: engedd el. Fújd ki lazán, és csukott szájjal lélegezz az orrodon át.',
+    'A kör első fele a belégzés, a második a kilégzés.',
   ],
   tips: [
     'Két belégzés között csukd be a szád, és az orrodon át lélegezz.',
@@ -109,21 +112,22 @@ const en: Copy = {
   },
   setup: {
     name: 'Find your level',
-    note: 'The right level: the eight-count breath is hard, but you can finish it.',
+    note: 'The right level: the long breath in is hard, but you can finish it.',
     points: [
       'Sit comfortably with your back straight and your feet flat on the floor.',
       'This trainer has six levels. The first time, start on level one.',
-      'Close your lips around the mouthpiece and breathe in hard, counting to eight.',
+      'Close your lips around the mouthpiece and breathe in slowly and hard, for as long as you can.',
       'If that was easy, turn it up one level and try again.',
       'The right level is where the breath is hard, but you can still finish it. About three quarters of your best.',
       'Stay on that level. If it feels easy after a week or two, go up one.',
     ],
   },
   breath: 'Breath',
-  breathNote: 'Breathe in slowly and hard, counting to eight. Then breathe through your nose.',
+  breathNote: 'Breathe in slowly and hard until the low chime. Then breathe out and breathe through your nose.',
   breathPoints: [
-    'Mouthpiece in, and breathe in slowly and hard: one… two… all the way to eight.',
-    'Let the air out easily, then close your mouth and breathe through your nose.',
+    'High chime: mouthpiece in, and breathe in slowly, hard and steady.',
+    'Low chime: let go. Breathe out easily, then close your mouth and breathe through your nose.',
+    'The first half of the ring is breathing in, the second half breathing out.',
   ],
   tips: [
     'Between breaths, keep your mouth closed and breathe through your nose.',
@@ -166,21 +170,22 @@ const es: Copy = {
   },
   setup: {
     name: 'Tu nivel',
-    note: 'El nivel correcto: la inspiración hasta ocho cuesta, pero la terminas.',
+    note: 'El nivel correcto: la inspiración larga cuesta, pero la terminas.',
     points: [
       'Siéntate cómodo, con la espalda recta y los pies en el suelo.',
       'Este entrenador tiene seis niveles. La primera vez, empieza en el uno.',
-      'Cierra los labios alrededor de la boquilla e inspira con fuerza contando hasta ocho.',
+      'Cierra los labios alrededor de la boquilla e inspira despacio y con fuerza, todo lo que puedas.',
       'Si te ha resultado fácil, sube un nivel y prueba otra vez.',
       'El nivel correcto es aquel en el que cuesta, pero aún la terminas. Más o menos tres cuartos de tu máximo.',
       'Quédate en ese nivel. Si en una o dos semanas te resulta fácil, sube uno.',
     ],
   },
   breath: 'Respiración',
-  breathNote: 'Inspira despacio y con fuerza, contando hasta ocho. Luego respira por la nariz.',
+  breathNote: 'Inspira despacio y con fuerza hasta el sonido grave. Luego suelta el aire y respira por la nariz.',
   breathPoints: [
-    'Boquilla en la boca e inspira despacio y con fuerza: uno… dos… hasta ocho.',
-    'Suelta el aire sin esfuerzo, cierra la boca y respira por la nariz.',
+    'Sonido agudo: boquilla en la boca e inspira despacio, con fuerza y constante.',
+    'Sonido grave: suelta. Saca el aire sin esfuerzo, cierra la boca y respira por la nariz.',
+    'La primera mitad del círculo es inspirar, la segunda soltar el aire.',
   ],
   tips: [
     'Entre respiraciones, boca cerrada y respira por la nariz.',
@@ -220,20 +225,25 @@ const block = (kind: Block['kind'], name: string, seconds: number, note?: string
 
 const BREATHS = 10
 const EVERY = 30
+const INHALE = 15
 
 export function breathingTrainerProgram(lang: Lang): Program {
   const c = COPY[lang]
-  // "1. belégzés" in Hungarian, "Breath 1" / "Respiración 1" otherwise.
+  // "1. kör" in Hungarian, "Breath 1" / "Respiración 1" otherwise.
   const breathName = (n: number) => (lang === 'hu' ? `${n}. ${c.breath}` : `${c.breath} ${n}`)
   const breaths: Block[] = []
   for (let n = 1; n <= BREATHS; n++) {
-    breaths.push(block('work', breathName(n), EVERY, c.breathNote, [c.tips[n - 1], ...c.breathPoints]))
+    breaths.push({
+      ...block('work', breathName(n), EVERY, c.breathNote, [c.tips[n - 1], ...c.breathPoints]),
+      breathIn: INHALE,
+    })
   }
   return {
     id: 'legzotrener',
     name: c.program,
     prepSeconds: 0,
     repeatRounds: 1,
+    sound: 'soft',
     rounds: [
       {
         name: c.section.intro,

@@ -55,7 +55,7 @@ export function useSession(program: Program, prepLabel: string) {
   useEffect(() => {
     const engine = engineRef.current
     if (!engine) return
-    engine.load(events, duration)
+    engine.load(events, duration, program.sound)
     setView({
       state: 'idle',
       remaining: segments[0]?.seconds ?? 0,
@@ -67,7 +67,7 @@ export function useSession(program: Program, prepLabel: string) {
       passCount: segments[0]?.passCount ?? 1,
       duration,
     })
-  }, [events, duration, segments])
+  }, [events, duration, segments, program.sound])
 
   const releaseWakeLock = useCallback(() => {
     void wakeLockRef.current?.release().catch(() => {})

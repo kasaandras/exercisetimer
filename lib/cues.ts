@@ -6,14 +6,19 @@
  * looking at the screen. Do not "tidy" them into a single beep.
  */
 
-export type CueName = 'pip' | 'work' | 'rest' | 'prep' | 'done'
+export type CueName = 'pip' | 'work' | 'rest' | 'prep' | 'done' | 'exhale'
 
 export type Cue = {
   freq: number
   dur: number
   type: OscillatorType
   gain: number
+  /** Strike and fade away like a small bell, instead of a held tone. */
+  bell?: boolean
 }
+
+/** Workouts use the standard cues; calm sessions such as breathing use the soft set. */
+export type CuePalette = 'standard' | 'soft'
 
 export const CUES: Record<CueName, Cue> = {
   pip: { freq: 920, dur: 0.11, type: 'triangle', gain: 0.3 },
@@ -21,10 +26,28 @@ export const CUES: Record<CueName, Cue> = {
   rest: { freq: 520, dur: 0.7, type: 'sine', gain: 0.34 },
   prep: { freq: 784, dur: 0.45, type: 'sine', gain: 0.26 },
   done: { freq: 1568, dur: 1.3, type: 'sine', gain: 0.32 },
+  exhale: { freq: 660, dur: 0.7, type: 'sine', gain: 0.3 },
 }
+
+/**
+ * The soft set: bell-like sine chimes that fade out instead of holding, at
+ * lower pitches and levels. The same idea as the standard cues, high means
+ * "go" and low means "let go", so breathing in rings a fifth above breathing out.
+ */
+export const SOFT_CUES: Record<CueName, Cue> = {
+  pip: { freq: 880, dur: 0.45, type: 'sine', gain: 0.1, bell: true },
+  work: { freq: 659.25, dur: 2.2, type: 'sine', gain: 0.3, bell: true },
+  exhale: { freq: 440, dur: 2.2, type: 'sine', gain: 0.28, bell: true },
+  rest: { freq: 440, dur: 2.2, type: 'sine', gain: 0.28, bell: true },
+  prep: { freq: 523.25, dur: 1.8, type: 'sine', gain: 0.22, bell: true },
+  done: { freq: 783.99, dur: 3, type: 'sine', gain: 0.28, bell: true },
+}
+
+export const PALETTES: Record<CuePalette, Record<CueName, Cue>> = { standard: CUES, soft: SOFT_CUES }
 
 const ATTACK = 0.008
 const RELEASE = 0.05
+const BELL_ATTACK = 0.02
 
 /**
  * Schedule one cue on `ctx` at absolute time `at` (in that context's clock).
@@ -47,9 +70,15 @@ export function scheduleTone(
   osc.frequency.setValueAtTime(cue.freq, t)
 
   gain.gain.setValueAtTime(0, t)
-  gain.gain.linearRampToValueAtTime(cue.gain, t + ATTACK)
-  gain.gain.setValueAtTime(cue.gain, t + Math.max(cue.dur - RELEASE, 0.02))
-  gain.gain.linearRampToValueAtTime(0, t + cue.dur)
+  if (cue.bell) {
+    // A soft strike, then an exponential fade: no hard edge anywhere.
+    gain.gain.linearRampToValueAtTime(cue.gain, t + BELL_ATTACK)
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + cue.dur)
+  } else {
+    gain.gain.linearRampToValueAtTime(cue.gain, t + ATTACK)
+    gain.gain.setValueAtTime(cue.gain, t + Math.max(cue.dur - RELEASE, 0.02))
+    gain.gain.linearRampToValueAtTime(0, t + cue.dur)
+  }
 
   osc.connect(gain)
   gain.connect(destination)

@@ -31,6 +31,7 @@ console.log(
       name: program.name,
       // Overlay chrome, so the renderer does not hardcode one language.
       nextLabel: { hu: 'KÖVETKEZIK', en: 'NEXT', es: 'SIGUIENTE' }[lang],
+      sound: program.sound ?? 'standard',
       duration: totalSeconds(segments),
       cues: planCues(segments),
       segments: segments.map((s) => ({
@@ -41,6 +42,8 @@ console.log(
         endsAt: s.endsAt,
         note: s.note ?? null,
         points: s.points ?? null,
+        // Breathing blocks: seconds of breathing in from the block start; the rest is out.
+        breathIn: s.breathIn ?? null,
         roundName: s.roundName,
         roundOrdinal: s.roundOrdinal,
         roundTotal: s.roundTotal,

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo } from 'react'
+import { BreathRing } from '@/components/BreathRing'
 import { useSettings } from '@/components/Providers'
 import { useActiveProgram } from '@/lib/active'
 import { formatClock } from '@/lib/program'
@@ -40,9 +41,25 @@ function Runner({ program, fromLink, t }: RunnerProps) {
   const { state, segment, nextSegment, remaining, remainingTotal, litPips } = view
 
   const finished = state === 'finished'
-  const kindLabel =
-    segment?.kind === 'work' ? t.kindWork : segment?.kind === 'rest' ? t.kindRest : t.getReady
-  const accent = finished ? 'done' : (segment?.kind ?? 'ready')
+  // A breathing block splits into breathing in and breathing out, shown as a ring.
+  const breath =
+    !finished && segment?.breathIn
+      ? (() => {
+          const elapsed = Math.min(segment.seconds - Math.ceil(remaining), segment.seconds - 1)
+          const inhaling = elapsed < segment.breathIn!
+          return {
+            breathIn: segment.breathIn!,
+            elapsed,
+            inhaling,
+            left: inhaling ? segment.breathIn! - elapsed : segment.seconds - elapsed,
+          }
+        })()
+      : null
+  const kindLabel = breath
+    ? breath.inhaling ? t.breatheIn : t.breatheOut
+    : segment?.kind === 'work' ? t.kindWork : segment?.kind === 'rest' ? t.kindRest : t.getReady
+  // Breathing in takes the work colour, breathing out the calm rest colour.
+  const accent = finished ? 'done' : breath ? (breath.inhaling ? 'work' : 'rest') : (segment?.kind ?? 'ready')
   // A block with a read-aloud script needs the room more than the clock does.
   const scripted = !finished && (segment?.points?.join(' ').length ?? 0) > 300
 
@@ -125,9 +142,24 @@ function Runner({ program, fromLink, t }: RunnerProps) {
         </div>
 
         {/* The clock is the one thing that must read from across a room. */}
-        <div className="clock" role="timer" aria-live="off">
-          {formatClock(finished ? 0 : remaining)}
-        </div>
+        {breath && segment ? (
+          <div className="clockRow">
+            <div className="clock" role="timer" aria-live="off">
+              {formatClock(remaining)}
+            </div>
+            <BreathRing
+              seconds={segment.seconds}
+              breathIn={breath.breathIn}
+              elapsed={breath.elapsed}
+              label={kindLabel}
+              left={breath.left}
+            />
+          </div>
+        ) : (
+          <div className="clock" role="timer" aria-live="off">
+            {formatClock(finished ? 0 : remaining)}
+          </div>
+        )}
 
         <div className="pips" aria-hidden="true">
           {[0, 1, 2].map((i) => (

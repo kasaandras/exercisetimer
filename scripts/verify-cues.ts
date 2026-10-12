@@ -59,6 +59,15 @@ for (const program of [...examplePrograms(dictionaries.en), ...builtinPrograms()
       ? dones.length === 0
       : dones.length === 1 && Math.abs(events[events.length - 1].at - total) < 1e-9)
 
+  // A breathing block marks the switch to breathing out exactly once, inside the block.
+  const breathProblems = segments
+    .filter((s) => s.breathIn)
+    .filter((s) => events.filter((e) => e.cue === 'exhale' && Math.abs(e.at - (s.startsAt + s.breathIn!)) < 1e-9).length !== 1)
+    .map((s) => s.name)
+  const strayExhales = events.filter((e) => e.cue === 'exhale').length - segments.filter((s) => s.breathIn).length
+  check('one breathing-out cue per breathing block, none elsewhere', breathProblems.length === 0 && strayExhales === 0,
+    [...breathProblems, ...(strayExhales ? [`${strayExhales} stray`] : [])].join(', '))
+
   // Two cues landing on the same instant would collide audibly.
   const collisions = events.filter((e, i) =>
     i > 0 && Math.abs(events[i - 1].at - e.at) < 1e-9 && events[i - 1].cue === e.cue)

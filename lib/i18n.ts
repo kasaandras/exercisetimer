@@ -29,6 +29,8 @@ export type Dict = {
   countdownPips: string
   countingDown: string
   getReady: string
+  breatheIn: string
+  breatheOut: string
   interrupted: string
   totalLength: (clock: string) => string
 
@@ -143,6 +145,8 @@ const en: Dict = {
   countdownPips: 'countdown pips',
   countingDown: 'counting down',
   getReady: 'Get ready',
+  breatheIn: 'Breathe in',
+  breatheOut: 'Breathe out',
   interrupted:
     'The audio was interrupted, so the timer is paused here. Press resume to carry on.',
   totalLength: (clock) => `${clock} total`,
@@ -261,6 +265,8 @@ const es: Dict = {
   countdownPips: 'pitidos de cuenta atrás',
   countingDown: 'contando atrás',
   getReady: 'Prepárate',
+  breatheIn: 'Inspira',
+  breatheOut: 'Suelta el aire',
   interrupted:
     'El audio se interrumpió, así que el temporizador está en pausa aquí. Pulsa continuar para seguir.',
   totalLength: (clock) => `${clock} en total`,
@@ -379,6 +385,8 @@ const hu: Dict = {
   countdownPips: 'visszaszámláló csipogások',
   countingDown: 'visszaszámlálás',
   getReady: 'Készülj',
+  breatheIn: 'Belégzés',
+  breatheOut: 'Kilégzés',
   interrupted:
     'A hang megszakadt, ezért az időzítő itt megállt. Nyomd meg a folytatást.',
   totalLength: (clock) => `Összesen ${clock}`,
