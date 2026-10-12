@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo } from 'react'
-import { BreathRing } from '@/components/BreathRing'
+import { BREATH_OUT_SECONDS, BreathRing } from '@/components/BreathRing'
 import { useSettings } from '@/components/Providers'
 import { useActiveProgram } from '@/lib/active'
 import { formatClock } from '@/lib/program'
@@ -56,7 +56,9 @@ function Runner({ program, fromLink, t }: RunnerProps) {
         })()
       : null
   const kindLabel = breath
-    ? breath.inhaling ? t.breatheIn : t.breatheOut
+    ? breath.inhaling
+      ? t.breatheIn
+      : breath.elapsed < breath.breathIn + BREATH_OUT_SECONDS ? t.breatheOut : t.noseBreathing
     : segment?.kind === 'work' ? t.kindWork : segment?.kind === 'rest' ? t.kindRest : t.getReady
   // Breathing in takes the work colour, breathing out the calm rest colour.
   const accent = finished ? 'done' : breath ? (breath.inhaling ? 'work' : 'rest') : (segment?.kind ?? 'ready')

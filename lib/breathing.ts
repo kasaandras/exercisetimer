@@ -9,7 +9,8 @@ import type { Block, Program } from './program'
  * five minutes without breaks, one slow, strong breath in through the trainer
  * every 30 seconds, calm nose breathing in between, twice a day. Each half
  * minute is split in two: 15 s breathing in (trying it, András could keep a
- * steady breath in going for 12-14 s), then 15 s breathing out and resting. (The trials, e.g. Craighead et al. 2021, use 5 sets of 6 breaths with
+ * steady breath in going for 12-14 s), then 15 s: a normal breath out (not stretched —
+ * András, after watching his first take back) and calm nose breathing until the next one. (The trials, e.g. Craighead et al. 2021, use 5 sets of 6 breaths with
  * rests instead; this follows the video on purpose.) A dial with six steps
  * shows no percentage, so the copy teaches the level as a feeling: the long
  * breath in is hard but doable.
@@ -49,7 +50,8 @@ const hu: Copy = {
       'Olyan ez, mint egy kis súlyzó a rekeszizmodnak: erősen beszívod a levegőt egy kis ellenállással szemben.',
       'Kutatások szerint ha hetekig rendszeresen csinálod, segíthet lejjebb vinni a vérnyomást.',
       'Kezdés előtt beszélj az orvosoddal, főleg ha tüdő- vagy fülproblémád van, vagy nemrég műtöttek.',
-      'Öt percig gyakorolunk szünet nélkül: félpercenként egy lassú, erős belégzés a trénerbe, közte az orrodon át lélegzel.',
+      'Öt percig gyakorolunk szünet nélkül: félpercenként egy lassú, erős belégzés a trénerbe.',
+      'Utána fújd ki normálisan, ne nyújtsd el, és lélegezz tovább nyugodtan az orrodon át a következő hangig.',
       'Ha szédülsz vagy fáj a fejed, lassíts: percenként egy belégzés is elég.',
     ],
   },
@@ -66,11 +68,12 @@ const hu: Copy = {
     ],
   },
   breath: 'kör',
-  breathNote: 'Lassan, erősen szívd be a mély hangig. Utána fújd ki, és az orrodon át lélegezz.',
+  breathNote: 'Magas hang: szívd be lassan, erősen. Mély hang: fújd ki normálisan, aztán orrlégzés.',
   breathPoints: [
     'Magas hang: szájrész be, és szívd be lassan, erősen, egyenletesen.',
-    'Mély hang: engedd el. Fújd ki lazán, és csukott szájjal lélegezz az orrodon át.',
-    'A kör első fele a belégzés, a második a kilégzés.',
+    'Mély hang: fújd ki normálisan, ne nyújtsd el.',
+    'Utána csukott szájjal, nyugodtan lélegezz az orrodon át a következő hangig.',
+    'A kör első fele a belégzés, a második az orrlégzés.',
   ],
   tips: [
     'Két belégzés között csukd be a szád, és az orrodon át lélegezz.',
@@ -107,7 +110,8 @@ const en: Copy = {
       'Think of it as a small dumbbell for your diaphragm: you breathe in hard against a little resistance.',
       'Studies show that doing it regularly for a few weeks can help bring your blood pressure down.',
       'Talk to your doctor before you start, especially if you have lung or ear problems, or had surgery recently.',
-      'We\'ll practise for five minutes without a break: one slow, strong breath in through the trainer every half minute, and nose breathing in between.',
+      'We\'ll practise for five minutes without a break: one slow, strong breath in through the trainer every half minute.',
+      'Then breathe out normally, don\'t stretch it out, and keep breathing calmly through your nose until the next chime.',
       'If you feel dizzy or get a headache, slow down: one breath a minute is plenty.',
     ],
   },
@@ -124,11 +128,12 @@ const en: Copy = {
     ],
   },
   breath: 'Breath',
-  breathNote: 'Breathe in slowly and hard until the low chime. Then breathe out and breathe through your nose.',
+  breathNote: 'High chime: breathe in slowly and hard. Low chime: breathe out normally, then nose breathing.',
   breathPoints: [
     'High chime: mouthpiece in, and breathe in slowly, hard and steady.',
-    'Low chime: let go. Breathe out easily, then close your mouth and breathe through your nose.',
-    'The first half of the ring is breathing in, the second half breathing out.',
+    'Low chime: breathe out normally. Don\'t stretch it out.',
+    'Then close your mouth and breathe calmly through your nose until the next chime.',
+    'The first half of the ring is breathing in, the second half nose breathing.',
   ],
   tips: [
     'Between breaths, keep your mouth closed and breathe through your nose.',
@@ -165,7 +170,8 @@ const es: Copy = {
       'Es como una pequeña pesa para el diafragma: inspiras con fuerza contra una pequeña resistencia.',
       'Los estudios muestran que, si lo haces con regularidad durante unas semanas, puede ayudarte a bajar la tensión.',
       'Consulta con tu médico antes de empezar, sobre todo si tienes problemas de pulmón o de oído, o te han operado hace poco.',
-      'Practicaremos cinco minutos sin pausa: una inspiración lenta y fuerte por el entrenador cada medio minuto, y entre medias respiras por la nariz.',
+      'Practicaremos cinco minutos sin pausa: una inspiración lenta y fuerte por el entrenador cada medio minuto.',
+      'Después suelta el aire con normalidad, sin alargarlo, y sigue respirando tranquilo por la nariz hasta el siguiente sonido.',
       'Si te mareas o te duele la cabeza, ve más despacio: una por minuto es suficiente.',
     ],
   },
@@ -182,11 +188,12 @@ const es: Copy = {
     ],
   },
   breath: 'Respiración',
-  breathNote: 'Inspira despacio y con fuerza hasta el sonido grave. Luego suelta el aire y respira por la nariz.',
+  breathNote: 'Sonido agudo: inspira despacio y con fuerza. Sonido grave: suelta el aire con normalidad y respira por la nariz.',
   breathPoints: [
     'Sonido agudo: boquilla en la boca e inspira despacio, con fuerza y constante.',
-    'Sonido grave: suelta. Saca el aire sin esfuerzo, cierra la boca y respira por la nariz.',
-    'La primera mitad del círculo es inspirar, la segunda soltar el aire.',
+    'Sonido grave: suelta el aire con normalidad, sin alargarlo.',
+    'Luego, boca cerrada, respira tranquilo por la nariz hasta el siguiente sonido.',
+    'La primera mitad del círculo es inspirar, la segunda respirar por la nariz.',
   ],
   tips: [
     'Entre respiraciones, boca cerrada y respira por la nariz.',

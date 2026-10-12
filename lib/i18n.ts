@@ -31,6 +31,7 @@ export type Dict = {
   getReady: string
   breatheIn: string
   breatheOut: string
+  noseBreathing: string
   interrupted: string
   totalLength: (clock: string) => string
 
@@ -147,6 +148,7 @@ const en: Dict = {
   getReady: 'Get ready',
   breatheIn: 'Breathe in',
   breatheOut: 'Breathe out',
+  noseBreathing: 'Nose breathing',
   interrupted:
     'The audio was interrupted, so the timer is paused here. Press resume to carry on.',
   totalLength: (clock) => `${clock} total`,
@@ -267,6 +269,7 @@ const es: Dict = {
   getReady: 'Prepárate',
   breatheIn: 'Inspira',
   breatheOut: 'Suelta el aire',
+  noseBreathing: 'Por la nariz',
   interrupted:
     'El audio se interrumpió, así que el temporizador está en pausa aquí. Pulsa continuar para seguir.',
   totalLength: (clock) => `${clock} en total`,
@@ -386,7 +389,8 @@ const hu: Dict = {
   countingDown: 'visszaszámlálás',
   getReady: 'Készülj',
   breatheIn: 'Belégzés',
-  breatheOut: 'Kilégzés',
+  breatheOut: 'Kifújás',
+  noseBreathing: 'Orrlégzés',
   interrupted:
     'A hang megszakadt, ezért az időzítő itt megállt. Nyomd meg a folytatást.',
   totalLength: (clock) => `Összesen ${clock}`,

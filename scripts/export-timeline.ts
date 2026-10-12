@@ -34,7 +34,10 @@ console.log(
       sound: program.sound ?? 'standard',
       breathLabels: {
         in: { hu: 'Belégzés', en: 'Breathe in', es: 'Inspira' }[lang],
-        out: { hu: 'Kilégzés', en: 'Breathe out', es: 'Suelta el aire' }[lang],
+        out: { hu: 'Kifújás', en: 'Breathe out', es: 'Suelta el aire' }[lang],
+        nose: { hu: 'Orrlégzés', en: 'Nose breathing', es: 'Por la nariz' }[lang],
+        // Seconds the breath-out label shows before nose breathing (components/BreathRing.tsx).
+        outSeconds: 3,
       },
       duration: totalSeconds(segments),
       cues: planCues(segments),

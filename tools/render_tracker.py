@@ -171,8 +171,10 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
         cx, cy = left + RING_D // 2, row + RING_D // 2
         left_in_part = (breath_in - elapsed) if inhaling else (total - elapsed)
         d.text((cx, cy + 2), str(left_in_part), font=F_RING_LEFT, fill=INK, anchor="mm")
-        labels = breath_labels or {"in": "Belégzés", "out": "Kilégzés"}
-        d.text((left + RING_D + 14, cy), labels["in" if inhaling else "out"],
+        labels = breath_labels or {"in": "Belégzés", "out": "Kifújás", "nose": "Orrlégzés", "outSeconds": 3}
+        part = ("in" if inhaling else
+                "out" if elapsed < breath_in + labels.get("outSeconds", 3) or "nose" not in labels else "nose")
+        d.text((left + RING_D + 14, cy), labels[part],
                font=F_RING_LABEL, fill=accent, anchor="lm")
         row += RING_D + 16
 

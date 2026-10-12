@@ -8,6 +8,12 @@
  * and this ring is meant to be drawn the same way there.
  */
 
+/**
+ * After the low chime the ring says "breathe out" only this long, then "nose breathing":
+ * a normal breath out, not a long one stretched over the whole half (András, 2026-10-12).
+ */
+export const BREATH_OUT_SECONDS = 3
+
 const SIZE = 200
 const R = 86
 const STROKE = 16
