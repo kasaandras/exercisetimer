@@ -111,6 +111,10 @@ export type Dict = {
   blockCrushPushUp: string
   blockLongRest: string
   note10Reps: string
+  exampleKettlebellFull: string
+  blockDeadlift: string
+  blockPushUp: string
+  noteBellOnHips: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -225,6 +229,10 @@ const en: Dict = {
   blockCrushPushUp: 'Crush push-up',
   blockLongRest: 'Long rest',
   note10Reps: '10 reps',
+  exampleKettlebellFull: 'Full-body kettlebell, 35 min',
+  blockDeadlift: 'Deadlift',
+  blockPushUp: 'Push-up',
+  noteBellOnHips: 'Bell resting on your hips',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -339,6 +347,10 @@ const es: Dict = {
   blockCrushPushUp: 'Flexiones sobre la kettlebell',
   blockLongRest: 'Descanso largo',
   note10Reps: '10 repeticiones',
+  exampleKettlebellFull: 'Kettlebell cuerpo entero, 35 min',
+  blockDeadlift: 'Peso muerto',
+  blockPushUp: 'Flexiones',
+  noteBellOnHips: 'Kettlebell apoyada en la cadera',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -453,6 +465,10 @@ const hu: Dict = {
   blockCrushPushUp: 'Fekvőtámasz a kettlebellen',
   blockLongRest: 'Hosszú pihenő',
   note10Reps: '10 ismétlés',
+  exampleKettlebellFull: 'Teljes test kettlebell, 35 perc',
+  blockDeadlift: 'Felhúzás',
+  blockPushUp: 'Fekvőtámasz',
+  noteBellOnHips: 'Kettlebell a csípődön',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }

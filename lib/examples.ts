@@ -140,6 +140,39 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-kettlebell-full',
+      name: t.exampleKettlebellFull,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // Seven moves, five rounds, 35:40. Ordered so the grip-heavy ones
+          // (deadlift, row, swing, curl) always have an easier move between
+          // them. A glute bridge instead of a goblet squat, for the knee.
+          // The rows switch sides without a break. The last long rest is
+          // trimmed by expandProgram.
+          blocks: [
+            block('kf-deadlift', t.blockDeadlift, 40),
+            block('kf-rest1', t.blockBreak, 15, 'rest'),
+            block('kf-halo', t.blockHalo, 40),
+            block('kf-rest2', t.blockBreak, 15, 'rest'),
+            block('kf-row-l', t.blockRowLeft, 30),
+            block('kf-row-r', t.blockRowRight, 30),
+            block('kf-rest3', t.blockBreak, 15, 'rest'),
+            block('kf-bridge', t.blockBridge, 40, 'work', t.noteBellOnHips),
+            block('kf-rest4', t.blockBreak, 15, 'rest'),
+            block('kf-swing', t.blockSwing, 40),
+            block('kf-rest5', t.blockBreak, 15, 'rest'),
+            block('kf-pushup', t.blockPushUp, 40),
+            block('kf-rest6', t.blockBreak, 15, 'rest'),
+            block('kf-curl', t.blockBicepCurl, 40),
+            block('kf-longrest', t.blockLongRest, 45, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,
