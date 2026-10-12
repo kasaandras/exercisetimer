@@ -1,4 +1,5 @@
 import type { Lang } from './i18n'
+import { breathingTrainerProgram } from './breathing.ts'
 import { handgripProgram, handgripScriptProgram } from './handgrip.ts'
 import { SOROZAT2_PROMPTER_EN } from './sorozat2PrompterEn.ts'
 import type { Block, Program, Round } from './program'
@@ -490,5 +491,5 @@ const sorozat2Prompter = (): Program => {
 }
 
 export function builtinPrograms(lang: Lang = 'hu'): Program[] {
-  return [sorozat1(lang), sorozat2(lang), sorozat2Prompter(), handgripProgram(lang), handgripScriptProgram()]
+  return [sorozat1(lang), sorozat2(lang), sorozat2Prompter(), handgripProgram(lang), handgripScriptProgram(), breathingTrainerProgram(lang)]
 }
