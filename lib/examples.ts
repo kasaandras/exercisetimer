@@ -173,6 +173,34 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-cardio',
+      name: t.exampleCardio,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // 35 s on, 25 s off, six moves, five rounds, 29:45. Arms and legs
+          // take turns so neither is working twice in a row. The last rest is
+          // trimmed by expandProgram, so the session ends on the plank.
+          blocks: [
+            block('cd-run', t.blockRunningOnSpot, 35),
+            block('cd-rest1', t.blockBreak, 25, 'rest'),
+            block('cd-pushup', t.blockPushUp, 35),
+            block('cd-rest2', t.blockBreak, 25, 'rest'),
+            block('cd-squat', t.blockSquat, 35),
+            block('cd-rest3', t.blockBreak, 25, 'rest'),
+            block('cd-climbers', t.blockMountainClimbers, 35),
+            block('cd-rest4', t.blockBreak, 25, 'rest'),
+            block('cd-swing', t.blockSwing, 35),
+            block('cd-rest5', t.blockBreak, 25, 'rest'),
+            block('cd-plank', t.blockPlank, 35),
+            block('cd-rest6', t.blockBreak, 25, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,

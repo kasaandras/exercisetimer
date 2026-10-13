@@ -118,6 +118,10 @@ export type Dict = {
   blockDeadlift: string
   blockPushUp: string
   noteBellOnHips: string
+  exampleCardio: string
+  blockMountainClimbers: string
+  blockSquat: string
+  blockPlank: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -239,6 +243,10 @@ const en: Dict = {
   blockDeadlift: 'Deadlift',
   blockPushUp: 'Push-up',
   noteBellOnHips: 'Bell resting on your hips',
+  exampleCardio: 'Cardio circuit, 30 min',
+  blockMountainClimbers: 'Mountain climbers',
+  blockSquat: 'Squats',
+  blockPlank: 'Plank',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -360,6 +368,10 @@ const es: Dict = {
   blockDeadlift: 'Peso muerto',
   blockPushUp: 'Flexiones',
   noteBellOnHips: 'Kettlebell apoyada en la cadera',
+  exampleCardio: 'Circuito cardio, 30 min',
+  blockMountainClimbers: 'Escaladores',
+  blockSquat: 'Sentadillas',
+  blockPlank: 'Plancha',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -481,6 +493,10 @@ const hu: Dict = {
   blockDeadlift: 'Felhúzás',
   blockPushUp: 'Fekvőtámasz',
   noteBellOnHips: 'Kettlebell a csípődön',
+  exampleCardio: 'Kardió kör, 30 perc',
+  blockMountainClimbers: 'Hegymászó',
+  blockSquat: 'Guggolás',
+  blockPlank: 'Plank',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }
