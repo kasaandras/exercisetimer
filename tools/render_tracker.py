@@ -109,7 +109,8 @@ def breath_ring(seconds: int, breath_in: int, elapsed: int) -> Image.Image:
 
 
 def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
-         breath_labels: dict | None = None, simple: bool = False, notes: bool = True) -> Image.Image:
+         breath_labels: dict | None = None, simple: bool = False, notes: bool = True,
+         last_clock: bool = True) -> Image.Image:
     """`simple`: no "next" and no progress bar, and a breathing block shows only its name,
     clock and ring. For calm sessions where the card should stay quiet."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -143,8 +144,10 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
     )
 
     # Only pay for the rows this block actually has.
+    # A goodbye that is held to the end of the video has nothing to count down.
+    show_clock = last_clock or seg is not segments[-1]
     height = (
-        16 + len(name_lines) * NAME_LH + 8 + F_CLOCK.size + 14
+        16 + len(name_lines) * NAME_LH + (8 + F_CLOCK.size + 14 if show_clock else 0)
         + (RING_D + 16 if breath else 0)
         + len(note_lines) * NOTE_LH
         + (10 + F_LABEL.size + 4 + len(next_lines) * NEXT_LH if nxt else 0)
@@ -162,9 +165,10 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
         row += NAME_LH
 
     # The clock gets its own row: it is what a person glances at mid-exercise.
-    row += 8
-    d.text((left, row), clock(remaining), font=F_CLOCK, fill=INK, anchor="lt")
-    row += F_CLOCK.size + 14
+    if show_clock:
+        row += 8
+        d.text((left, row), clock(remaining), font=F_CLOCK, fill=INK, anchor="lt")
+        row += F_CLOCK.size + 14
 
     if breath:
         total, breath_in, elapsed, inhaling = breath
@@ -213,6 +217,8 @@ def main() -> None:
     ap.add_argument("--to", dest="end", type=float, default=None)
     ap.add_argument("--no-notes", dest="notes", action="store_false",
                     help="no instruction text on any card (the app carries the written info)")
+    ap.add_argument("--no-last-clock", dest="last_clock", action="store_false",
+                    help="no countdown on the last block (a goodbye held to the end of the video)")
     ap.add_argument("--simple", action="store_true",
                     help="no next or progress bar; breathing blocks show name, clock and ring only")
     args = ap.parse_args()
@@ -226,7 +232,8 @@ def main() -> None:
 
     count = int(end - args.start)
     for i in range(count):
-        draw(segments, args.start + i, next_label, breath_labels, args.simple, args.notes).save(args.outdir / f"f{i:05d}.png")
+        draw(segments, args.start + i, next_label, breath_labels, args.simple, args.notes,
+             args.last_clock).save(args.outdir / f"f{i:05d}.png")
         if i % 120 == 0:
             print(f"\r  {i}/{count}", end="", flush=True)
     print(f"\r  {count}/{count} frames in {args.outdir}")

@@ -256,9 +256,11 @@ export function breathingTrainerProgram(lang: Lang): Program {
       {
         name: c.section.intro,
         blocks: [
-          block('prep', c.intro.name, 70, c.intro.note, c.intro.points),
+          // 85 + 45: on the take in use he talks for ~85 s before "Hogyan végezzük a feladatot?";
+          // breath 1 stays at 2:10 either way.
+          block('prep', c.intro.name, 85, c.intro.note, c.intro.points),
           // Rolls straight on from the welcome: the label changes, nothing sounds.
-          { ...block('prep', c.setup.name, 60, c.setup.note, c.setup.points), quiet: true },
+          { ...block('prep', c.setup.name, 45, c.setup.note, c.setup.points), quiet: true },
         ],
       },
       // Five minutes without a break: one breath every half minute, no rests.
