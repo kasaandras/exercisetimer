@@ -274,10 +274,15 @@ export function breathingTrainerProgram(lang: Lang): Program {
 
 /**
  * The same session with András's English lines on the prompter, for recording the English
- * take: timings, chimes and the breathing ring are identical to `legzotrener`.
+ * take: timings, chimes and the breathing ring are identical to `legzotrener`, except a
+ * longer (silent-ending) goodbye.
  */
+/** His goodbye on the second Hungarian take runs ~20 s past the timer: room for it in English. */
+const GOODBYE_SECONDS = 60
+
 export function breathingPrompterProgram(): Program {
   const base = breathingTrainerProgram('en')
+  const last = base.rounds[base.rounds.length - 1]
   let at = 0
   return {
     ...base,
@@ -285,7 +290,8 @@ export function breathingPrompterProgram(): Program {
     name: 'Breathing trainer — English prompter',
     rounds: base.rounds.map((round) => ({
       ...round,
-      blocks: round.blocks.map((b) => {
+      blocks: round.blocks.map((block) => {
+        const b = round === last ? { ...block, seconds: GOODBYE_SECONDS } : block
         const start = at
         at += b.seconds
         const prompt = BREATHING_PROMPTER_EN.filter(([t]) => t >= start && t < at).map(([t, text]) => ({

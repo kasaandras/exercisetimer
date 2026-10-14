@@ -2,43 +2,41 @@
  * The breathing trainer in English, as short lines for the prompter: [seconds into the
  * session, line].
  *
- * Translated from András's Hungarian take (IMG_1432, 2026-10-12), one idea per line, each
- * placed where he said it in Hungarian (recording time - 1.22 s), so the English take keeps
- * the same rhythm. He says nothing during the five-minute practice, so neither does this.
+ * Translated from András's second Hungarian take (IMG_1470, 2026-10-14), one idea per line,
+ * each placed where he said it in Hungarian (recording time - 0.54 s), so the English take
+ * keeps the same rhythm. His goodbye runs past the end of the timer, so the prompter session
+ * gives the goodbye GOODBYE_SECONDS instead of the usual 35 (see breathing.ts).
+ *
+ * Smoothed on purpose: "more on that later" about the breathe-out setting is dropped (he does
+ * not come back to it), and the level advice is tightened into three lines.
  */
 export const BREATHING_PROMPTER_EN: [number, string][] = [
-  [2.5, "Hi everyone! Today we're training our breathing muscles — the diaphragm."],
-  [7, 'We use a breathing trainer like this one.'],
-  [10.5, 'You can get one at a pharmacy or online.'],
-  [18, 'We do this sitting down the whole time.'],
-  [22, 'The diaphragm is very hard to train on its own.'],
-  [25.5, 'One way is to breathe in against resistance…'],
-  [30.5, '…through a breathing trainer like this.'],
-  [34.5, 'That makes the muscle work harder.'],
-  [38.3, 'Studies show that training it regularly…'],
-  [43.8, '…can help bring your blood pressure down, if you keep at it.'],
-  [49.9, 'Before you start, talk to your doctor…'],
-  [53.2, '…especially with lung or ear problems, or after recent surgery.'],
-  [57.3, "We'll practise for five minutes, without a break."],
-  [60.6, 'Every half minute: one slow, strong breath in, down into the belly.'],
-  [67.1, "Then breathe out normally. Don't stretch it out."],
-  [70.5, 'Keep breathing calmly through your nose until the next chime.'],
-  [72.6, "Can't keep the pace? Do one breath a minute instead."],
-  [78.9, 'The same if this is all new to you.'],
-  [81.2, 'Now, how to set the trainer.'],
-  [85, 'Mine is on four. My range is between four and six.'],
-  [92.5, 'But you should start on one.'],
-  [97.7, 'Then go up week by week…'],
-  [102.2, "…you'll feel which level you can still manage."],
-  [106.3, 'Let me show you how to use it.'],
-  [108.9, 'Close your lips tightly around the mouthpiece.'],
-  [112.3, 'Breathe out through your nose, every time.'],
-  [119.5, 'Finished your breath early? Keep breathing through your nose…'],
-  [126.5, "…and start again with me on the next one. Let's begin!"],
-  [435, "That's it for today's diaphragm training."],
-  [440.2, 'I hope you feel a bit more relaxed.'],
-  [445.4, 'Do this twice a day…'],
-  [448.7, '…for at least six weeks, to feel the effect.'],
-  [454.2, 'And please: always rinse your trainer and keep it clean.'],
-  [460.5, 'Thanks for joining me. See you in the next video. Bye!'],
+  [1.5, "Hi everyone! Today we're training our breathing muscles with a breathing trainer like this one."],
+  [6.7, 'You can get one like this online, or maybe at a pharmacy.'],
+  [12, 'You can set how hard it is to breathe in and out. Today we only use it for breathing in.'],
+  [19.2, "There's hardly any other way to train the diaphragm than breathing in against resistance."],
+  [24.5, 'That makes the muscle work harder and get stronger, and that can help your blood pressure.'],
+  [33.9, 'For that, do this exercise at least five times a week, for six weeks.'],
+  [41.3, 'Before you start, talk to your doctor, especially with lung or ear problems, or after recent surgery.'],
+  [48.2, "We'll practise for five minutes without a break: every half minute, one slow, strong breath in through the trainer."],
+  [54.5, 'The rest of the time, breathe calmly through your nose.'],
+  [62.7, 'Dizzy, or a headache? Slow down, or stop. One breath a minute is plenty while you build up.'],
+  [71.2, 'How we do it: sit comfortably on a chair, back straight, feet flat on the floor.'],
+  [77.2, 'Then set the trainer. I suggest everyone starts on level one.'],
+  [82.5, 'Or find your maximum: the highest level where you can breathe in twice in a row.'],
+  [92.1, 'Mine is six. Then go back one or two levels, so you build up step by step.'],
+  [103.7, "Don't overload the muscle all at once."],
+  [109.5, 'Or start on one, try two the next day, three a week later, and so on.'],
+  [117.4, 'How to use it: just close your lips around the mouthpiece.'],
+  [121.6, "That's all. Let's start. Get ready!"],
+  [126.7, "We'll start with one breath in."],
+  [151.4, 'Now breathe calmly through your nose until the next chime.'],
+  [436.2, "That's how we strengthen our diaphragm."],
+  [438.7, 'Now just breathe calmly. I suggest doing this twice a day: morning and evening.'],
+  [447.3, 'You can set the times in the app, and add a reminder too.'],
+  [455, 'After use, rinse the mouthpiece. Please always keep it clean.'],
+  [460, 'Thank you so much for joining me. You can find more videos in the video library.'],
+  [467.2, "There's also a version of this exercise that's just the animation."],
+  [473.3, "So if you'd rather follow the animation on its own, you'll find it in the library too."],
+  [482.2, 'Thanks again, and have a lovely day!'],
 ]
