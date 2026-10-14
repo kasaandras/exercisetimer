@@ -277,7 +277,7 @@ export function breathingTrainerProgram(lang: Lang): Program {
  * take: timings, chimes and the breathing ring are identical to `legzotrener`, except a
  * longer (silent-ending) goodbye.
  */
-/** His goodbye on the second Hungarian take runs ~20 s past the timer: room for it in English. */
+/** His goodbye on the Hungarian takes runs ~20 s past the timer: room for it in English. */
 const GOODBYE_SECONDS = 60
 
 export function breathingPrompterProgram(): Program {
