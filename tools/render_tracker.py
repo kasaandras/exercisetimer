@@ -109,7 +109,7 @@ def breath_ring(seconds: int, breath_in: int, elapsed: int) -> Image.Image:
 
 
 def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
-         breath_labels: dict | None = None, simple: bool = False) -> Image.Image:
+         breath_labels: dict | None = None, simple: bool = False, notes: bool = True) -> Image.Image:
     """`simple`: no "next" and no progress bar, and a breathing block shows only its name,
     clock and ring. For calm sessions where the card should stay quiet."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -134,7 +134,8 @@ def draw(segments: list[dict], t: float, next_label: str = "KÖVETKEZIK",
     name_lines = wrap(seg["name"], F_NAME, inner)
     # The simple card keeps the instruction where there is time to read it (intro, setup,
     # goodbye) and drops it in breathing blocks, where the ring says everything.
-    note_lines = wrap(seg["note"], F_NOTE, inner) if seg.get("note") and not (simple and breath) else []
+    note_lines = (wrap(seg["note"], F_NOTE, inner)
+                  if seg.get("note") and notes and not (simple and breath) else [])
     if simple:
         nxt = None
     next_lines = (
@@ -210,6 +211,8 @@ def main() -> None:
     ap.add_argument("outdir", type=Path)
     ap.add_argument("--from", dest="start", type=float, default=0.0)
     ap.add_argument("--to", dest="end", type=float, default=None)
+    ap.add_argument("--no-notes", dest="notes", action="store_false",
+                    help="no instruction text on any card (the app carries the written info)")
     ap.add_argument("--simple", action="store_true",
                     help="no next or progress bar; breathing blocks show name, clock and ring only")
     args = ap.parse_args()
@@ -223,7 +226,7 @@ def main() -> None:
 
     count = int(end - args.start)
     for i in range(count):
-        draw(segments, args.start + i, next_label, breath_labels, args.simple).save(args.outdir / f"f{i:05d}.png")
+        draw(segments, args.start + i, next_label, breath_labels, args.simple, args.notes).save(args.outdir / f"f{i:05d}.png")
         if i % 120 == 0:
             print(f"\r  {i}/{count}", end="", flush=True)
     print(f"\r  {count}/{count} frames in {args.outdir}")
