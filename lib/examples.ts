@@ -201,6 +201,36 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-weights-cardio',
+      name: t.exampleWeightsCardio,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // 40 s on, 20 s off, seven moves, then a 45 s break after the round,
+          // five rounds, 36:30 with the countdown. The last long rest is
+          // trimmed by expandProgram, so the session ends on the curls.
+          blocks: [
+            block('wc-run', t.blockRunningOnSpot, 40),
+            block('wc-rest1', t.blockBreak, 20, 'rest'),
+            block('wc-pushpress', t.blockPushPress, 40),
+            block('wc-rest2', t.blockBreak, 20, 'rest'),
+            block('wc-pullthrough', t.blockPushUpPullThrough, 40),
+            block('wc-rest3', t.blockBreak, 20, 'rest'),
+            block('wc-renegade', t.blockRenegadeRow, 40),
+            block('wc-rest4', t.blockBreak, 20, 'rest'),
+            block('wc-climbers', t.blockMountainClimbers, 40),
+            block('wc-rest5', t.blockBreak, 20, 'rest'),
+            block('wc-twist', t.blockRussianTwist, 40),
+            block('wc-rest6', t.blockBreak, 20, 'rest'),
+            block('wc-curl', t.blockBicepCurl, 40),
+            block('wc-longrest', t.blockLongRest, 45, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,
