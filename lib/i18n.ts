@@ -126,6 +126,10 @@ export type Dict = {
   blockPushPress: string
   blockRenegadeRow: string
   blockRussianTwist: string
+  exampleHiit3: string
+  blockSwingLeft: string
+  blockSwingRight: string
+  blockPullUp: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -255,6 +259,10 @@ const en: Dict = {
   blockPushPress: 'Push press',
   blockRenegadeRow: 'Renegade row',
   blockRussianTwist: 'Russian twist',
+  exampleHiit3: 'HIIT 3',
+  blockSwingLeft: 'One-arm swing, left',
+  blockSwingRight: 'One-arm swing, right',
+  blockPullUp: 'Pull-up',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -384,6 +392,10 @@ const es: Dict = {
   blockPushPress: 'Push press',
   blockRenegadeRow: 'Remo renegado',
   blockRussianTwist: 'Giro ruso',
+  exampleHiit3: 'HIIT 3',
+  blockSwingLeft: 'Swing a una mano, izquierda',
+  blockSwingRight: 'Swing a una mano, derecha',
+  blockPullUp: 'Dominada',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -513,6 +525,10 @@ const hu: Dict = {
   blockPushPress: 'Lökőnyomás',
   blockRenegadeRow: 'Renegade evezés',
   blockRussianTwist: 'Orosz csavar',
+  exampleHiit3: 'HIIT 3',
+  blockSwingLeft: 'Egykezes lendítés, bal',
+  blockSwingRight: 'Egykezes lendítés, jobb',
+  blockPullUp: 'Húzódzkodás',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }

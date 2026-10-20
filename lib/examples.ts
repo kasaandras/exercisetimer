@@ -231,6 +231,36 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-hiit-3',
+      name: t.exampleHiit3,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // 40 s on, 20 s off, seven moves, kettlebell and dumbbells. The 45 s
+          // break replaces the 20 s rest after the curl. Five rounds, 36:30
+          // with the countdown; the last long rest is trimmed by expandProgram.
+          blocks: [
+            block('h3-swing-l', t.blockSwingLeft, 40),
+            block('h3-rest1', t.blockBreak, 20, 'rest'),
+            block('h3-swing-r', t.blockSwingRight, 40),
+            block('h3-rest2', t.blockBreak, 20, 'rest'),
+            block('h3-pullup', t.blockPullUp, 40),
+            block('h3-rest3', t.blockBreak, 20, 'rest'),
+            block('h3-extension', t.blockOverheadExtension, 40),
+            block('h3-rest4', t.blockBreak, 20, 'rest'),
+            block('h3-row-l', t.blockRowLeft, 40),
+            block('h3-rest5', t.blockBreak, 20, 'rest'),
+            block('h3-row-r', t.blockRowRight, 40),
+            block('h3-rest6', t.blockBreak, 20, 'rest'),
+            block('h3-curl', t.blockBicepCurl, 40),
+            block('h3-longrest', t.blockLongRest, 45, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,
