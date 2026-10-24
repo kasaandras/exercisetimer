@@ -261,6 +261,39 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-hiit-4',
+      name: t.exampleHiit4,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // 40 s on, 20 s off, seven moves, dumbbells. The row is one 40 s move
+          // split into 20 s left and 20 s right with no break between, so the
+          // timer calls the side change at half time. The 45 s break replaces
+          // the rest after the row. Five rounds, 36:30 with the countdown; the
+          // last long rest is trimmed by expandProgram.
+          blocks: [
+            block('h4-jacks', t.blockJumpingJacks, 40),
+            block('h4-rest1', t.blockBreak, 20, 'rest'),
+            block('h4-deadlift', t.blockDeadlift, 40),
+            block('h4-rest2', t.blockBreak, 20, 'rest'),
+            block('h4-pushup', t.blockPushUp, 40),
+            block('h4-rest3', t.blockBreak, 20, 'rest'),
+            block('h4-burpee', t.blockBurpee, 40),
+            block('h4-rest4', t.blockBreak, 20, 'rest'),
+            block('h4-chestpress', t.blockChestPress, 40),
+            block('h4-rest5', t.blockBreak, 20, 'rest'),
+            block('h4-curl', t.blockBicepCurl, 40),
+            block('h4-rest6', t.blockBreak, 20, 'rest'),
+            block('h4-row-l', t.blockRowLeft, 20),
+            block('h4-row-r', t.blockRowRight, 20),
+            block('h4-longrest', t.blockLongRest, 45, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,

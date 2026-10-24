@@ -130,6 +130,10 @@ export type Dict = {
   blockSwingLeft: string
   blockSwingRight: string
   blockPullUp: string
+  exampleHiit4: string
+  blockJumpingJacks: string
+  blockBurpee: string
+  blockChestPress: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -263,6 +267,10 @@ const en: Dict = {
   blockSwingLeft: 'One-arm swing, left',
   blockSwingRight: 'One-arm swing, right',
   blockPullUp: 'Pull-up',
+  exampleHiit4: 'HIIT 4',
+  blockJumpingJacks: 'Jumping jacks',
+  blockBurpee: 'Burpee',
+  blockChestPress: 'Chest press',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -396,6 +404,10 @@ const es: Dict = {
   blockSwingLeft: 'Swing a una mano, izquierda',
   blockSwingRight: 'Swing a una mano, derecha',
   blockPullUp: 'Dominada',
+  exampleHiit4: 'HIIT 4',
+  blockJumpingJacks: 'Saltos de tijera',
+  blockBurpee: 'Burpee',
+  blockChestPress: 'Press de pecho',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -529,6 +541,10 @@ const hu: Dict = {
   blockSwingLeft: 'Egykezes lendítés, bal',
   blockSwingRight: 'Egykezes lendítés, jobb',
   blockPullUp: 'Húzódzkodás',
+  exampleHiit4: 'HIIT 4',
+  blockJumpingJacks: 'Terpeszugrás',
+  blockBurpee: 'Burpee',
+  blockChestPress: 'Mellnyomás',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }
