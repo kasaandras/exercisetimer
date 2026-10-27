@@ -294,6 +294,40 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-qigong',
+      name: t.exampleQigong,
+      prepSeconds: 10,
+      repeatRounds: 1,
+      rounds: [
+        {
+          name: t.roundWarmUp,
+          // Qigong / tai chi style morning warm-up: ten gentle moves, a minute
+          // each, with 10 s to change between them. 11:40 with the countdown.
+          blocks: [
+            block('qg-hops', t.blockLymphaticHops, 60),
+            block('qg-change1', t.blockChange, 10, 'rest'),
+            block('qg-waves', t.blockBodyWaves, 60),
+            block('qg-change2', t.blockChange, 10, 'rest'),
+            block('qg-twists', t.blockTrunkTwists, 60),
+            block('qg-change3', t.blockChange, 10, 'rest'),
+            block('qg-armswings', t.blockArmSwings, 60),
+            block('qg-change4', t.blockChange, 10, 'rest'),
+            block('qg-deadarms', t.blockDeadArms, 60),
+            block('qg-change5', t.blockChange, 10, 'rest'),
+            block('qg-golf', t.blockGolfSwings, 60),
+            block('qg-change6', t.blockChange, 10, 'rest'),
+            block('qg-march', t.blockMarching, 60),
+            block('qg-change7', t.blockChange, 10, 'rest'),
+            block('qg-windmills', t.blockWindmills, 60),
+            block('qg-change8', t.blockChange, 10, 'rest'),
+            block('qg-ballet', t.blockBalletSquats, 60),
+            block('qg-change9', t.blockChange, 10, 'rest'),
+            block('qg-horse', t.blockHorseStance, 60),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-chair',
       name: t.exampleChair,
       prepSeconds: 10,

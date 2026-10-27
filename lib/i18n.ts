@@ -134,6 +134,17 @@ export type Dict = {
   blockJumpingJacks: string
   blockBurpee: string
   blockChestPress: string
+  exampleQigong: string
+  blockLymphaticHops: string
+  blockBodyWaves: string
+  blockTrunkTwists: string
+  blockArmSwings: string
+  blockDeadArms: string
+  blockGolfSwings: string
+  blockWindmills: string
+  blockBalletSquats: string
+  blockHorseStance: string
+  blockChange: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -271,6 +282,17 @@ const en: Dict = {
   blockJumpingJacks: 'Jumping jacks',
   blockBurpee: 'Burpee',
   blockChestPress: 'Chest press',
+  exampleQigong: 'Qigong morning warm-up, 12 min',
+  blockLymphaticHops: 'Lymphatic hops',
+  blockBodyWaves: 'Body waves',
+  blockTrunkTwists: 'Trunk twists',
+  blockArmSwings: 'Arm swings',
+  blockDeadArms: 'Dead arms',
+  blockGolfSwings: 'Golf swings',
+  blockWindmills: 'Windmills',
+  blockBalletSquats: 'Ballet squats',
+  blockHorseStance: 'Horse stance',
+  blockChange: 'Change',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -408,6 +430,17 @@ const es: Dict = {
   blockJumpingJacks: 'Saltos de tijera',
   blockBurpee: 'Burpee',
   blockChestPress: 'Press de pecho',
+  exampleQigong: 'Calentamiento matutino qigong, 12 min',
+  blockLymphaticHops: 'Saltitos linfáticos',
+  blockBodyWaves: 'Ondas corporales',
+  blockTrunkTwists: 'Giros de tronco',
+  blockArmSwings: 'Balanceo de brazos',
+  blockDeadArms: 'Brazos sueltos',
+  blockGolfSwings: 'Swing de golf',
+  blockWindmills: 'Molinos',
+  blockBalletSquats: 'Sentadillas de ballet',
+  blockHorseStance: 'Postura del caballo',
+  blockChange: 'Cambio',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -545,6 +578,17 @@ const hu: Dict = {
   blockJumpingJacks: 'Terpeszugrás',
   blockBurpee: 'Burpee',
   blockChestPress: 'Mellnyomás',
+  exampleQigong: 'Reggeli qigong bemelegítés, 12 perc',
+  blockLymphaticHops: 'Nyirokmozgató szökdelés',
+  blockBodyWaves: 'Egész test hullám',
+  blockTrunkTwists: 'Törzsfordítás',
+  blockArmSwings: 'Karlendítés',
+  blockDeadArms: 'Laza karok',
+  blockGolfSwings: 'Golflendítés',
+  blockWindmills: 'Szélmalom',
+  blockBalletSquats: 'Balett guggolás',
+  blockHorseStance: 'Lovaglóállás',
+  blockChange: 'Váltás',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }
