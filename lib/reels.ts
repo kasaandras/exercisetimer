@@ -25,6 +25,30 @@ export const REEL1_FEHERKOPENY: [number, string][] = [
 ]
 
 /**
+ * Reel 1 in English, translated from his final Hungarian take (IMG_1667, 2026-10-29), each line
+ * placed where he said it in Hungarian (recording time - 9.2 s, the start tone), so the English
+ * take keeps the same rhythm. The first line waits until 1.2 s so the start tone has died away.
+ */
+export const REEL1_WHITE_COAT_EN: [number, string][] = [
+  [1.2, "Have you ever had a much higher blood pressure reading at the doctor's than you expected?"],
+  [7.1, "That could be what's called the white coat effect."],
+  [10.2, 'In that moment, not just your heart rate but your blood pressure can go up too,'],
+  [13.5, "from the stress of being at the doctor's."],
+  // Effect: pop + sleeping cat on "relax".
+  [16.8, "And of course it doesn't help when someone tells you: “Relax, just let go!”"],
+  [22.4, "Because it's really hard to relax in a doctor's office."],
+  [25.8, "Your mood, your habits, even what you've eaten or drunk can affect your blood pressure."],
+  [31.9, "We're building an app called BePal."],
+  [35.1, 'It helps you log your blood pressure calmly at home,'],
+  [39.3, 'along with coffee, sleep, exercise, and anything else you like.'],
+  [43.5, 'Then you can talk it all through with your doctor,'],
+  [46.5, 'who can help you work out what changes to your lifestyle you need.'],
+  [50.4, 'The iPhone app arrives in November.'],
+  [53, 'Join the waitlist: the link is in my profile.'],
+  [55.5, 'And your first month of premium is free.'],
+]
+
+/**
  * One reel as a prompter session: a 5 s get-ready (its pips and start tone fall before the
  * first word, and give the edit a sync mark), then the lines, ending without a finish tone
  * so nothing sounds under the last words.
@@ -54,7 +78,10 @@ function reelProgram(id: string, name: string, seconds: number, lines: [number, 
 }
 
 export function reelPrograms(): Program[] {
-  return [reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY)]
+  return [
+    reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY),
+    reelProgram('reel-1-white-coat-en', 'BePal reel 1 — white coat effect (English)', 62, REEL1_WHITE_COAT_EN),
+  ]
 }
 
 /** Reels live on their own tab, not in the program list. */
