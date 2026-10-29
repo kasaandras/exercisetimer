@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSettings } from '@/components/Providers'
 import { allPrograms, setActiveProgramId } from '@/lib/active'
+import { isReel } from '@/lib/reels'
 import {
   expandProgram,
   formatClock,
@@ -26,7 +27,8 @@ export default function ProgramsPage() {
   const [toast, setToast] = useState<string | null>(null)
 
   const refresh = useCallback(() => {
-    setPrograms(allPrograms(lang))
+    // Reels have their own tab.
+    setPrograms(allPrograms(lang).filter((p) => !isReel(p)))
     setSavedIds(new Set(programStore.list().map((p) => p.id)))
   }, [lang])
 

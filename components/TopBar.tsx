@@ -16,6 +16,7 @@ export function TopBar() {
       <nav aria-label={t.appName}>
         <Link href="/" aria-current={here('/')}>{t.navRun}</Link>
         <Link href="/programs" aria-current={here('/programs')}>{t.navPrograms}</Link>
+        <Link href="/reels" aria-current={here('/reels')}>{t.navReels}</Link>
         <Link href="/cues" aria-current={here('/cues')}>{t.navCues}</Link>
       </nav>
       <label className="visually-hidden" htmlFor="lang">Language</label>

@@ -11,6 +11,9 @@ export type Dict = {
   tagline: string
   navRun: string
   navPrograms: string
+  navReels: string
+  reelsTitle: string
+  reelsIntro: string
   navCues: string
 
   ready: string
@@ -155,6 +158,9 @@ const en: Dict = {
     'Three short pips count you into every change, then one long tone marks it. You never need to look at the screen.',
   navRun: 'Run',
   navPrograms: 'Programs',
+  navReels: 'Reels',
+  reelsTitle: 'Reels',
+  reelsIntro: 'Short marketing videos: pick one and read the lines from the prompter.',
   navCues: 'Cue key',
 
   ready: 'Ready when you are',
@@ -303,6 +309,9 @@ const es: Dict = {
     'Tres pitidos cortos te cuentan cada cambio y un tono largo lo marca. No hace falta mirar la pantalla.',
   navRun: 'Sesión',
   navPrograms: 'Programas',
+  navReels: 'Reels',
+  reelsTitle: 'Reels',
+  reelsIntro: 'Vídeos cortos de marketing: elige uno y lee las frases en el apuntador.',
   navCues: 'Guía de señales',
 
   ready: 'Cuando quieras',
@@ -451,6 +460,9 @@ const hu: Dict = {
     'Három rövid csipogás számol be minden váltást, majd egy hosszú hang jelzi. Nem kell a képernyőt nézned.',
   navRun: 'Edzés',
   navPrograms: 'Programok',
+  navReels: 'Reels',
+  reelsTitle: 'Reels',
+  reelsIntro: 'Rövid marketingvideók: válassz egyet, és olvasd fel a sorokat a súgóról.',
   navCues: 'Hangjelzések',
 
   ready: 'Kezdheted, amikor készen állsz',

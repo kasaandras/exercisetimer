@@ -56,3 +56,8 @@ function reelProgram(id: string, name: string, lines: [number, string][]): Progr
 export function reelPrograms(): Program[] {
   return [reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', REEL1_FEHERKOPENY)]
 }
+
+/** Reels live on their own tab, not in the program list. */
+export function isReel(program: Program): boolean {
+  return program.id.startsWith('reel-')
+}

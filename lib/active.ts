@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { builtinPrograms } from './builtins'
 import { examplePrograms } from './examples'
+import { reelPrograms } from './reels'
 import { dictionaries, type Lang } from './i18n'
 import type { Program } from './program'
 import { decodeProgram, programStore } from './storage'
@@ -17,9 +18,9 @@ export function setActiveProgramId(id: string): void {
   }
 }
 
-/** What ships with the app: the real sessions first, then the samples. */
+/** What ships with the app: the real sessions first, then the samples, then the reels. */
 export function shippedPrograms(lang: Lang): Program[] {
-  return [...builtinPrograms(lang), ...examplePrograms(dictionaries[lang])]
+  return [...builtinPrograms(lang), ...examplePrograms(dictionaries[lang]), ...reelPrograms()]
 }
 
 /** Saved programs first, then everything shipped, deduplicated by id. */
