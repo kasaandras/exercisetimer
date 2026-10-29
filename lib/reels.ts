@@ -12,9 +12,9 @@ export const REEL1_FEHERKOPENY: [number, string][] = [
   [0.5, 'Van egy jelenség, aminek külön neve van: fehérköpeny-hatás.'],
   [5, 'A rendelőben más lehet a vérnyomásod, mint otthon.'],
   // Effect: big eye + boom on "figyelnek".
-  [9, 'Már attól is, hogy ott ülsz, és figyelnek rád.'],
+  [9, 'Ülsz, feszengsz, és közben figyelnek.'],
   // Effect: pop on "Lazítson!".
-  [13, 'Főleg, ha közben azt mondják: „Lazítson!”'],
+  [13, 'Főleg, ha még rád is szólnak: „Lazítson!”'],
   [17.5, 'Szóval a hangulatod hatással lehet a számaidra.'],
   [21.5, 'Én most egy appot építek, a BePal-t,'],
   [24.5, 'hogy otthon, nyugodtan naplózhasd a vérnyomásodat, a kávét, az alvást és a mozgást.'],
