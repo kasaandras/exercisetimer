@@ -109,8 +109,9 @@ const WALL_SIT_COPY: Record<Lang, { name: string; intro: string; introNote: stri
 }
 
 /**
- * The daily wall sit: a silent intro, one tone to start, two minutes without
- * pips, one low tone to stop, then it runs out with no more sound.
+ * The daily wall sit, in the soft tones: a tone at 0:00 to cut the video on, the
+ * usual countdown into the start tone, the same countdown into the stop tone,
+ * then it runs out with no more sound.
  */
 const wallSit = (lang: Lang): Program => {
   const c = WALL_SIT_COPY[lang]
@@ -119,12 +120,13 @@ const wallSit = (lang: Lang): Program => {
     name: c.name,
     prepSeconds: 0,
     repeatRounds: 1,
+    sound: 'soft',
     rounds: [
       {
         name: c.hold,
         blocks: [
-          { id: 'ws-intro', name: c.intro, seconds: 15, kind: 'prep', note: c.introNote, quiet: true, quietEnd: true },
-          { id: 'ws-hold', name: c.hold, seconds: 120, kind: 'work', note: c.holdNote, quietEnd: true },
+          { id: 'ws-intro', name: c.intro, seconds: 15, kind: 'prep', note: c.introNote },
+          { id: 'ws-hold', name: c.hold, seconds: 120, kind: 'work', note: c.holdNote },
           { id: 'ws-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true },
         ],
       },
