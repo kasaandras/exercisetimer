@@ -604,60 +604,6 @@ const sorozat2Prompter = (): Program => {
   }
 }
 
-const WALL_SIT_COPY: Record<Lang, { name: string; intro: string; introNote: string; hold: string; holdNote: string; end: string; endNote: string }> = {
-  hu: {
-    name: 'Falülés — 2 perc',
-    intro: 'Bevezető',
-    introNote: 'Hát a falnak, lábak vállszélességben, csússz le lassan.',
-    hold: 'Falülés',
-    holdNote: 'Térd a boka fölött, folyamatosan lélegezz. Könnyítés: csússz kevésbé mélyre.',
-    end: 'Kész',
-    endNote: 'Állj fel lassan, és rázd meg a lábad.',
-  },
-  en: {
-    name: 'Wall sit — 2 minutes',
-    intro: 'Intro',
-    introNote: 'Back against the wall, feet shoulder-width apart, slide down slowly.',
-    hold: 'Wall sit',
-    holdNote: 'Knees over your ankles, keep breathing. Easier: don’t slide down as far.',
-    end: 'Done',
-    endNote: 'Stand up slowly and shake out your legs.',
-  },
-  es: {
-    name: 'Sentadilla en pared — 2 minutos',
-    intro: 'Introducción',
-    introNote: 'Espalda contra la pared, pies a la anchura de los hombros, baja despacio.',
-    hold: 'Sentadilla en pared',
-    holdNote: 'Rodillas sobre los tobillos, sigue respirando. Más fácil: baja menos.',
-    end: 'Listo',
-    endNote: 'Levántate despacio y sacude las piernas.',
-  },
-}
-
-/**
- * The daily wall sit: a silent intro, one tone to start, two minutes without
- * pips, one low tone to stop, then it runs out with no more sound.
- */
-const wallSit = (lang: Lang): Program => {
-  const c = WALL_SIT_COPY[lang]
-  return {
-    id: 'wall-sit-2min',
-    name: c.name,
-    prepSeconds: 0,
-    repeatRounds: 1,
-    rounds: [
-      {
-        name: c.hold,
-        blocks: [
-          { id: 'ws-intro', name: c.intro, seconds: 15, kind: 'prep', note: c.introNote, quiet: true, quietEnd: true },
-          { id: 'ws-hold', name: c.hold, seconds: 120, kind: 'work', note: c.holdNote, quietEnd: true },
-          { id: 'ws-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true },
-        ],
-      },
-    ],
-  }
-}
-
 export function builtinPrograms(lang: Lang = 'hu'): Program[] {
-  return [sorozat1(lang), sorozat2(lang), sorozat3(lang), sorozat2Prompter(), handgripProgram(lang), handgripScriptProgram(), breathingTrainerProgram(lang), breathingPrompterProgram(), wallSit(lang)]
+  return [sorozat1(lang), sorozat2(lang), sorozat3(lang), sorozat2Prompter(), handgripProgram(lang), handgripScriptProgram(), breathingTrainerProgram(lang), breathingPrompterProgram()]
 }

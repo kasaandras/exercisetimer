@@ -5,6 +5,7 @@
  */
 import { expandProgram, planCues, totalSeconds, formatClock } from '../lib/program.ts'
 import { builtinPrograms } from '../lib/builtins.ts'
+import { reelPrograms } from '../lib/reels.ts'
 import { examplePrograms } from '../lib/examples.ts'
 import { dictionaries } from '../lib/i18n.ts'
 
@@ -14,7 +15,7 @@ const check = (label: string, ok: boolean, detail = '') => {
   console.log(`${ok ? '  ok  ' : ' FAIL '} ${label}${detail ? ` — ${detail}` : ''}`)
 }
 
-for (const program of [...examplePrograms(dictionaries.en), ...builtinPrograms()]) {
+for (const program of [...examplePrograms(dictionaries.en), ...builtinPrograms(), ...reelPrograms()]) {
   const segments = expandProgram(program)
   const events = planCues(segments)
   const total = totalSeconds(segments)

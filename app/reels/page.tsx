@@ -7,7 +7,7 @@ import { expandProgram, formatClock, totalSeconds } from '@/lib/program'
 import { reelPrograms } from '@/lib/reels'
 
 export default function ReelsPage() {
-  const { t } = useSettings()
+  const { t, lang } = useSettings()
   const router = useRouter()
 
   return (
@@ -15,18 +15,25 @@ export default function ReelsPage() {
       <h1>{t.reelsTitle}</h1>
       <p className="lead">{t.reelsIntro}</p>
 
-      {reelPrograms().map((program) => {
+      {reelPrograms(lang).map((program) => {
+        const segments = expandProgram(program)
         const take = program.rounds[0]?.blocks[0]
         return (
           <article className="card" key={program.id}>
             <h3>{program.name}</h3>
-            <p className="sub">{t.totalLength(formatClock(totalSeconds(expandProgram(program))))}</p>
+            <p className="sub">{t.totalLength(formatClock(totalSeconds(segments)))}</p>
             <ol className="reelLines">
-              {take?.prompt?.map((line) => (
-                <li key={line.at}>
-                  <span className="reelAt">{formatClock(line.at)}</span> {line.text}
-                </li>
-              ))}
+              {take?.prompt
+                ? take.prompt.map((line) => (
+                    <li key={line.at}>
+                      <span className="reelAt">{formatClock(line.at)}</span> {line.text}
+                    </li>
+                  ))
+                : segments.map((segment) => (
+                    <li key={segment.startsAt}>
+                      <span className="reelAt">{formatClock(segment.startsAt)}</span> {segment.name}: {segment.note}
+                    </li>
+                  ))}
             </ol>
             <div className="row">
               <button
