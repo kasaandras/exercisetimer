@@ -139,8 +139,11 @@ export function expandProgram(program: Program, prepLabel = 'Get ready'): Segmen
   }
 
   // A break followed immediately by "session finished" is dead air, so the
-  // session always ends on the last piece of work.
-  while (segments.length > 0 && segments[segments.length - 1].kind === 'rest') {
+  // session always ends on the last piece of work. A quiet-ended break is kept:
+  // no finish tone follows it, and its low tone is how the work is stopped.
+  while (segments.length > 0) {
+    const last = segments[segments.length - 1]
+    if (last.kind !== 'rest' || last.quietEnd) break
     segments.pop()
   }
 

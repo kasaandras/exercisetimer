@@ -21,7 +21,8 @@ for (const program of [...examplePrograms(dictionaries.en), ...builtinPrograms()
 
   console.log(`\n${program.name} — ${formatClock(total)}, ${segments.length} blocks, ${events.length} cues`)
 
-  check('ends on work, not a break', segments[segments.length - 1].kind !== 'rest',
+  const lastBlock = segments[segments.length - 1]
+  check('ends on work, not a break (a quiet-ended break is allowed)', lastBlock.kind !== 'rest' || lastBlock.quietEnd === true,
     `last block is ${segments[segments.length - 1].kind}`)
 
   check('events are in chronological order',
