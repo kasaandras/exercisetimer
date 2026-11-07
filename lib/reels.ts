@@ -125,7 +125,7 @@ const wallSit = (lang: Lang): Program => {
       {
         name: c.hold,
         blocks: [
-          { id: 'ws-intro', name: c.intro, seconds: 15, kind: 'prep', note: c.introNote },
+          { id: 'ws-intro', name: c.intro, seconds: 40, kind: 'prep', note: c.introNote },
           { id: 'ws-hold', name: c.hold, seconds: 120, kind: 'work', note: c.holdNote },
           { id: 'ws-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true },
         ],
