@@ -50,6 +50,35 @@ export const REEL1_WHITE_COAT_EN: [number, string][] = [
 ]
 
 /**
+ * The wall sit challenge in English, translated from his approved Hungarian takes (2026-11-09),
+ * each line placed where he said it in Hungarian, so the English take keeps the same rhythm.
+ * The first line waits until 1.2 s so the start tone has died away.
+ * Intro from IMG_2621 (recording time - 17.04 s), demo from IMG_2628 (recording time - 6.16 s).
+ */
+export const WALL_SIT_INTRO_EN: [number, string][] = [
+  [1.2, "Hi everyone! Today I'd like to invite you to a 90-day wall sit challenge."],
+  [8.05, "During this challenge, we'll do this hold for two minutes every day."],
+  [14.5, 'I should mention that two minutes is a really long time.'],
+  [17.4, "So at the start, it's completely fine to do one minute, or one and a half."],
+  [22.8, "It's also fine to do three rounds of thirty seconds,"],
+  [26.2, "or, if that's too much, three rounds of twenty seconds."],
+  [31.75, 'Another option, if you want to make it easier,'],
+  [35.75, 'is to hold a higher position, so your thighs have less work to do.'],
+  [41.95, "Let me show you how it's done."],
+]
+
+export const WALL_SIT_DEMO_EN: [number, string][] = [
+  [1.2, "I'm standing about 25 to 30 centimeters from the wall,"],
+  [4.3, 'with my feet shoulder-width apart.'],
+  [8.25, 'Then I lean back against the wall,'],
+  [11.25, 'and slide down a little.'],
+  [13.4, 'This is a fairly high position, which is perfectly fine for beginners.'],
+  [17.6, 'But if you want a real challenge, slide down lower.'],
+  [22.75, 'That makes it harder,'],
+  [25, "and it's going to be really tough to hold for two minutes."],
+]
+
+/**
  * One reel as a prompter session: a 5 s get-ready (its pips and start tone fall before the
  * first word, and give the edit a sync mark), then the lines, ending without a finish tone
  * so nothing sounds under the last words.
@@ -137,6 +166,8 @@ const wallSit = (lang: Lang): Program => {
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     wallSit(lang),
+    reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
+    reelProgram('reel-wall-sit-demo-en', 'Wall sit challenge — demo (English)', 31, WALL_SIT_DEMO_EN),
     reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY),
     reelProgram('reel-1-white-coat-en', 'BePal reel 1 — white coat effect (English)', 62, REEL1_WHITE_COAT_EN),
   ]
