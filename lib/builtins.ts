@@ -28,7 +28,7 @@ type ExKey =
   | 'setaOldalemeles' | 'tubefuzes' | 'vadlinyujtasLabankent' | 'elkoszones'
   | 'kocogas' | 'lassuFekvotamasz' | 'tempoGuggolas' | 'gyorsTerdemeles'
   | 'terpeszZar' | 'terdKonyok' | 'ollozo' | 'oldallepesSarokBicepsz'
-  | 'egeszTestHullam' | 'szokdeles' | 'karlendites' | 'terdAlattTaps' | 'boxolas' | 'oldalsoKitores'
+  | 'egeszTestHullam' | 'szokdeles' | 'balettGuggolas' | 'karlendites' | 'terdAlattTaps' | 'boxolas' | 'oldalsoKitores'
   | 'bicepsz' | 'oldalemeles' | 'elolemeles' | 'hegymaszo' | 'vallTricepsz' | 'setaMellkasnyitas'
 
 type Copy = {
@@ -113,6 +113,7 @@ const hu: Copy = {
     egeszTestHullam: { name: 'Egész test hullám', note: 'Karok fel, majd lazán le, enyhe térdhajlítással, hullámszerűen.' },
     szokdeles: { name: 'Kis szökdelés helyben', note: 'Puhán, a talp elején érkezz. Könnyítés: sarokemelés, ugrás nélkül.' },
     karlendites: { name: 'Karlendítés', note: 'Karok lazán előre-hátra, térd enyhén hajlítva.' },
+    balettGuggolas: { name: 'Balett guggolás', note: 'Széles terpesz, lábujjak kifelé, lassú guggolás; a térd a lábujjak irányába mutat. Könnyítés: kisebb guggolás, padba kapaszkodva.' },
     terdAlattTaps: { name: 'Helyben járás tapssal a térd alatt', note: 'Emeld a térded, és tapsolj alatta. Könnyítés: kisebb térdemelés, taps a térd előtt.' },
     boxolas: { name: 'Boxolás járás közben', note: 'Váltott kézzel ütés előre, a könyök ne feszüljön ki teljesen.' },
     oldalsoKitores: { name: 'Oldalsó kitörés nyújtással', note: 'Váltott oldalra, lassan; a nyújtott láb talpa a földön. Könnyítés: kisebb lépés.' },
@@ -209,6 +210,7 @@ const en: Copy = {
     egeszTestHullam: { name: 'Full body wave', note: 'Arms up, then roll down with soft knees, like a wave.' },
     szokdeles: { name: 'Small hops on the spot', note: 'Land softly on the balls of your feet. Easier: heel raises, no hop.' },
     karlendites: { name: 'Arm swings', note: 'Swing your arms loosely forwards and back, knees soft.' },
+    balettGuggolas: { name: 'Ballet squats', note: 'Wide stance, toes turned out, slow squat with your knees over your toes. Easier: a smaller squat, holding the bench.' },
     terdAlattTaps: { name: 'March with a clap under the knee', note: 'Lift your knee and clap underneath it. Easier: lower knee, clap in front of it.' },
     boxolas: { name: 'Punches while marching', note: 'Alternate punches forward, without locking your elbows.' },
     oldalsoKitores: { name: 'Side lunge stretch', note: 'Alternate sides, slowly; the straight leg\'s foot stays flat. Easier: a smaller step.' },
@@ -305,6 +307,7 @@ const es: Copy = {
     egeszTestHullam: { name: 'Onda de cuerpo completo', note: 'Brazos arriba, luego baja con las rodillas flexionadas, como una ola.' },
     szokdeles: { name: 'Saltitos en el sitio', note: 'Aterriza suave sobre la parte delantera del pie. Más fácil: elevar talones, sin saltar.' },
     karlendites: { name: 'Balanceo de brazos', note: 'Balancea los brazos sueltos adelante y atrás, rodillas flexionadas.' },
+    balettGuggolas: { name: 'Sentadillas de ballet', note: 'Piernas abiertas, puntas hacia fuera, baja despacio con las rodillas hacia las puntas. Más fácil: sentadilla más corta, sujetándote al banco.' },
     terdAlattTaps: { name: 'Marcha con palmada bajo la rodilla', note: 'Sube la rodilla y da una palmada debajo. Más fácil: rodilla más baja, palmada delante.' },
     boxolas: { name: 'Puñetazos marchando', note: 'Golpes alternos al frente, sin bloquear los codos.' },
     oldalsoKitores: { name: 'Zancada lateral con estiramiento', note: 'Alterna lados, despacio; el pie de la pierna estirada apoyado. Más fácil: paso más corto.' },
@@ -501,18 +504,16 @@ const sorozat2 = (lang: Lang): Program => {
   }
 }
 
-/** Series 3 warm-up — 5:15, rising tempo, ending on two moving stretches. */
+/** Series 3 warm-up — 4:00, six moves from the tai chi / qigong set, 40 s each, rising tempo. */
 const warmUp3 = (c: Copy): Round => ({
   name: c.section.warmUp,
   blocks: [
-    block('work', c.ex.jaras, 45),
+    block('work', c.ex.jaras, 40),
     block('work', c.ex.egeszTestHullam, 40),
-    block('work', c.ex.szokdeles, 40),
+    block('work', c.ex.torzsfordulat, 40),
     block('work', c.ex.karlendites, 40),
-    block('work', c.ex.terdAlattTaps, 40),
-    block('work', c.ex.boxolas, 40),
-    block('work', c.ex.csipokorzes, 30),
-    block('work', c.ex.oldalsoKitores, 40),
+    block('work', c.ex.balettGuggolas, 40),
+    block('work', c.ex.szokdeles, 40),
   ],
 })
 
@@ -533,7 +534,7 @@ const coolDown3 = (c: Copy): Block[] => [
 ]
 
 /**
- * Series 3 — about 29:25. Four blocks, cardio–strength–cardio; block 3 repeats block 1
+ * Series 3 — about 28:10. Four blocks, cardio–strength–cardio; block 3 repeats block 1
  * and block 4 repeats block 2 with a different shoulder move. Every jumping move has a
  * no-jump version in its note. Mountain climbers are done with hands on the bench
  * (head above the heart) and come in block 4, not straight after the push-ups.
