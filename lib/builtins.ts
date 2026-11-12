@@ -536,8 +536,7 @@ const coolDown3 = (c: Copy): Block[] => [
 /**
  * Series 3 — about 28:10. Four blocks, cardio–strength–cardio; block 3 repeats block 1
  * and block 4 repeats block 2 with a different shoulder move. Every jumping move has a
- * no-jump version in its note. Mountain climbers are done with hands on the bench
- * (head above the heart) and come in block 4, not straight after the push-ups.
+ * no-jump version in its note. Block 4 ends on tempo squats (mountain climbers dropped 2026-11-12).
  */
 const sorozat3 = (lang: Lang): Program => {
   const c = COPY[lang]
@@ -567,7 +566,7 @@ const sorozat3 = (lang: Lang): Program => {
       sessionBlock(c, 4, [
         block('work', c.ex.ollozo, 60, c.role.cardio),
         block('work', c.ex.elolemeles, 60, c.role.strength),
-        block('work', c.ex.hegymaszo, 60, c.role.cardio),
+        block('work', c.ex.tempoGuggolas, 60, c.role.cardio),
         // Straight into the cool-down, no rest card (as in Series 2).
       ], 0),
       {
