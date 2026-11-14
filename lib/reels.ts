@@ -163,9 +163,88 @@ const wallSit = (lang: Lang): Program => {
   }
 }
 
+type HoldCopy = { name: string; intro: string; introNote: string; rest: string; restNote: string; end: string; endNote: string; holds: [string, string][] }
+
+const HOLDS_COPY: Record<Lang, HoldCopy> = {
+  hu: {
+    name: 'Tartás-kihívás — 5 × 30 mp',
+    intro: 'Bevezető',
+    introNote: 'Első: plank. Helyezkedj el alkaron.',
+    rest: 'Pihenő',
+    restNote: 'Válts a következő gyakorlatra.',
+    end: 'Kész',
+    endNote: 'Lassan állj fel, és rázd meg a karod, lábad.',
+    holds: [
+      ['Plank', 'Alkaron, a test egy egyenes vonal, folyamatosan lélegezz.'],
+      ['Oldalsó plank', 'Félidőben válts oldalt.'],
+      ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
+      ['Szuperman', 'Hason fekve, kar és láb kicsit fent, nézz a földre.'],
+      ['Lábujjhegyen állás', 'Állj fel lábujjhegyre, és tartsd.'],
+    ],
+  },
+  en: {
+    name: 'Hold challenge — 5 × 30 s',
+    intro: 'Intro',
+    introNote: 'First: plank. Get down on your forearms.',
+    rest: 'Rest',
+    restNote: 'Get ready for the next hold.',
+    end: 'Done',
+    endNote: 'Get up slowly and shake out your arms and legs.',
+    holds: [
+      ['Plank', 'On your forearms, body in one straight line, keep breathing.'],
+      ['Side plank', 'Switch sides halfway.'],
+      ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
+      ['Superman hold', 'Face down, arms and legs just off the floor, look down.'],
+      ['Calf raise hold', 'Rise onto your toes and hold.'],
+    ],
+  },
+  es: {
+    name: 'Reto de isométricos — 5 × 30 s',
+    intro: 'Introducción',
+    introNote: 'Primero: plancha. Colócate sobre los antebrazos.',
+    rest: 'Descanso',
+    restNote: 'Prepárate para el siguiente.',
+    end: 'Listo',
+    endNote: 'Levántate despacio y sacude brazos y piernas.',
+    holds: [
+      ['Plancha', 'Sobre los antebrazos, cuerpo en línea recta, sigue respirando.'],
+      ['Plancha lateral', 'Cambia de lado a la mitad.'],
+      ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
+      ['Superman', 'Boca abajo, brazos y piernas un poco elevados, mira al suelo.'],
+      ['Elevación de talones', 'Ponte de puntillas y mantén.'],
+    ],
+  },
+}
+
+/**
+ * Five 30 s holds with 10 s rests, filmed silent: a 25 s intro to get into the first
+ * position (its tone at 0:00 is the cut mark), the usual countdown into each hold,
+ * and a quiet end with no more sound.
+ */
+const holdChallenge = (lang: Lang): Program => {
+  const c = HOLDS_COPY[lang]
+  const blocks: Program['rounds'][number]['blocks'] = [
+    { id: 'hc-intro', name: c.intro, seconds: 25, kind: 'prep', note: c.introNote },
+  ]
+  c.holds.forEach(([name, note], i) => {
+    if (i > 0) blocks.push({ id: `hc-rest-${i}`, name: c.rest, seconds: 10, kind: 'rest', note: `${c.restNote} ${name}.` })
+    blocks.push({ id: `hc-hold-${i + 1}`, name, seconds: 30, kind: 'work', note })
+  })
+  blocks.push({ id: 'hc-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true })
+  return {
+    id: 'reel-hold-challenge-5x30',
+    name: c.name,
+    prepSeconds: 0,
+    repeatRounds: 1,
+    sound: 'soft',
+    rounds: [{ name: c.name, blocks }],
+  }
+}
+
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     wallSit(lang),
+    holdChallenge(lang),
     reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
     reelProgram('reel-wall-sit-demo-en', 'Wall sit challenge — demo (English)', 31, WALL_SIT_DEMO_EN),
     reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY),
