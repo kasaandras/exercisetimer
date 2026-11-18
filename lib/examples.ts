@@ -180,8 +180,8 @@ export function examplePrograms(t: Dict): Program[] {
       rounds: [
         {
           name: t.roundCircuit,
-          // Seven moves, 35 s on, 25 s off, 45 s between rounds, five rounds,
-          // 36:05. The three core moves (tridents, leg passes, around the
+          // Eight moves, 35 s on, 25 s off, 45 s between rounds, five rounds,
+          // 41:05. The three core moves (tridents, leg passes, around the
           // world) never follow each other, and the floor ones sit between
           // standing lifts. The last long rest is trimmed by expandProgram.
           blocks: [
@@ -198,6 +198,8 @@ export function examplePrograms(t: Dict): Program[] {
             block('k7-around', t.blockAroundTheWorld, 35),
             block('k7-rest6', t.blockBreak, 25, 'rest'),
             block('k7-crush', t.blockCrushPress, 35),
+            block('k7-rest7', t.blockBreak, 25, 'rest'),
+            block('k7-curl', t.blockBicepCurl, 35),
             block('k7-longrest', t.blockLongRest, 45, 'rest'),
           ],
         },
