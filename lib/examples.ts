@@ -185,7 +185,7 @@ export function examplePrograms(t: Dict): Program[] {
           // world) never follow each other, and the floor ones sit between
           // standing lifts. The last long rest is trimmed by expandProgram.
           blocks: [
-            block('k7-swing', t.blockSwing, 35),
+            block('k7-swing', t.blockSwings, 35),
             block('k7-rest1', t.blockBreak, 25, 'rest'),
             block('k7-trident', t.blockTrident, 35),
             block('k7-rest2', t.blockBreak, 25, 'rest'),
