@@ -148,6 +148,13 @@ export type Dict = {
   blockBalletSquats: string
   blockHorseStance: string
   blockChange: string
+  exampleKettlebell7: string
+  blockUprightRow: string
+  blockClean: string
+  blockCrushPress: string
+  blockAroundTheWorld: string
+  blockTrident: string
+  blockLegPassOver: string
   roundCircuit: string
   roundWarmUp: string
 }
@@ -299,6 +306,13 @@ const en: Dict = {
   blockBalletSquats: 'Ballet squats',
   blockHorseStance: 'Horse stance',
   blockChange: 'Change',
+  exampleKettlebell7: 'Kettlebell, 7 moves, 36 min',
+  blockUprightRow: 'Upright row',
+  blockClean: 'Clean',
+  blockCrushPress: 'Crush press',
+  blockAroundTheWorld: 'Around the world',
+  blockTrident: 'Tridents',
+  blockLegPassOver: 'Leg passes over the bell',
   roundCircuit: 'Circuit',
   roundWarmUp: 'Warm-up',
 }
@@ -450,6 +464,13 @@ const es: Dict = {
   blockBalletSquats: 'Sentadillas de ballet',
   blockHorseStance: 'Postura del caballo',
   blockChange: 'Cambio',
+  exampleKettlebell7: 'Kettlebell, 7 ejercicios, 36 min',
+  blockUprightRow: 'Remo al mentón',
+  blockClean: 'Cargada (clean)',
+  blockCrushPress: 'Press apretando la pesa',
+  blockAroundTheWorld: 'Vuelta al mundo',
+  blockTrident: 'Tridentes',
+  blockLegPassOver: 'Piernas por encima de la pesa',
   roundCircuit: 'Circuito',
   roundWarmUp: 'Calentamiento',
 }
@@ -601,6 +622,13 @@ const hu: Dict = {
   blockBalletSquats: 'Balett guggolás',
   blockHorseStance: 'Lovaglóállás',
   blockChange: 'Váltás',
+  exampleKettlebell7: 'Kettlebell, 7 gyakorlat, 36 perc',
+  blockUprightRow: 'Állig húzás',
+  blockClean: 'Felvétel mellre (clean)',
+  blockCrushPress: 'Szorító nyomás (crush press)',
+  blockAroundTheWorld: 'Körbeadás a derék körül',
+  blockTrident: 'Trident (ülve)',
+  blockLegPassOver: 'Lábátvezetés a kettlebell fölött',
   roundCircuit: 'Kör',
   roundWarmUp: 'Bemelegítés',
 }

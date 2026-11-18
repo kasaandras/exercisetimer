@@ -173,6 +173,37 @@ export function examplePrograms(t: Dict): Program[] {
       ],
     },
     {
+      id: 'example-kettlebell-7',
+      name: t.exampleKettlebell7,
+      prepSeconds: 10,
+      repeatRounds: 5,
+      rounds: [
+        {
+          name: t.roundCircuit,
+          // Seven moves, 35 s on, 25 s off, 45 s between rounds, five rounds,
+          // 36:05. The three core moves (tridents, leg passes, around the
+          // world) never follow each other, and the floor ones sit between
+          // standing lifts. The last long rest is trimmed by expandProgram.
+          blocks: [
+            block('k7-swing', t.blockSwing, 35),
+            block('k7-rest1', t.blockBreak, 25, 'rest'),
+            block('k7-trident', t.blockTrident, 35),
+            block('k7-rest2', t.blockBreak, 25, 'rest'),
+            block('k7-row', t.blockUprightRow, 35),
+            block('k7-rest3', t.blockBreak, 25, 'rest'),
+            block('k7-legpass', t.blockLegPassOver, 35),
+            block('k7-rest4', t.blockBreak, 25, 'rest'),
+            block('k7-clean', t.blockClean, 35),
+            block('k7-rest5', t.blockBreak, 25, 'rest'),
+            block('k7-around', t.blockAroundTheWorld, 35),
+            block('k7-rest6', t.blockBreak, 25, 'rest'),
+            block('k7-crush', t.blockCrushPress, 35),
+            block('k7-longrest', t.blockLongRest, 45, 'rest'),
+          ],
+        },
+      ],
+    },
+    {
       id: 'example-cardio',
       name: t.exampleCardio,
       prepSeconds: 10,
