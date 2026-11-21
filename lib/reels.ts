@@ -427,18 +427,27 @@ export const HOLDS_INTRO_HU: [number, string][] = [
   [65, 'Az első a plank. Feküdj le, és helyezkedj el alkaron.'],
 ]
 
+/**
+ * English intro, translated from his Hungarian take IMG_2827 (2026-11-21, standing), which he
+ * ad-libbed. Each line sits where he said it in Hungarian (recording time - 5.0 s, the start
+ * tone). The blood-pressure line stays in both languages: his call 2026-11-21.
+ */
 export const HOLDS_INTRO_EN: [number, string][] = [
-  [1.5, "Hi everyone! Today we're doing isometric holds together."],
-  [6.5, 'There are five exercises. We hold each one for thirty seconds, with a fifteen-second break in between.'],
-  [15, 'The whole thing takes about four minutes.'],
-  [19.5, "In an isometric exercise you don't move, you just hold a position."],
-  [25, 'It works your core, your glutes and your calves.'],
-  [30, "You'll need a bit of room and a mat or a rug."],
-  [34.5, "Before you start: if you have a health condition, or you haven't exercised in a while, talk to your doctor first."],
-  [43.5, "Don't hold your breath during the holds. Keep breathing."],
-  [48.5, 'If you feel pain, feel dizzy, or get out of breath, stop and rest.'],
-  [54.5, 'If thirty seconds is too much, hold for less. You can do the plank on your knees too.'],
-  [62, 'First up is the plank. Lie down and get onto your forearms.'],
+  [1.1, "Hi everyone! Today we're going to do some isometric exercises together."],
+  [5.1, 'There are five exercises. We hold each one for thirty seconds,'],
+  [9.9, 'with a fifteen-second break in between.'],
+  [13.1, 'Isometric exercises can help lower blood pressure,'],
+  [17.4, 'but for that you need to do them at least three or four times a week for six weeks.'],
+  [22.1, "In this type of exercise you don't move, you hold a certain position,"],
+  [26.7, 'and that way you work big muscles, like your core, your glutes, or even your calves.'],
+  [34.2, "You'll need a bit of room and a yoga mat."],
+  [37.8, 'Before you start, please talk to your doctor,'],
+  [40.1, "especially if you have any health condition, or you haven't exercised in a while."],
+  [44.8, "During the holds, please don't hold your breath. Keep breathing."],
+  [51.3, 'If you feel pain, feel dizzy, or get out of breath, stop and rest.'],
+  [56.5, 'If thirty seconds is too much at first, hold for less,'],
+  [62.2, 'and you can do the plank on your knees.'],
+  [66.3, "Let's get started. The first one is the plank."],
 ]
 
 /**
@@ -481,7 +490,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     wallSit(lang),
     holdChallenge(lang),
     reelProgram('reel-holds-intro-hu', 'Izometrikus tartás — bevezető (magyar)', 73, HOLDS_INTRO_HU),
-    reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 70, HOLDS_INTRO_EN),
+    reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 73, HOLDS_INTRO_EN),
     reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
     reelProgram('reel-wall-sit-demo-en', 'Wall sit challenge — demo (English)', 31, WALL_SIT_DEMO_EN),
     reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY),
