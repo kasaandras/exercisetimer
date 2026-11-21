@@ -436,7 +436,7 @@ export const HOLDS_INTRO_EN: [number, string][] = [
   [1.1, "Hi everyone! Today we're going to do some isometric exercises together."],
   [5.1, 'There are five exercises. We hold each one for thirty seconds,'],
   [9.9, 'with a fifteen-second break in between.'],
-  [13.1, 'Isometric exercises can help lower blood pressure,'],
+  [13.1, 'Isometric exercises may help lower blood pressure,'],
   [17.4, 'but for that you need to do them at least three or four times a week for six weeks.'],
   [22.1, "In this type of exercise you don't move, you hold a certain position,"],
   [26.7, 'and that way you work big muscles, like your core, your glutes, or even your calves.'],
