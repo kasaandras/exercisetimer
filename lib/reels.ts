@@ -312,7 +312,7 @@ const TAI_CHI_COPY: Record<Lang, TaiChiCopy> = {
     ],
     goodbye: 'Köszönöm, hogy velem tartottál. Sziasztok!',
     moves: [
-      ['Nyirokmozgató szökdelés', 'Kicsi, puha szökdelés, a test laza. Könnyítés: sarokemelés, ugrás nélkül.'],
+      ['Nyirokmozgató szökdelés', 'Piciket ugrálunk, a kezünket is mozgatjuk. Ha nem szeretnél ugrálni, csak emelgesd a lábad.'],
       ['Egész test hullám', 'Karok fel, majd lazán le, enyhe térdhajlítással, hullámszerűen.'],
       ['Törzsfordítás', 'Kezek összekulcsolva elöl, forgasd a törzsed lendületesen.'],
       ['Karemelés', 'Egyik kar a másik után, ritmusosan, lendületesen.'],
