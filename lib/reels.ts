@@ -241,8 +241,155 @@ const holdChallenge = (lang: Lang): Program => {
   }
 }
 
+type TaiChiCopy = {
+  name: string
+  intro: string
+  change: string
+  next: string
+  end: string
+  speech: [number, string][]
+  goodbye: string
+  moves: [string, string][]
+}
+
+/** Intro lines, timed for a slow, natural pace with a pause after each. */
+const TAI_CHI_EN_SPEECH: [number, string][] = [
+  [1.5, "Hi everyone! This morning we're going to do a gentle tai chi style warm-up together."],
+  [10.5, 'There are ten calm moves, a minute each, with a short break in between.'],
+  [18.5, "It's good first thing in the morning, or as a warm-up before a workout or a walk."],
+  [28.5, 'It gets your joints moving, warms up your muscles, and lets you work on your balance.'],
+  [37.5, "Before you start: if you have a health condition, or you haven't exercised in a while, talk to your doctor first."],
+  [49, 'If you feel dizzy, feel pain, or get out of breath, stop and rest.'],
+  [57.5, "Go at your own pace. You don't have to go as low as I do."],
+  [66.5, "The first move has small hops. If you'd rather not jump, just lift your heels."],
+  [75, "In the corner of the screen, you'll always see the next move coming up."],
+  [83.5, "Stand up, give yourself a bit of room, and let's begin!"],
+]
+
+const TAI_CHI_COPY: Record<Lang, TaiChiCopy> = {
+  hu: {
+    name: 'Reggeli tai chi — 10 gyakorlat',
+    intro: 'Bevezető',
+    change: 'Váltás',
+    next: 'Következő:',
+    end: 'Kész',
+    speech: [
+      [1.5, 'Sziasztok! Ma egy reggeli tai chi jellegű átmozgatást csinálunk együtt.'],
+      [10, 'Tíz nyugodt gyakorlat jön, mindegyik egy percig tart, közöttük rövid szünettel.'],
+      [18.5, 'Jó reggel, ébredés után, vagy bemelegítésnek egy edzés vagy séta előtt.'],
+      [27.5, 'Átmozgatja az ízületeket, felmelegíti az izmokat, és közben az egyensúlyodra is figyelsz.'],
+      [37, 'Mielőtt elkezded: ha valamilyen betegséged van, vagy régóta nem mozogtál, beszélj előbb az orvosoddal.'],
+      [48, 'Ha szédülsz, fájdalmat érzel, vagy kifulladsz, állj meg, és pihenj.'],
+      [56, 'Mindent a saját tempódban csinálj. Nem kell olyan mélyre menni, mint én.'],
+      [65.5, 'Az első gyakorlatban van szökdelés. Ha nem szeretnél ugrani, csak emelgesd a sarkadat.'],
+      [75.5, 'A képernyő sarkában mindig látod, melyik gyakorlat jön következőnek.'],
+      [83, 'Állj fel, legyen körülötted egy kis hely, és kezdjük!'],
+    ],
+    goodbye: 'Köszönöm, hogy velem tartottál. Sziasztok!',
+    moves: [
+      ['Nyirokmozgató szökdelés', 'Kicsi, puha szökdelés, a test laza. Könnyítés: sarokemelés, ugrás nélkül.'],
+      ['Egész test hullám', 'Karok fel, majd lazán le, enyhe térdhajlítással, hullámszerűen.'],
+      ['Törzsfordítás', 'Lazán fordulj jobbra-balra, a karok követik a törzset.'],
+      ['Karlendítés', 'Karok lazán előre-hátra, térd enyhén hajlítva.'],
+      ['Laza karok', 'Rázd meg lazán a karjaidat, a váll lent marad.'],
+      ['Golflendítés', 'Összefogott kézzel lendíts lazán egyik oldalról a másikra.'],
+      ['Helyben járás', 'Nyugodt tempó, karok lazán.'],
+      ['Szélmalom', 'Nagy, lassú karkörzés, egyik kar a másik után.'],
+      ['Balett guggolás', 'Széles terpesz, lábujjak kifelé, lassú guggolás. Könnyítés: kisebb guggolás.'],
+      ['Lovaglóállás', 'Széles terpesz, térd enyhén hajlítva, hát egyenes, nyugodt légzés.'],
+    ],
+  },
+  en: {
+    name: 'Morning tai chi — 10 moves',
+    intro: 'Intro',
+    change: 'Change',
+    next: 'Next:',
+    end: 'Done',
+    speech: TAI_CHI_EN_SPEECH,
+    goodbye: 'Thanks for joining me. Bye!',
+    moves: [
+      ['Lymphatic hops', 'Small, soft bounces, body loose. Easier: heel lifts, no jumping.'],
+      ['Full body wave', 'Arms up, then roll down with soft knees, like a wave.'],
+      ['Trunk twists', 'Turn gently left and right, let your arms follow.'],
+      ['Arm swings', 'Arms swing loosely forward and back, knees soft.'],
+      ['Loose arms', 'Shake your arms out loosely, shoulders down.'],
+      ['Golf swings', 'Hands together, swing gently from one side to the other.'],
+      ['Marching on the spot', 'Easy pace, arms loose.'],
+      ['Windmills', 'Big, slow arm circles, one arm after the other.'],
+      ['Ballet squats', 'Wide stance, toes out, squat slowly. Easier: a smaller squat.'],
+      ['Horse stance', 'Wide stance, knees softly bent, back straight, breathe calmly.'],
+    ],
+  },
+  es: {
+    name: 'Tai chi matutino — 10 ejercicios',
+    intro: 'Introducción',
+    change: 'Cambio',
+    next: 'Siguiente:',
+    end: 'Listo',
+    speech: TAI_CHI_EN_SPEECH,
+    goodbye: 'Gracias por acompañarme. ¡Adiós!',
+    moves: [
+      ['Saltitos linfáticos', 'Saltitos pequeños y suaves, cuerpo suelto. Más fácil: elevar talones, sin saltar.'],
+      ['Onda corporal', 'Brazos arriba, luego baja suave con rodillas flexionadas, como una ola.'],
+      ['Giros de tronco', 'Gira suave a izquierda y derecha, los brazos siguen al tronco.'],
+      ['Balanceo de brazos', 'Brazos sueltos adelante y atrás, rodillas suaves.'],
+      ['Brazos sueltos', 'Sacude los brazos sueltos, hombros abajo.'],
+      ['Swing de golf', 'Manos juntas, balancea suave de un lado al otro.'],
+      ['Marcha en el sitio', 'Ritmo tranquilo, brazos sueltos.'],
+      ['Molinos', 'Círculos grandes y lentos con los brazos, uno tras otro.'],
+      ['Sentadillas de ballet', 'Piernas abiertas, puntas hacia fuera, baja despacio. Más fácil: baja menos.'],
+      ['Postura del caballo', 'Piernas abiertas, rodillas un poco flexionadas, espalda recta, respira tranquilo.'],
+    ],
+  },
+}
+
+/**
+ * Morning tai chi follow-along (2026-11-21): a 100 s spoken intro read from the prompter
+ * (doctor line, what it is good for; speech ends about 91 s so the pips stay clear of it),
+ * then the ten qigong moves, 60 s each with 10 s changes, filmed silent and dubbed later.
+ * The change cards name the next move, which the edit shows in the corner circle.
+ * Soft tones; the tone at 0:00 is the cut mark. Ends on a quiet 20 s goodbye.
+ */
+const taiChiMorning = (lang: Lang): Program => {
+  const c = TAI_CHI_COPY[lang]
+  const blocks: Program['rounds'][number]['blocks'] = [
+    {
+      id: 'tc-intro',
+      name: c.intro,
+      seconds: 100,
+      kind: 'prep',
+      prompt: c.speech.map(([at, text]) => ({ at, text })),
+    },
+  ]
+  c.moves.forEach(([name, note], i) => {
+    if (i > 0) {
+      const text = `${c.next} ${name}`
+      blocks.push({ id: `tc-change-${i}`, name: c.change, seconds: 10, kind: 'rest', note: text, prompt: [{ at: 0, text }] })
+    }
+    blocks.push({ id: `tc-move-${i + 1}`, name, seconds: 60, kind: 'work', note, prompt: [{ at: 0, text: note }] })
+  })
+  blocks.push({
+    id: 'tc-end',
+    name: c.end,
+    seconds: 20,
+    kind: 'rest',
+    note: c.goodbye,
+    prompt: [{ at: 2, text: c.goodbye }],
+    quietEnd: true,
+  })
+  return {
+    id: 'reel-tai-chi-morning',
+    name: c.name,
+    prepSeconds: 0,
+    repeatRounds: 1,
+    sound: 'soft',
+    rounds: [{ name: c.name, blocks }],
+  }
+}
+
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
+    taiChiMorning(lang),
     wallSit(lang),
     holdChallenge(lang),
     reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
