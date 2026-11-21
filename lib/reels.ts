@@ -252,18 +252,18 @@ type TaiChiCopy = {
   moves: [string, string][]
 }
 
-/** Intro lines, timed for a slow, natural pace with a pause after each. */
+/** Intro lines, each up for its own length plus a 1 s pause (tightened 2026-11-21, his call). */
 const TAI_CHI_EN_SPEECH: [number, string][] = [
   [1.5, "Hi everyone! Today we're going to do a tai chi style warm-up together."],
-  [10.5, 'There are ten simple moves, forty seconds each, with a short break in between.'],
-  [18.5, "It's good first thing in the morning, or as a warm-up before a workout or a walk."],
-  [28.5, 'It gets your joints moving, warms up your muscles, and lets you work on your balance.'],
-  [37.5, "Before you start: if you have a health condition, or you haven't exercised in a while, talk to your doctor first."],
-  [49, 'If you feel dizzy, feel pain, or get out of breath, stop and rest.'],
-  [57.5, "Go at your own pace. You don't have to go as low as I do."],
-  [66.5, "The first move has small hops. If you'd rather not jump, just lift your heels."],
-  [75, "In the corner of the screen, you'll always see the next move coming up."],
-  [83.5, "Stand up, give yourself a bit of room, and let's begin!"],
+  [7.5, 'There are ten simple moves, a minute each, with a short break in between.'],
+  [14, "It's good first thing in the morning, or as a warm-up before a workout or a walk."],
+  [21.5, 'It gets your joints moving, warms up your muscles, and lets you work on your balance.'],
+  [28.5, "Before you start: if you have a health condition, or you haven't exercised in a while, talk to your doctor first."],
+  [37.5, 'If you feel dizzy, feel pain, or get out of breath, stop and rest.'],
+  [44, "Go at your own pace. You don't have to go as low as I do."],
+  [51, "The first move has small hops. If you'd rather not jump, just lift your heels."],
+  [57.5, "In the corner of the screen, you'll always see the next move coming up."],
+  [64, "Stand up, give yourself a bit of room, and let's begin!"],
 ]
 
 const TAI_CHI_COPY: Record<Lang, TaiChiCopy> = {
@@ -275,15 +275,15 @@ const TAI_CHI_COPY: Record<Lang, TaiChiCopy> = {
     end: 'Kész',
     speech: [
       [1.5, 'Sziasztok! Ma egy tai chi jellegű átmozgatást csinálunk együtt.'],
-      [10, 'Tíz egyszerű gyakorlat jön, mindegyik negyven másodpercig tart, közöttük rövid szünettel.'],
-      [18.5, 'Jó reggel, ébredés után, vagy bemelegítésnek egy edzés vagy séta előtt.'],
-      [27.5, 'Átmozgatja az ízületeket, felmelegíti az izmokat, és közben az egyensúlyodra is figyelsz.'],
-      [37, 'Mielőtt elkezded: ha valamilyen betegséged van, vagy régóta nem mozogtál, beszélj előbb az orvosoddal.'],
-      [48, 'Ha szédülsz, fájdalmat érzel, vagy kifulladsz, állj meg, és pihenj.'],
-      [56, 'Mindent a saját tempódban csinálj. Nem kell olyan mélyre menni, mint én.'],
-      [65.5, 'Az első gyakorlatban van szökdelés. Ha nem szeretnél ugrani, csak emelgesd a sarkadat.'],
-      [75.5, 'A képernyő sarkában mindig látod, melyik gyakorlat jön következőnek.'],
-      [83, 'Állj fel, legyen körülötted egy kis hely, és kezdjük!'],
+      [7, 'Tíz egyszerű gyakorlat jön, mindegyik egy percig tart, közöttük rövid szünettel.'],
+      [13, 'Jó reggel, ébredés után, vagy bemelegítésnek egy edzés vagy séta előtt.'],
+      [19.5, 'Átmozgatja az ízületeket, felmelegíti az izmokat, és közben az egyensúlyodra is figyelsz.'],
+      [26, 'Mielőtt elkezded: ha valamilyen betegséged van, vagy régóta nem mozogtál, beszélj előbb az orvosoddal.'],
+      [33.5, 'Ha szédülsz, fájdalmat érzel, vagy kifulladsz, állj meg, és pihenj.'],
+      [39.5, 'Mindent a saját tempódban csinálj. Nem kell olyan mélyre menni, mint én.'],
+      [46, 'Az első gyakorlatban van szökdelés. Ha nem szeretnél ugrani, csak emelgesd a sarkadat.'],
+      [53.5, 'A képernyő sarkában mindig látod, melyik gyakorlat jön következőnek.'],
+      [58.5, 'Állj fel, legyen körülötted egy kis hely, és kezdjük!'],
     ],
     goodbye: 'Köszönöm, hogy velem tartottál. Sziasztok!',
     moves: [
@@ -344,9 +344,9 @@ const TAI_CHI_COPY: Record<Lang, TaiChiCopy> = {
 }
 
 /**
- * Morning tai chi follow-along (2026-11-21): a 100 s spoken intro read from the prompter
- * (doctor line, what it is good for; speech ends about 91 s so the pips stay clear of it),
- * then the ten qigong moves, 40 s each with 10 s changes, filmed silent and dubbed later.
+ * Morning tai chi follow-along (2026-11-21): a 75 s spoken intro read from the prompter
+ * (doctor line, what it is good for; speech ends about 64 s HU / 69 s EN so the pips stay clear of it),
+ * then the ten qigong moves, 60 s each with 10 s changes, filmed silent and dubbed later.
  * The change cards name the next move, which the edit shows in the corner circle.
  * Soft tones; the tone at 0:00 is the cut mark. Ends on a quiet 20 s goodbye.
  */
@@ -356,7 +356,7 @@ const taiChiMorning = (lang: Lang): Program => {
     {
       id: 'tc-intro',
       name: c.intro,
-      seconds: 100,
+      seconds: 75,
       kind: 'prep',
       prompt: c.speech.map(([at, text]) => ({ at, text })),
     },
@@ -366,7 +366,7 @@ const taiChiMorning = (lang: Lang): Program => {
       const text = `${c.next} ${name}`
       blocks.push({ id: `tc-change-${i}`, name: c.change, seconds: 10, kind: 'rest', note: text, prompt: [{ at: 0, text }] })
     }
-    blocks.push({ id: `tc-move-${i + 1}`, name, seconds: 40, kind: 'work', note, prompt: [{ at: 0, text: note }] })
+    blocks.push({ id: `tc-move-${i + 1}`, name, seconds: 60, kind: 'work', note, prompt: [{ at: 0, text: note }] })
   })
   blocks.push({
     id: 'tc-end',
