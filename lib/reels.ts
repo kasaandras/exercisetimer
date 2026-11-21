@@ -241,6 +241,31 @@ const holdChallenge = (lang: Lang): Program => {
   }
 }
 
+/**
+ * Tai chi intro in English, translated from his Hungarian take (IMG_2780, 2026-11-21), which
+ * he ad-libbed beyond the script. Each line sits where he said it in Hungarian (recording
+ * time - 1.63 s), so the English take keeps the same rhythm; first line at 1.2 s.
+ */
+export const TAI_CHI_INTRO_EN: [number, string][] = [
+  [1.2, "Hi everyone! Today we're going to do a tai chi style warm-up together."],
+  [6.38, 'This routine has become really popular online lately,'],
+  [9.4, "so I thought we'd make a video of it and show it to you."],
+  [13.68, 'There are ten simple moves. We do each one for a minute, with short breaks in between.'],
+  [20.32, 'It can be good in the morning after you wake up, or as a warm-up before a workout or a walk,'],
+  [27.18, 'but it works well on its own too, because it gets your joints moving,'],
+  [32.88, 'warms up your muscles, and you also have to keep your balance, which is very important.'],
+  [38.82, "Before you start, if you have any health condition, or you haven't exercised in a while,"],
+  [44.58, 'please talk to your doctor. In fact, I always suggest going through the moves with them,'],
+  [49.38, 'because some of them may not be right for you.'],
+  [51.46, 'If you feel dizzy, feel pain, or get out of breath, please stop and rest.'],
+  [57.64, "Go at your own pace. You don't have to go as low as I do, as you'll see in the video"],
+  [63.52, "in one or two of the moves. You don't have to go fast either. Speed comes on its own later."],
+  [68.26, "In the first move we'll do small hops. If you'd rather not jump, just lift your heels."],
+  [74.78, 'In the corner of the screen, you can always see which move is coming next,'],
+  [79.08, 'which helps you get ready for what comes after.'],
+  [83.56, "Please stand up, give yourself a bit of room, and let's begin!"],
+]
+
 type TaiChiCopy = {
   name: string
   intro: string
@@ -390,6 +415,7 @@ const taiChiMorning = (lang: Lang): Program => {
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     taiChiMorning(lang),
+    reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
     holdChallenge(lang),
     reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
