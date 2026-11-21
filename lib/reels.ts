@@ -254,8 +254,8 @@ type TaiChiCopy = {
 
 /** Intro lines, timed for a slow, natural pace with a pause after each. */
 const TAI_CHI_EN_SPEECH: [number, string][] = [
-  [1.5, "Hi everyone! This morning we're going to do a gentle tai chi style warm-up together."],
-  [10.5, 'There are ten calm moves, a minute each, with a short break in between.'],
+  [1.5, "Hi everyone! Today we're going to do a tai chi style warm-up together."],
+  [10.5, 'There are ten simple moves, a minute each, with a short break in between.'],
   [18.5, "It's good first thing in the morning, or as a warm-up before a workout or a walk."],
   [28.5, 'It gets your joints moving, warms up your muscles, and lets you work on your balance.'],
   [37.5, "Before you start: if you have a health condition, or you haven't exercised in a while, talk to your doctor first."],
@@ -274,8 +274,8 @@ const TAI_CHI_COPY: Record<Lang, TaiChiCopy> = {
     next: 'Következő:',
     end: 'Kész',
     speech: [
-      [1.5, 'Sziasztok! Ma egy reggeli tai chi jellegű átmozgatást csinálunk együtt.'],
-      [10, 'Tíz nyugodt gyakorlat jön, mindegyik egy percig tart, közöttük rövid szünettel.'],
+      [1.5, 'Sziasztok! Ma egy tai chi jellegű átmozgatást csinálunk együtt.'],
+      [10, 'Tíz egyszerű gyakorlat jön, mindegyik egy percig tart, közöttük rövid szünettel.'],
       [18.5, 'Jó reggel, ébredés után, vagy bemelegítésnek egy edzés vagy séta előtt.'],
       [27.5, 'Átmozgatja az ízületeket, felmelegíti az izmokat, és közben az egyensúlyodra is figyelsz.'],
       [37, 'Mielőtt elkezded: ha valamilyen betegséged van, vagy régóta nem mozogtál, beszélj előbb az orvosoddal.'],
