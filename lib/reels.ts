@@ -441,9 +441,42 @@ export const HOLDS_INTRO_EN: [number, string][] = [
   [62, 'First up is the plank. Lie down and get onto your forearms.'],
 ]
 
+/**
+ * Body wave retake (2026-11-21): his tummy showed in the first take, so this one move is re-filmed and
+ * dropped into IMG_2802 at raw 80-140. Same timing as the original so the existing dub fits: front view
+ * first, turn to the side at 13 s ("Most mutatom oldalról" ends just before), up on the toes from 22 s.
+ */
+const bodyWaveRetake = (): Program => ({
+  id: 'reel-tai-chi-wave-retake',
+  name: 'Tai chi — egész test hullám újra',
+  prepSeconds: 10,
+  repeatRounds: 1,
+  rounds: [
+    {
+      name: 'Egész test hullám',
+      blocks: [
+        {
+          id: 'tcw-wave',
+          name: 'Egész test hullám',
+          seconds: 60,
+          kind: 'work',
+          quietEnd: true,
+          prompt: [
+            { at: 0, text: 'Szemből: karok fel, majd le, közben picit guggolj.' },
+            { at: 13, text: 'Most fordulj oldalra.' },
+            { at: 22, text: 'Lábujjhegyre, amikor felnyújtod a karod.' },
+            { at: 55, text: 'Még 5 másodperc.' },
+          ],
+        },
+      ],
+    },
+  ],
+})
+
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     taiChiMorning(lang),
+    bodyWaveRetake(),
     reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
     holdChallenge(lang),
