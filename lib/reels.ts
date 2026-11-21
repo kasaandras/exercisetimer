@@ -167,7 +167,7 @@ type HoldCopy = { name: string; intro: string; introNote: string; rest: string; 
 
 const HOLDS_COPY: Record<Lang, HoldCopy> = {
   hu: {
-    name: 'Tartás-kihívás — 5 × 30 mp',
+    name: 'Izometrikus tartás — 5 × 30 mp',
     intro: 'Bevezető',
     introNote: 'Első: plank. Helyezkedj el alkaron.',
     rest: 'Pihenő',
@@ -183,7 +183,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     ],
   },
   en: {
-    name: 'Hold challenge — 5 × 30 s',
+    name: 'Isometric holds — 5 × 30 s',
     intro: 'Intro',
     introNote: 'First: plank. Get down on your forearms.',
     rest: 'Rest',
@@ -199,7 +199,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     ],
   },
   es: {
-    name: 'Reto de isométricos — 5 × 30 s',
+    name: 'Isométricos — 5 × 30 s',
     intro: 'Introducción',
     introNote: 'Primero: plancha. Colócate sobre los antebrazos.',
     rest: 'Descanso',
@@ -217,7 +217,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
 }
 
 /**
- * Five 30 s holds with 10 s rests, filmed silent: a 25 s intro to get into the first
+ * Five 30 s isometric holds with 15 s rests (15 s, his call 2026-11-21), filmed silent: a 25 s intro to get into the first
  * position (its tone at 0:00 is the cut mark), the usual countdown into each hold,
  * and a quiet end with no more sound.
  */
@@ -227,7 +227,7 @@ const holdChallenge = (lang: Lang): Program => {
     { id: 'hc-intro', name: c.intro, seconds: 25, kind: 'prep', note: c.introNote },
   ]
   c.holds.forEach(([name, note], i) => {
-    if (i > 0) blocks.push({ id: `hc-rest-${i}`, name: c.rest, seconds: 10, kind: 'rest', note: `${c.restNote} ${name}.` })
+    if (i > 0) blocks.push({ id: `hc-rest-${i}`, name: c.rest, seconds: 15, kind: 'rest', note: `${c.restNote} ${name}.` })
     blocks.push({ id: `hc-hold-${i + 1}`, name, seconds: 30, kind: 'work', note })
   })
   blocks.push({ id: 'hc-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true })
@@ -412,12 +412,43 @@ const taiChiMorning = (lang: Lang): Program => {
   }
 }
 
+/** Isometric holds intro prompters (2026-11-21). Spoken seated at 1x zoom, then the silent activity on reel-hold-challenge-5x30. */
+export const HOLDS_INTRO_HU: [number, string][] = [
+  [1.5, 'Sziasztok! Ma izometrikus tartásokat csinálunk együtt.'],
+  [7, 'Öt gyakorlat jön, mindegyiket harminc másodpercig tartjuk, közöttük tizenöt másodperc szünettel.'],
+  [15.5, 'Az egész körülbelül négy perc.'],
+  [19, 'Izometrikus gyakorlatnál nem mozogsz, csak megtartasz egy helyzetet.'],
+  [25.5, 'Dolgozik közben a törzsed, a farizmod és a vádlid.'],
+  [30.5, 'Kell hozzá egy kis hely és egy matrac vagy szőnyeg.'],
+  [35.5, 'Mielőtt elkezded: ha valamilyen betegséged van, vagy régóta nem mozogtál, beszélj előtte az orvosoddal.'],
+  [44.5, 'Tartás közben ne tartsd vissza a levegőt, folyamatosan lélegezz.'],
+  [51, 'Ha fájdalmat érzel, szédülsz, vagy elfogy a levegőd, állj meg és pihenj.'],
+  [57.5, 'Ha a harminc másodperc sok, tarts rövidebb ideig. A plankot térden is csinálhatod.'],
+  [65, 'Az első a plank. Feküdj le, és helyezkedj el alkaron.'],
+]
+
+export const HOLDS_INTRO_EN: [number, string][] = [
+  [1.5, "Hi everyone! Today we're doing isometric holds together."],
+  [6.5, 'There are five exercises. We hold each one for thirty seconds, with a fifteen-second break in between.'],
+  [15, 'The whole thing takes about four minutes.'],
+  [19.5, "In an isometric exercise you don't move, you just hold a position."],
+  [25, 'It works your core, your glutes and your calves.'],
+  [30, "You'll need a bit of room and a mat or a rug."],
+  [34.5, "Before you start: if you have a health condition, or you haven't exercised in a while, talk to your doctor first."],
+  [43.5, "Don't hold your breath during the holds. Keep breathing."],
+  [48.5, 'If you feel pain, feel dizzy, or get out of breath, stop and rest.'],
+  [54.5, 'If thirty seconds is too much, hold for less. You can do the plank on your knees too.'],
+  [62, 'First up is the plank. Lie down and get onto your forearms.'],
+]
+
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     taiChiMorning(lang),
     reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
     holdChallenge(lang),
+    reelProgram('reel-holds-intro-hu', 'Izometrikus tartás — bevezető (magyar)', 73, HOLDS_INTRO_HU),
+    reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 70, HOLDS_INTRO_EN),
     reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
     reelProgram('reel-wall-sit-demo-en', 'Wall sit challenge — demo (English)', 31, WALL_SIT_DEMO_EN),
     reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY),
