@@ -180,7 +180,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     switchNote: 'Fordulj át a másik oldaladra.',
     holds: [
       ['Plank', 'Alkaron, a test egy egyenes vonal, folyamatosan lélegezz.'],
-      ['Oldalsó plank', 'Alkaron, csípő fent, a test egyenes.', true],
+      ['Oldalsó plank', 'Tenyéren, csípő fent, a felső kar felfelé nyújtva.', true],
       ['Szuperman', 'Hason fekve, kar és láb kicsit fent, nézz a földre.'],
       ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
       ['Lábujjhegyen állás', 'Állj fel lábujjhegyre, és tartsd.'],
@@ -200,7 +200,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     switchNote: 'Roll over onto your other side.',
     holds: [
       ['Plank', 'On your forearms, body in one straight line, keep breathing.'],
-      ['Side plank', 'On your forearm, hips up, body straight.', true],
+      ['Side plank', 'On your hand, hips up, top arm reaching up.', true],
       ['Superman hold', 'Face down, arms and legs just off the floor, look down.'],
       ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
       ['Calf raise hold', 'Rise onto your toes and hold.'],
@@ -220,7 +220,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     switchNote: 'Gírate hacia el otro lado.',
     holds: [
       ['Plancha', 'Sobre los antebrazos, cuerpo en línea recta, sigue respirando.'],
-      ['Plancha lateral', 'Sobre el antebrazo, cadera arriba, cuerpo recto.', true],
+      ['Plancha lateral', 'Sobre la mano, cadera arriba, el otro brazo hacia arriba.', true],
       ['Superman', 'Boca abajo, brazos y piernas un poco elevados, mira al suelo.'],
       ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
       ['Elevación de talones', 'Ponte de puntillas y mantén.'],
