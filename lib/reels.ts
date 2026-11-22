@@ -284,7 +284,7 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
       ['Medvetartás', 'Tenyéren és lábujjhegyen, a térd pár centire a föld fölött, a hát egyenes.'],
       ['Dead bug tartás', 'Háton fekve, karok fel, térd 90 fokban a csípő fölött, a derekad a földön.'],
       ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
-      ['Guggolás tartva', 'Félguggolás, karok előre, a súly a sarkadon.'],
+      ['Guggolás tartva', 'Guggolj le és tartsd, ha még nehéz, elég a félguggolás. Karok előre, a súly a sarkadon.'],
     ],
   },
   en: {
@@ -303,7 +303,7 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
       ['Bear crawl hold', 'Hands and toes, knees just off the floor, back flat.'],
       ['Dead bug hold', 'On your back, arms up, knees bent over your hips, lower back on the floor.'],
       ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
-      ['Squat hold', 'Half squat, arms forward, weight in your heels.'],
+      ['Squat hold', 'Squat down and hold; a half squat is fine too. Arms forward, weight in your heels.'],
     ],
   },
   es: {
@@ -322,7 +322,7 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
       ['Oso estático', 'Manos y puntas de los pies, rodillas a unos centímetros del suelo, espalda recta.'],
       ['Dead bug', 'Boca arriba, brazos arriba, rodillas dobladas sobre la cadera, zona lumbar pegada al suelo.'],
       ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
-      ['Sentadilla isométrica', 'Media sentadilla, brazos al frente, peso en los talones.'],
+      ['Sentadilla isométrica', 'Baja y mantén; media sentadilla también vale. Brazos al frente, peso en los talones.'],
     ],
   },
 }
