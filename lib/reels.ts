@@ -433,19 +433,26 @@ const taiChiMorning = (lang: Lang): Program => {
   }
 }
 
-/** Isometric holds intro prompters (2026-11-21). Spoken seated at 1x zoom, then the silent activity on reel-hold-challenge-5x30. */
+/**
+ * Hungarian intro: his own wording from the first standing take IMG_2827 (2026-11-21, deleted
+ * for space), lightly cleaned up, at the same timings as HOLDS_INTRO_EN, for the re-record.
+ */
 export const HOLDS_INTRO_HU: [number, string][] = [
-  [1.5, 'Sziasztok! Ma izometrikus tartásokat csinálunk együtt.'],
-  [7, 'Öt gyakorlat jön, mindegyiket harminc másodpercig tartjuk, közöttük tizenöt másodperc szünettel.'],
-  [15.5, 'Az egész körülbelül négy perc.'],
-  [19, 'Izometrikus gyakorlatnál nem mozogsz, csak megtartasz egy helyzetet.'],
-  [25.5, 'Dolgozik közben a törzsed, a farizmod és a vádlid.'],
-  [30.5, 'Kell hozzá egy kis hely és egy matrac vagy szőnyeg.'],
-  [35.5, 'Mielőtt elkezded: ha valamilyen betegséged van, vagy régóta nem mozogtál, beszélj előtte az orvosoddal.'],
-  [44.5, 'Tartás közben ne tartsd vissza a levegőt, folyamatosan lélegezz.'],
-  [51, 'Ha fájdalmat érzel, szédülsz, vagy elfogy a levegőd, állj meg és pihenj.'],
-  [57.5, 'Ha a harminc másodperc sok, tarts rövidebb ideig. A plankot térden is csinálhatod.'],
-  [65, 'Az első a plank. Feküdj le, és helyezkedj el alkaron.'],
+  [1.1, 'Sziasztok! Ma izometrikus gyakorlatokat fogunk együtt végezni.'],
+  [5.1, 'Öt gyakorlat következik, mindegyiket harminc másodpercen keresztül tartjuk,'],
+  [9.9, 'és közöttük tizenöt másodperc szünet lesz.'],
+  [13.1, 'Az izometrikus gyakorlatok hozzájárulhatnak a vérnyomás csökkenéséhez,'],
+  [17.4, 'viszont ehhez legalább hetente háromszor-négyszer kell végezni, hat héten keresztül.'],
+  [22.1, 'Ezeknél a gyakorlatoknál nem mozogsz, hanem megtartasz egy bizonyos helyzetet,'],
+  [26.7, 'és ezzel nagy izmokat dolgoztatsz, például a törzsizmaidat, a farizmodat vagy akár a vádlidat.'],
+  [34.2, 'Szükséged lesz egy kis helyre és egy jógaszőnyegre.'],
+  [37.8, 'Mielőtt belekezdesz, kérlek, beszélj az orvosoddal,'],
+  [40.1, 'főleg, ha bármilyen betegséged van, vagy régóta nem mozogtál.'],
+  [44.8, 'Tartás közben ne tartsd vissza a levegőt, folyamatosan lélegezz.'],
+  [51.3, 'Ha fájdalmat érzel, szédülsz, vagy elfogy a levegőd, állj meg és pihenj.'],
+  [56.5, 'Ha eleinte sok a harminc másodperces tartás, tartsd rövidebb ideig,'],
+  [62.2, 'a plankot pedig nyugodtan csinálhatod térden is.'],
+  [66.3, 'Kezdjük is! Az első feladat a plank.'],
 ]
 
 /**
