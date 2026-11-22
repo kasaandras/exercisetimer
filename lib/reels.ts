@@ -163,7 +163,7 @@ const wallSit = (lang: Lang): Program => {
   }
 }
 
-type HoldCopy = { name: string; intro: string; introNote: string; rest: string; restNote: string; end: string; endNote: string; holds: [string, string][] }
+type HoldCopy = { name: string; intro: string; introNote: string; rest: string; restNote: string; end: string; endNote: string; side1: string; side2: string; switchName: string; switchNote: string; holds: [string, string, boolean?][] }
 
 const HOLDS_COPY: Record<Lang, HoldCopy> = {
   hu: {
@@ -174,11 +174,15 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     restNote: 'Válts a következő gyakorlatra.',
     end: 'Kész',
     endNote: 'Lassan állj fel, és rázd meg a karod, lábad.',
+    side1: 'egyik oldal',
+    side2: 'másik oldal',
+    switchName: 'Oldalváltás',
+    switchNote: 'Fordulj át a másik oldaladra.',
     holds: [
       ['Plank', 'Alkaron, a test egy egyenes vonal, folyamatosan lélegezz.'],
-      ['Oldalsó plank', 'Félidőben válts oldalt.'],
-      ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
+      ['Oldalsó plank', 'Alkaron, csípő fent, a test egyenes.', true],
       ['Szuperman', 'Hason fekve, kar és láb kicsit fent, nézz a földre.'],
+      ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
       ['Lábujjhegyen állás', 'Állj fel lábujjhegyre, és tartsd.'],
     ],
   },
@@ -190,11 +194,15 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     restNote: 'Get ready for the next hold.',
     end: 'Done',
     endNote: 'Get up slowly and shake out your arms and legs.',
+    side1: 'first side',
+    side2: 'other side',
+    switchName: 'Switch sides',
+    switchNote: 'Roll over onto your other side.',
     holds: [
       ['Plank', 'On your forearms, body in one straight line, keep breathing.'],
-      ['Side plank', 'Switch sides halfway.'],
-      ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
+      ['Side plank', 'On your forearm, hips up, body straight.', true],
       ['Superman hold', 'Face down, arms and legs just off the floor, look down.'],
+      ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
       ['Calf raise hold', 'Rise onto your toes and hold.'],
     ],
   },
@@ -206,18 +214,25 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
     restNote: 'Prepárate para el siguiente.',
     end: 'Listo',
     endNote: 'Levántate despacio y sacude brazos y piernas.',
+    side1: 'primer lado',
+    side2: 'otro lado',
+    switchName: 'Cambio de lado',
+    switchNote: 'Gírate hacia el otro lado.',
     holds: [
       ['Plancha', 'Sobre los antebrazos, cuerpo en línea recta, sigue respirando.'],
-      ['Plancha lateral', 'Cambia de lado a la mitad.'],
-      ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
+      ['Plancha lateral', 'Sobre el antebrazo, cadera arriba, cuerpo recto.', true],
       ['Superman', 'Boca abajo, brazos y piernas un poco elevados, mira al suelo.'],
+      ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
       ['Elevación de talones', 'Ponte de puntillas y mantén.'],
     ],
   },
 }
 
 /**
- * Five 30 s isometric holds with 15 s rests (15 s, his call 2026-11-21), filmed silent: a 25 s intro to get into the first
+ * Five 30 s isometric holds with 15 s rests (15 s, his call 2026-11-21), filmed silent.
+ * His changes 2026-11-22: the side plank is 15 s a side with a 5 s switch between, and the
+ * superman comes before the glute bridge (the bridge was hard straight after the side plank).
+ * Then: a 25 s intro to get into the first
  * position (its tone at 0:00 is the cut mark), the usual countdown into each hold,
  * and a quiet end with no more sound.
  */
@@ -226,9 +241,15 @@ const holdChallenge = (lang: Lang): Program => {
   const blocks: Program['rounds'][number]['blocks'] = [
     { id: 'hc-intro', name: c.intro, seconds: 25, kind: 'prep', note: c.introNote },
   ]
-  c.holds.forEach(([name, note], i) => {
+  c.holds.forEach(([name, note, sides], i) => {
     if (i > 0) blocks.push({ id: `hc-rest-${i}`, name: c.rest, seconds: 15, kind: 'rest', note: `${c.restNote} ${name}.` })
-    blocks.push({ id: `hc-hold-${i + 1}`, name, seconds: 30, kind: 'work', note })
+    if (sides) {
+      blocks.push({ id: `hc-hold-${i + 1}a`, name: `${name} — ${c.side1}`, seconds: 15, kind: 'work', note })
+      blocks.push({ id: `hc-switch-${i + 1}`, name: c.switchName, seconds: 5, kind: 'rest', note: c.switchNote })
+      blocks.push({ id: `hc-hold-${i + 1}b`, name: `${name} — ${c.side2}`, seconds: 15, kind: 'work', note })
+    } else {
+      blocks.push({ id: `hc-hold-${i + 1}`, name, seconds: 30, kind: 'work', note })
+    }
   })
   blocks.push({ id: 'hc-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true })
   return {
