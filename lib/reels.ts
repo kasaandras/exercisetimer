@@ -623,18 +623,18 @@ export const HOLDS3_INTRO_HU: [number, string][] = [
 ]
 
 export const HOLDS3_INTRO_EN: [number, string][] = [
-  [1.5, "Hi everyone! Today we're doing isometric exercises together, this time in three rounds."],
-  [9, "Each round has five exercises: plank, bear crawl hold, dead bug, glute bridge and squat hold."],
-  [17, "We hold each one for thirty seconds, with a fifteen-second break in between, and a forty-five-second rest between rounds. The workout takes about thirteen minutes."],
-  [29.5, "Isometric exercises may help lower blood pressure, but for that you need to do them at least three or four times a week, for at least six weeks."],
-  [41, "In these exercises you don't move, you hold a certain position, and that way you work big muscles: your core, your glutes and your thighs."],
-  [52, "You'll need a bit of room and a yoga mat."],
-  [56.5, "Before you start, please talk to your doctor, especially if you have any health condition or you haven't exercised in a while."],
-  [66.5, "During the holds, please don't hold your breath. Keep breathing calmly."],
-  [72.5, "If you feel pain, feel dizzy, or get out of breath, stop and rest."],
-  [78.5, "If thirty seconds is too much at first, hold for less, say twenty seconds. You can do the plank and the bear crawl hold on your knees."],
-  [89.5, "I didn't talk during the workout, so I could focus on the exercises. I added my voice afterwards, but we do every hold together."],
-  [100, "Let's get started! The first exercise is the plank."],
+  [1.2, "Hi everyone! Today we're doing isometric exercises together again, and this time it'll be a bit harder, in three rounds."],
+  [9.2, "Each round has five exercises: plank, bear crawl hold, dead bug, glute bridge and squat hold."],
+  [19.4, "We hold each one for thirty seconds, with a fifteen-second break in between, and a forty-five-second rest between rounds, so the workout takes about thirteen minutes."],
+  [31.9, "As I said in the previous isometric video, these exercises may help lower blood pressure, but for that you need to do them at least three or four times a week, for at least six weeks."],
+  [42.9, "Of course, this doesn't happen for everyone. It's the result of a clinical study, so it's worth keeping that in mind."],
+  [49.4, "In these exercises you don't move, you hold certain positions, and you work big muscles, like your core, your glutes or your thighs."],
+  [59.8, "What will you need? A bit of room and a yoga mat. Before you start, please talk to your doctor, especially if you have a health condition you know about, or if you haven't exercised in a long time. Talk it through with your doctor to see if this is right for you."],
+  [76, "During the holds, don't hold your breath. Keep breathing calmly. If you feel pain, feel dizzy, or get out of breath, please stop and rest a little."],
+  [87.3, "If thirty seconds is too much at first, hold for less, say twenty seconds. You can also do the plank on your knees."],
+  [98.7, "I didn't talk during the workout, so I could focus on the exercises. I added my voice afterwards,"],
+  [105.9, "but we do every hold together, and the video is uncut."],
+  [110, "So let's get started. Our first exercise is the plank."],
 ]
 
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
@@ -645,7 +645,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     wallSit(lang),
     holds3Rounds(lang),
     reelProgram('reel-holds3-intro-hu', 'Izometrikus tartás — 3 kör — bevezető (magyar)', 118, HOLDS3_INTRO_HU),
-    reelProgram('reel-holds3-intro-en', 'Isometric holds — 3 rounds — intro (English)', 107, HOLDS3_INTRO_EN),
+    reelProgram('reel-holds3-intro-en', 'Isometric holds — 3 rounds — intro (English)', 117, HOLDS3_INTRO_EN),
     holdChallenge(lang),
     reelProgram('reel-holds-intro-hu', 'Izometrikus tartás — bevezető (magyar)', 73, HOLDS_INTRO_HU),
     reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 73, HOLDS_INTRO_EN),
