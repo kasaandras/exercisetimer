@@ -282,8 +282,8 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
     holds: [
       ['Plank', 'Alkaron, a test egy egyenes vonal, folyamatosan lélegezz.'],
       ['Medvetartás', 'Tenyéren és lábujjhegyen, a térd pár centire a föld fölött, a hát egyenes.'],
-      ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
       ['Dead bug tartás', 'Háton fekve, karok fel, térd 90 fokban a csípő fölött, a derekad a földön.'],
+      ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
       ['Guggolás tartva', 'Félguggolás, karok előre, a súly a sarkadon.'],
     ],
   },
@@ -301,8 +301,8 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
     holds: [
       ['Plank', 'On your forearms, body in one straight line, keep breathing.'],
       ['Bear crawl hold', 'Hands and toes, knees just off the floor, back flat.'],
-      ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
       ['Dead bug hold', 'On your back, arms up, knees bent over your hips, lower back on the floor.'],
+      ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
       ['Squat hold', 'Half squat, arms forward, weight in your heels.'],
     ],
   },
@@ -320,16 +320,16 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
     holds: [
       ['Plancha', 'Sobre los antebrazos, cuerpo en línea recta, sigue respirando.'],
       ['Oso estático', 'Manos y puntas de los pies, rodillas a unos centímetros del suelo, espalda recta.'],
-      ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
       ['Dead bug', 'Boca arriba, brazos arriba, rodillas dobladas sobre la cadera, zona lumbar pegada al suelo.'],
+      ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
       ['Sentadilla isométrica', 'Media sentadilla, brazos al frente, peso en los talones.'],
     ],
   },
 }
 
 /**
- * Three rounds of five 30 s isometric holds (his plan 2026-11-22): plank, bear crawl hold, glute bridge,
- * dead bug, squat hold; 15 s rests, 45 s between rounds. Filmed silent like the 5-hold video: a 25 s intro
+ * Three rounds of five 30 s isometric holds (his plan 2026-11-22): plank, bear crawl hold, dead bug,
+ * glute bridge, squat hold; dead bug before the bridge (his call: less dizzy right after the bear crawl); 15 s rests, 45 s between rounds. Filmed silent like the 5-hold video: a 25 s intro
  * to get into the first position (its tone at 0:00 is the cut mark) and a quiet end. Total 12:40.
  */
 const holds3Rounds = (lang: Lang): Program => {
