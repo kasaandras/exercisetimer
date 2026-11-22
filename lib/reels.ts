@@ -629,7 +629,7 @@ export const HOLDS3_INTRO_EN: [number, string][] = [
   [31.9, "As I said in the previous isometric video, these exercises may help lower blood pressure, but for that you need to do them at least three or four times a week, for at least six weeks."],
   [42.9, "Of course, this doesn't happen for everyone. It's the result of a clinical study, so it's worth keeping that in mind."],
   [49.4, "In these exercises you don't move, you hold certain positions, and you work big muscles, like your core, your glutes or your thighs."],
-  [59.8, "What will you need? A bit of room and a yoga mat. Before you start, please talk to your doctor, especially if you have a health condition you know about, or if you haven't exercised in a long time. Talk it through with your doctor to see if this is right for you."],
+  [59.8, "What will you need? A bit of room and a yoga mat. Before you start, please talk to your doctor, especially if you have a health condition or haven't exercised in a while."],
   [76, "During the holds, don't hold your breath. Keep breathing calmly. If you feel pain, feel dizzy, or get out of breath, please stop and rest a little."],
   [87.3, "If thirty seconds is too much at first, hold for less, say twenty seconds. You can also do the plank on your knees."],
   [98.7, "I didn't talk during the workout, so I could focus on the exercises. I added my voice afterwards,"],
