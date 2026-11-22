@@ -605,6 +605,38 @@ const bodyWaveRetake = (): Program => ({
   ],
 })
 
+/** Isometric holds — 3 rounds: intro prompters (his OK 2026-11-22), adapted from his 5-hold intro, plus the line that the
+ * workout was filmed silent and voiced afterwards, but done together. Standing (or seated chest-up), then the activity. */
+export const HOLDS3_INTRO_HU: [number, string][] = [
+  [1.5, "Sziasztok! Ma izometrikus gyakorlatokat fogunk együtt végezni, ezúttal három körben."],
+  [9, "Egy körben öt gyakorlat van: plank, medvetartás, dead bug, csípőemelés és guggolás tartva."],
+  [17.5, "Mindegyiket harminc másodpercig tartjuk, közöttük tizenöt másodperc szünettel, a körök között pedig negyvenöt másodperc pihenő van. Az edzés nagyjából tizenhárom perc."],
+  [31.5, "Az izometrikus gyakorlatok hozzájárulhatnak a vérnyomás csökkenéséhez, viszont ehhez legalább hetente háromszor-négyszer kell végezni, legalább hat héten keresztül."],
+  [45, "Ezeknél a gyakorlatoknál nem mozogsz, hanem megtartasz egy bizonyos helyzetet, és közben nagy izmokat dolgoztatsz: a törzsizmaidat, a farizmodat és a combodat."],
+  [58.5, "Egy kis helyre és egy jógaszőnyegre lesz szükséged."],
+  [63.5, "Mielőtt belekezdesz, kérlek, beszélj az orvosoddal, főleg, ha bármilyen betegséged van, vagy régóta nem mozogtál."],
+  [73.5, "Tartás közben ne tartsd vissza a levegőt, folyamatosan, nyugodtan lélegezz."],
+  [80.5, "Ha fájdalmat érzel, szédülsz, vagy elfogy a levegőd, állj meg és pihenj."],
+  [87.5, "Ha eleinte sok a harminc másodperc, tarts rövidebb ideig, mondjuk húsz másodpercig. A plankot és a medvetartást térden is csinálhatod."],
+  [99, "Az edzés alatt nem beszélek, mert így jobban tudtam a gyakorlatokra figyelni. A hangot utólag mondtam rá, de minden tartást együtt csinálunk végig."],
+  [111.5, "Kezdjük is! Az első gyakorlat a plank."],
+]
+
+export const HOLDS3_INTRO_EN: [number, string][] = [
+  [1.5, "Hi everyone! Today we're doing isometric exercises together, this time in three rounds."],
+  [9, "Each round has five exercises: plank, bear crawl hold, dead bug, glute bridge and squat hold."],
+  [17, "We hold each one for thirty seconds, with a fifteen-second break in between, and a forty-five-second rest between rounds. The workout takes about thirteen minutes."],
+  [29.5, "Isometric exercises may help lower blood pressure, but for that you need to do them at least three or four times a week, for at least six weeks."],
+  [41, "In these exercises you don't move, you hold a certain position, and that way you work big muscles: your core, your glutes and your thighs."],
+  [52, "You'll need a bit of room and a yoga mat."],
+  [56.5, "Before you start, please talk to your doctor, especially if you have any health condition or you haven't exercised in a while."],
+  [66.5, "During the holds, please don't hold your breath. Keep breathing calmly."],
+  [72.5, "If you feel pain, feel dizzy, or get out of breath, stop and rest."],
+  [78.5, "If thirty seconds is too much at first, hold for less, say twenty seconds. You can do the plank and the bear crawl hold on your knees."],
+  [89.5, "I didn't talk during the workout, so I could focus on the exercises. I added my voice afterwards, but we do every hold together."],
+  [100, "Let's get started! The first exercise is the plank."],
+]
+
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     taiChiMorning(lang),
@@ -612,6 +644,8 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
     holds3Rounds(lang),
+    reelProgram('reel-holds3-intro-hu', 'Izometrikus tartás — 3 kör — bevezető (magyar)', 118, HOLDS3_INTRO_HU),
+    reelProgram('reel-holds3-intro-en', 'Isometric holds — 3 rounds — intro (English)', 107, HOLDS3_INTRO_EN),
     holdChallenge(lang),
     reelProgram('reel-holds-intro-hu', 'Izometrikus tartás — bevezető (magyar)', 73, HOLDS_INTRO_HU),
     reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 73, HOLDS_INTRO_EN),
