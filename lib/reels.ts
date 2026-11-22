@@ -236,7 +236,7 @@ const HOLDS_COPY: Record<Lang, HoldCopy> = {
  * position (its tone at 0:00 is the cut mark), the usual countdown into each hold,
  * and a quiet end with no more sound.
  */
-const holdChallenge = (lang: Lang): Program => {
+export const holdChallenge = (lang: Lang): Program => {
   const c = HOLDS_COPY[lang]
   const blocks: Program['rounds'][number]['blocks'] = [
     { id: 'hc-intro', name: c.intro, seconds: 25, kind: 'prep', note: c.introNote },
@@ -332,7 +332,7 @@ const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
  * glute bridge, squat hold; dead bug before the bridge (his call: less dizzy right after the bear crawl); 15 s rests, 45 s between rounds. Filmed silent like the 5-hold video: a 25 s intro
  * to get into the first position (its tone at 0:00 is the cut mark) and a quiet end. Total 12:40.
  */
-const holds3Rounds = (lang: Lang): Program => {
+export const holds3Rounds = (lang: Lang): Program => {
   const c = HOLDS3_COPY[lang]
   const rounds: Program['rounds'] = [
     { name: c.intro, blocks: [{ id: 'h3-intro', name: c.intro, seconds: 25, kind: 'prep', note: c.introNote }] },
@@ -774,6 +774,11 @@ export const INTERVAL_INTRO_EN: [number, string][] = [
   [83, "Stand up, put your weights next to you, and let's begin!"],
 ]
 
+/**
+ * Finished reels were taken off the tab on 2026-11-22 (his ask): the isometric 5-hold and 3-round programmes and
+ * intros, the wall-sit English intro/demo, BePal reel 1 (HU/EN). Their definitions stay in this file; add a line back
+ * here to show one again.
+ */
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     taiChiMorning(lang),
@@ -783,16 +788,6 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     interval12(lang),
     reelProgram('reel-interval-intro-hu', 'Intervall edzés — bevezető (magyar)', 96, INTERVAL_INTRO_HU),
     reelProgram('reel-interval-intro-en', 'Interval workout — intro (English)', 91, INTERVAL_INTRO_EN),
-    holds3Rounds(lang),
-    reelProgram('reel-holds3-intro-hu', 'Izometrikus tartás — 3 kör — bevezető (magyar)', 118, HOLDS3_INTRO_HU),
-    reelProgram('reel-holds3-intro-en', 'Isometric holds — 3 rounds — intro (English)', 117, HOLDS3_INTRO_EN),
-    holdChallenge(lang),
-    reelProgram('reel-holds-intro-hu', 'Izometrikus tartás — bevezető (magyar)', 73, HOLDS_INTRO_HU),
-    reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 73, HOLDS_INTRO_EN),
-    reelProgram('reel-wall-sit-intro-en', 'Wall sit challenge — intro (English)', 46, WALL_SIT_INTRO_EN),
-    reelProgram('reel-wall-sit-demo-en', 'Wall sit challenge — demo (English)', 31, WALL_SIT_DEMO_EN),
-    reelProgram('reel-1-feherkopeny', 'BePal reel 1 — fehérköpeny-hatás', 55, REEL1_FEHERKOPENY),
-    reelProgram('reel-1-white-coat-en', 'BePal reel 1 — white coat effect (English)', 62, REEL1_WHITE_COAT_EN),
   ]
 }
 
