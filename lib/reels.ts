@@ -459,8 +459,8 @@ const interval12 = (lang: Lang): Program => {
   c.warm.forEach(([name, note], i) => blocks.push({ id: `iv-warm-${i + 1}`, name, seconds: 20, kind: 'work', note }))
   c.moves.forEach(([name, note], i) => {
     blocks.push({ id: `iv-move-${i + 1}`, name, seconds: 40, kind: 'work', note })
-    const nxt = i + 1 < c.moves.length ? c.moves[i + 1][0] : c.cool[0]
-    blocks.push({ id: `iv-rest-${i + 1}`, name: c.rest, seconds: 20, kind: 'rest', note: `${c.next} ${nxt}` })
+    // no note: the card's own "next" line already names the next move (his note 2026-11-22: it said it twice)
+    blocks.push({ id: `iv-rest-${i + 1}`, name: c.rest, seconds: 20, kind: 'rest' })
   })
   blocks.push({ id: 'iv-cool', name: c.cool[0], seconds: 60, kind: 'work', note: c.cool[1] })
   blocks.push({ id: 'iv-end', name: c.end, seconds: 10, kind: 'rest', note: c.endNote, quietEnd: true })
