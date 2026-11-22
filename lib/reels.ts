@@ -357,6 +357,116 @@ const holds3Rounds = (lang: Lang): Program => {
   }
 }
 
+type IntervalCopy = {
+  name: string; ready: string; readyNote: string; rest: string; next: string; end: string; endNote: string
+  warm: [string, string][]; moves: [string, string][]; cool: [string, string]
+}
+
+const INTERVAL_COPY: Record<Lang, IntervalCopy> = {
+  hu: {
+    name: 'Intervall edzés — 12 perc',
+    ready: 'Készülj!',
+    readyNote: 'Állj fel, a súlyokat tedd magad mellé. Súly helyett jó a kis vizes palack is, vagy súly nélkül.',
+    rest: 'Pihenő',
+    next: 'Következik:',
+    end: 'Kész',
+    endNote: 'Szuper munka volt. Igyál egy kis vizet.',
+    warm: [
+      ['Bemelegítés: karemelés', 'Lazán, felváltva emeld a karod.'],
+      ['Bemelegítés: golflendítés', 'Átlósan, lazán lendítsd a karod.'],
+      ['Bemelegítés: helyben járás', 'Nyugodt tempó, karok lazán.'],
+    ],
+    moves: [
+      ['Oldallépés egyenes ütésekkel', 'Lépj oldalra, és üss előre. Könnyítés: lassabban, súly nélkül.'],
+      ['Csillagkar, ugrás nélkül', 'Lépj ki oldalra, a karok T-be súllyal. Könnyítés: súly nélkül, vagy csak mellmagasságig.'],
+      ['Törzsfordítás súllyal', 'Súly a mellkasnál, fordulj jobbra-balra. Könnyítés: súly nélkül, kisebb fordulat.'],
+      ['Guggolás nyomással', 'Guggolj, felálláskor nyomd fel a súlyt. Könnyítés: félguggolás, súly csak vállig, vagy székbe kapaszkodva.'],
+      ['Sarokemelés előreemeléssel', 'Lábujjhegyre, a súly előre vállmagasságig. Könnyítés: a sarok lent marad.'],
+      ['Lehajlás súllyal', 'Csípőből hajolj le a sípcsont közepéig, egyenes háttal. Könnyítés: súly nélkül, csak térdig.'],
+      ['Térdemelés, helyben futás', 'Gyors térdemelés. Könnyítés: helyben járás, kisebb térdemelés.'],
+      ['Felütés (uppercut)', 'Alulról felfelé ütés, enyhe térdhajlítással. Könnyítés: lassabban, súly nélkül.'],
+      ['Kis szökdelés', 'Kis ugrások, a kar is mozog. Könnyítés: ugrás nélkül, csak sarokemelés vagy helyben járás.'],
+      ['Oldallépés bicepszhajlítással', 'Lépj oldalra, közben hajlítsd fel a súlyt. Könnyítés: súly nélkül, kisebb lépés.'],
+    ],
+    cool: ['Levezetés: lassú járás, légzés', 'Belégzésre karok fel, kilégzésre le. Könnyítés: karok lent, csak lassú légzés.'],
+  },
+  en: {
+    name: 'Interval workout — 12 minutes',
+    ready: 'Get ready',
+    readyNote: 'Stand up with your weights next to you. Small water bottles work too, or no weights at all.',
+    rest: 'Rest',
+    next: 'Next:',
+    end: 'Done',
+    endNote: 'Great work. Have a sip of water.',
+    warm: [
+      ['Warm-up: arm raises', 'Easy pace, one arm after the other.'],
+      ['Warm-up: golf swings', 'Swing your arms loosely on a diagonal.'],
+      ['Warm-up: marching', 'Easy pace, arms loose.'],
+    ],
+    moves: [
+      ['Step-touch with punches', 'Step to the side and punch forward. Easier: slower, no weights.'],
+      ['Star arms, no jumping', 'Step out to the side, arms out to a T with the weights. Easier: no weights, or arms to chest height.'],
+      ['Trunk twists with weights', 'Weights at your chest, turn left and right. Easier: no weights, smaller turns.'],
+      ['Squat and press', 'Squat, then push the weights up as you stand. Easier: half squat, weights to shoulder height, or hold a chair.'],
+      ['Heel raise and front raise', 'Rise onto your toes, weights forward to shoulder height. Easier: heels stay down.'],
+      ['Dumbbell deadlift', 'Bend from the hips to mid-shin, back straight. Easier: no weights, only to the knee.'],
+      ['Knee lifts / running on the spot', 'Quick knee lifts. Easier: march on the spot, knees lower.'],
+      ['Uppercuts', 'Punch upwards from below, knees soft. Easier: slower, no weights.'],
+      ['Small hops', 'Small hops, arms moving too. Easier: no jumping, just lift your heels or march.'],
+      ['Side step with biceps curl', 'Step to the side and curl the weights. Easier: no weights, smaller steps.'],
+    ],
+    cool: ['Cool-down: slow marching, breathing', 'Arms up as you breathe in, down as you breathe out. Easier: arms down, slow breaths only.'],
+  },
+  es: {
+    name: 'Entrenamiento por intervalos — 12 minutos',
+    ready: 'Prepárate',
+    readyNote: 'De pie, con las pesas a tu lado. Valen botellas de agua pequeñas, o sin peso.',
+    rest: 'Descanso',
+    next: 'Siguiente:',
+    end: 'Listo',
+    endNote: 'Buen trabajo. Bebe un poco de agua.',
+    warm: [
+      ['Calentamiento: elevación de brazos', 'Ritmo suave, un brazo tras otro.'],
+      ['Calentamiento: swing de golf', 'Balancea los brazos en diagonal, sueltos.'],
+      ['Calentamiento: marcha', 'Ritmo suave, brazos sueltos.'],
+    ],
+    moves: [
+      ['Paso lateral con golpes', 'Paso al lado y golpe al frente. Más fácil: más despacio, sin peso.'],
+      ['Brazos en estrella, sin salto', 'Paso al lado, brazos en T con las pesas. Más fácil: sin peso o hasta el pecho.'],
+      ['Giros de tronco con peso', 'Pesas al pecho, gira a cada lado. Más fácil: sin peso, giros más cortos.'],
+      ['Sentadilla con press', 'Baja y al subir empuja las pesas arriba. Más fácil: media sentadilla, pesas hasta los hombros o con silla.'],
+      ['Talones arriba con elevación frontal', 'Ponte de puntillas, pesas al frente hasta los hombros. Más fácil: talones abajo.'],
+      ['Peso muerto con mancuernas', 'Baja desde la cadera hasta media espinilla, espalda recta. Más fácil: sin peso, solo hasta la rodilla.'],
+      ['Rodillas arriba / correr en el sitio', 'Rodillas rápidas. Más fácil: marcha, rodillas más bajas.'],
+      ['Uppercuts', 'Golpe de abajo hacia arriba, rodillas suaves. Más fácil: más despacio, sin peso.'],
+      ['Saltitos', 'Saltos pequeños, brazos en movimiento. Más fácil: sin salto, solo talones o marcha.'],
+      ['Paso lateral con curl de bíceps', 'Paso al lado y flexiona las pesas. Más fácil: sin peso, pasos cortos.'],
+    ],
+    cool: ['Vuelta a la calma: marcha lenta, respiración', 'Brazos arriba al inhalar, abajo al exhalar. Más fácil: brazos abajo, solo respiración lenta.'],
+  },
+}
+
+/**
+ * 12-minute interval workout (his plan 2026-11-22): tai chi warm-up 3 x 20 s, ten moves 40 s work / 20 s rest
+ * (mixing the circulation booster, the tai chi and the light-weights Instagram reference), cool-down 1:00.
+ * Every card names the easier version. 10 s get-ready first (its tone at 0:00 is the cut mark), quiet 10 s end.
+ */
+const interval12 = (lang: Lang): Program => {
+  const c = INTERVAL_COPY[lang]
+  const blocks: Program['rounds'][number]['blocks'] = [
+    { id: 'iv-ready', name: c.ready, seconds: 10, kind: 'prep', note: c.readyNote },
+  ]
+  c.warm.forEach(([name, note], i) => blocks.push({ id: `iv-warm-${i + 1}`, name, seconds: 20, kind: 'work', note }))
+  c.moves.forEach(([name, note], i) => {
+    blocks.push({ id: `iv-move-${i + 1}`, name, seconds: 40, kind: 'work', note })
+    const nxt = i + 1 < c.moves.length ? c.moves[i + 1][0] : c.cool[0]
+    blocks.push({ id: `iv-rest-${i + 1}`, name: c.rest, seconds: 20, kind: 'rest', note: `${c.next} ${nxt}` })
+  })
+  blocks.push({ id: 'iv-cool', name: c.cool[0], seconds: 60, kind: 'work', note: c.cool[1] })
+  blocks.push({ id: 'iv-end', name: c.end, seconds: 10, kind: 'rest', note: c.endNote, quietEnd: true })
+  return { id: 'reel-interval-12', name: c.name, prepSeconds: 0, repeatRounds: 1, sound: 'soft', rounds: [{ name: c.name, blocks }] }
+}
+
 /**
  * Tai chi intro in English, translated from his Hungarian take (IMG_2780, 2026-11-21), which
  * he ad-libbed beyond the script. Each line sits where he said it in Hungarian (recording
@@ -643,6 +753,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     bodyWaveRetake(),
     reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
+    interval12(lang),
     holds3Rounds(lang),
     reelProgram('reel-holds3-intro-hu', 'Izometrikus tartás — 3 kör — bevezető (magyar)', 118, HOLDS3_INTRO_HU),
     reelProgram('reel-holds3-intro-en', 'Isometric holds — 3 rounds — intro (English)', 117, HOLDS3_INTRO_EN),
