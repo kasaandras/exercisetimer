@@ -262,6 +262,101 @@ const holdChallenge = (lang: Lang): Program => {
   }
 }
 
+type Holds3Copy = {
+  name: string; intro: string; introNote: string; rest: string; restNote: string; round: (n: number) => string
+  roundBreak: string; roundBreakNote: (n: number) => string; end: string; endNote: string; holds: [string, string][]
+}
+
+const HOLDS3_COPY: Record<Lang, Holds3Copy> = {
+  hu: {
+    name: 'Izometrikus tartás — 3 kör',
+    intro: 'Bevezető',
+    introNote: 'Első: plank. Helyezkedj el alkaron.',
+    rest: 'Pihenő',
+    restNote: 'Válts a következő gyakorlatra.',
+    round: (n) => `${n}. kör`,
+    roundBreak: 'Körszünet',
+    roundBreakNote: (n) => `Pihenj egy kicsit. Következik a ${n}. kör: plank.`,
+    end: 'Kész',
+    endNote: 'Lassan állj fel, és rázd meg a karod, lábad.',
+    holds: [
+      ['Plank', 'Alkaron, a test egy egyenes vonal, folyamatosan lélegezz.'],
+      ['Medvetartás', 'Tenyéren és lábujjhegyen, a térd pár centire a föld fölött, a hát egyenes.'],
+      ['Csípőemelés tartva', 'Háton fekve, csípő fent, szorítsd a farizmod.'],
+      ['Dead bug tartás', 'Háton fekve, karok fel, térd 90 fokban a csípő fölött, a derekad a földön.'],
+      ['Guggolás tartva', 'Félguggolás, karok előre, a súly a sarkadon.'],
+    ],
+  },
+  en: {
+    name: 'Isometric holds — 3 rounds',
+    intro: 'Intro',
+    introNote: 'First: plank. Get down on your forearms.',
+    rest: 'Rest',
+    restNote: 'Get ready for the next hold.',
+    round: (n) => `Round ${n}`,
+    roundBreak: 'Round break',
+    roundBreakNote: (n) => `Have a short rest. Round ${n} is next: plank.`,
+    end: 'Done',
+    endNote: 'Get up slowly and shake out your arms and legs.',
+    holds: [
+      ['Plank', 'On your forearms, body in one straight line, keep breathing.'],
+      ['Bear crawl hold', 'Hands and toes, knees just off the floor, back flat.'],
+      ['Glute bridge hold', 'On your back, hips up, squeeze your glutes.'],
+      ['Dead bug hold', 'On your back, arms up, knees bent over your hips, lower back on the floor.'],
+      ['Squat hold', 'Half squat, arms forward, weight in your heels.'],
+    ],
+  },
+  es: {
+    name: 'Isométricos — 3 rondas',
+    intro: 'Introducción',
+    introNote: 'Primero: plancha. Colócate sobre los antebrazos.',
+    rest: 'Descanso',
+    restNote: 'Prepárate para el siguiente.',
+    round: (n) => `Ronda ${n}`,
+    roundBreak: 'Descanso entre rondas',
+    roundBreakNote: (n) => `Descansa un poco. Sigue la ronda ${n}: plancha.`,
+    end: 'Listo',
+    endNote: 'Levántate despacio y sacude brazos y piernas.',
+    holds: [
+      ['Plancha', 'Sobre los antebrazos, cuerpo en línea recta, sigue respirando.'],
+      ['Oso estático', 'Manos y puntas de los pies, rodillas a unos centímetros del suelo, espalda recta.'],
+      ['Puente de glúteos', 'Boca arriba, cadera arriba, aprieta los glúteos.'],
+      ['Dead bug', 'Boca arriba, brazos arriba, rodillas dobladas sobre la cadera, zona lumbar pegada al suelo.'],
+      ['Sentadilla isométrica', 'Media sentadilla, brazos al frente, peso en los talones.'],
+    ],
+  },
+}
+
+/**
+ * Three rounds of five 30 s isometric holds (his plan 2026-11-22): plank, bear crawl hold, glute bridge,
+ * dead bug, squat hold; 15 s rests, 45 s between rounds. Filmed silent like the 5-hold video: a 25 s intro
+ * to get into the first position (its tone at 0:00 is the cut mark) and a quiet end. Total 12:40.
+ */
+const holds3Rounds = (lang: Lang): Program => {
+  const c = HOLDS3_COPY[lang]
+  const rounds: Program['rounds'] = [
+    { name: c.intro, blocks: [{ id: 'h3-intro', name: c.intro, seconds: 25, kind: 'prep', note: c.introNote }] },
+  ]
+  for (let r = 1; r <= 3; r++) {
+    const blocks: Program['rounds'][number]['blocks'] = []
+    c.holds.forEach(([name, note], i) => {
+      if (i > 0) blocks.push({ id: `h3-r${r}-rest-${i}`, name: c.rest, seconds: 15, kind: 'rest', note: `${c.restNote} ${name}.` })
+      blocks.push({ id: `h3-r${r}-hold-${i + 1}`, name, seconds: 30, kind: 'work', note })
+    })
+    if (r < 3) blocks.push({ id: `h3-r${r}-break`, name: c.roundBreak, seconds: 45, kind: 'rest', note: c.roundBreakNote(r + 1) })
+    else blocks.push({ id: 'h3-end', name: c.end, seconds: 15, kind: 'rest', note: c.endNote, quietEnd: true })
+    rounds.push({ name: c.round(r), blocks })
+  }
+  return {
+    id: 'reel-holds-3rounds',
+    name: c.name,
+    prepSeconds: 0,
+    repeatRounds: 1,
+    sound: 'soft',
+    rounds,
+  }
+}
+
 /**
  * Tai chi intro in English, translated from his Hungarian take (IMG_2780, 2026-11-21), which
  * he ad-libbed beyond the script. Each line sits where he said it in Hungarian (recording
@@ -516,6 +611,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     bodyWaveRetake(),
     reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
+    holds3Rounds(lang),
     holdChallenge(lang),
     reelProgram('reel-holds-intro-hu', 'Izometrikus tartás — bevezető (magyar)', 73, HOLDS_INTRO_HU),
     reelProgram('reel-holds-intro-en', 'Isometric holds — intro (English)', 73, HOLDS_INTRO_EN),
