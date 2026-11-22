@@ -29,6 +29,7 @@ type ExKey =
   | 'kocogas' | 'lassuFekvotamasz' | 'tempoGuggolas' | 'gyorsTerdemeles'
   | 'terpeszZar' | 'terdKonyok' | 'ollozo' | 'oldallepesSarokBicepsz'
   | 'egeszTestHullam' | 'szokdeles' | 'balettGuggolas' | 'karlendites' | 'terdAlattTaps' | 'boxolas' | 'oldalsoKitores'
+  | 'oldalazas' | 'sarokemeles' | 'kotelugras'
   | 'bicepsz' | 'oldalemeles' | 'elolemeles' | 'hegymaszo' | 'vallTricepsz' | 'setaMellkasnyitas'
 
 type Copy = {
@@ -111,6 +112,9 @@ const hu: Copy = {
     terdKonyok: { name: 'Térd-könyök érintés, gyorsan', note: 'Ellentétes könyök a térdhez, egyenes törzzsel. Könnyítés: lassabban.' },
     ollozo: { name: 'Ollózó szökdelés', note: 'Ellentétes kar és láb előre. Könnyítés: ollózó lépés, ugrás nélkül.' },
     egeszTestHullam: { name: 'Egész test hullám', note: 'Karok fel, majd lazán le, enyhe térdhajlítással, hullámszerűen.' },
+    oldalazas: { name: 'Oldalazás (shuffle)', note: 'Gyors, kis lépések oldalra és vissza, hajlított térddel. Könnyítés: lassabb oldallépés.' },
+    sarokemeles: { name: 'Sarokemelés', note: 'Ritmusosan lábujjhegyre fel, sarok le; padba kapaszkodhatsz. Könnyítés: kisebb emelés, lassabban.' },
+    kotelugras: { name: 'Képzeletbeli kötélugrás', note: 'Kis ugrások, a csuklóddal hajtod a képzeletbeli kötelet. Könnyítés: ugrás nélkül, sarokemeléssel.' },
     szokdeles: { name: 'Kis szökdelés helyben', note: 'Puhán, a talp elején érkezz. Könnyítés: sarokemelés, ugrás nélkül.' },
     karlendites: { name: 'Karlendítés', note: 'Karok lazán előre-hátra, térd enyhén hajlítva.' },
     balettGuggolas: { name: 'Balett guggolás', note: 'Széles terpesz, lábujjak kifelé, lassú guggolás; a térd a lábujjak irányába mutat. Könnyítés: kisebb guggolás, padba kapaszkodva.' },
@@ -208,6 +212,9 @@ const en: Copy = {
     terdKonyok: { name: 'Fast knee to elbow', note: 'Opposite elbow to knee, stand tall. Easier: go slower.' },
     ollozo: { name: 'Scissor hops', note: 'Opposite arm and leg forward. Easier: scissor steps, no hop.' },
     egeszTestHullam: { name: 'Full body wave', note: 'Arms up, then roll down with soft knees, like a wave.' },
+    oldalazas: { name: 'Side shuffle', note: 'Quick small steps to the side and back, knees bent. Easier: slower side steps.' },
+    sarokemeles: { name: 'Heel raises', note: 'Up onto your toes and down, in a steady rhythm; hold the bench if you like. Easier: smaller lift, slower.' },
+    kotelugras: { name: 'Imaginary rope skipping', note: 'Small hops, turning an imaginary rope with your wrists. Easier: no jumping, heel raises.' },
     szokdeles: { name: 'Small hops on the spot', note: 'Land softly on the balls of your feet. Easier: heel raises, no hop.' },
     karlendites: { name: 'Arm swings', note: 'Swing your arms loosely forwards and back, knees soft.' },
     balettGuggolas: { name: 'Ballet squats', note: 'Wide stance, toes turned out, slow squat with your knees over your toes. Easier: a smaller squat, holding the bench.' },
@@ -305,6 +312,9 @@ const es: Copy = {
     terdKonyok: { name: 'Rodilla al codo, rápido', note: 'Codo contrario a la rodilla, tronco recto. Más fácil: más despacio.' },
     ollozo: { name: 'Saltos de tijera', note: 'Brazo y pierna contrarios adelante. Más fácil: pasos de tijera, sin salto.' },
     egeszTestHullam: { name: 'Onda de cuerpo completo', note: 'Brazos arriba, luego baja con las rodillas flexionadas, como una ola.' },
+    oldalazas: { name: 'Desplazamiento lateral', note: 'Pasos cortos y rápidos al lado y de vuelta, rodillas flexionadas. Más fácil: pasos laterales lentos.' },
+    sarokemeles: { name: 'Elevación de talones', note: 'Sube de puntillas y baja, con ritmo; puedes apoyarte en el banco. Más fácil: elevar menos, más despacio.' },
+    kotelugras: { name: 'Comba imaginaria', note: 'Saltitos girando una comba imaginaria con las muñecas. Más fácil: sin saltar, elevar talones.' },
     szokdeles: { name: 'Saltitos en el sitio', note: 'Aterriza suave sobre la parte delantera del pie. Más fácil: elevar talones, sin saltar.' },
     karlendites: { name: 'Balanceo de brazos', note: 'Balancea los brazos sueltos adelante y atrás, rodillas flexionadas.' },
     balettGuggolas: { name: 'Sentadillas de ballet', note: 'Piernas abiertas, puntas hacia fuera, baja despacio con las rodillas hacia las puntas. Más fácil: sentadilla más corta, sujetándote al banco.' },
@@ -534,8 +544,8 @@ const coolDown3 = (c: Copy): Block[] => [
 ]
 
 /**
- * Series 3 — about 28:10. Four blocks, cardio–strength–cardio; block 3 repeats block 1
- * and block 4 repeats block 2 with a different shoulder move. Every jumping move has a
+ * Series 3 — about 28:10. Four blocks, cardio–strength–cardio. Block 3: shuffle / lateral
+ * raise / heel raises; block 4: imaginary rope skipping / front raise / tempo squats (2026-11-22). Every jumping move has a
  * no-jump version in its note. Block 4 ends on tempo squats (mountain climbers dropped 2026-11-12).
  */
 const sorozat3 = (lang: Lang): Program => {
@@ -559,12 +569,12 @@ const sorozat3 = (lang: Lang): Program => {
         block('work', c.ex.gyorsTerdemeles, 60, c.role.cardio),
       ]),
       sessionBlock(c, 3, [
-        block('work', c.ex.kocogas, 60, c.role.cardio),
+        block('work', c.ex.oldalazas, 60, c.role.cardio),
         block('work', c.ex.oldalemeles, 60, c.role.strength),
-        block('work', c.ex.terpeszZar, 60, c.role.cardio),
+        block('work', c.ex.sarokemeles, 60, c.role.cardio),
       ]),
       sessionBlock(c, 4, [
-        block('work', c.ex.ollozo, 60, c.role.cardio),
+        block('work', c.ex.kotelugras, 60, c.role.cardio),
         block('work', c.ex.elolemeles, 60, c.role.strength),
         block('work', c.ex.tempoGuggolas, 60, c.role.cardio),
         // Straight into the cool-down, no rest card (as in Series 2).
