@@ -747,6 +747,33 @@ export const HOLDS3_INTRO_EN: [number, string][] = [
   [110, "So let's get started. Our first exercise is the plank."],
 ]
 
+/** Interval workout intro prompters (draft 2026-11-22, written while he films the workout). No blood-pressure claims. */
+export const INTERVAL_INTRO_HU: [number, string][] = [
+  [1.5, "Sziasztok! Ma egy tizenkét perces intervall edzést csinálunk együtt."],
+  [8, "A tai chi elemeit és a keringésfokozó videóim gyakorlatait raktam össze benne, és egy kis boxolás is lesz."],
+  [17.5, "Egy perc bemelegítéssel kezdünk, utána tíz gyakorlat jön: negyven másodperc mozgás, húsz másodperc pihenő. A végén egy perc levezetés."],
+  [29, "Az edzés nagy része kardió, két gyakorlathoz használunk könnyű súlyt. Ha nincs súlyzód, jó a kis vizes palack is, vagy csináld súly nélkül."],
+  [40.5, "Minden gyakorlatnál elmondom a könnyebb változatot is, és ugrani sem kell: mindennek van ugrás nélküli változata."],
+  [50.5, "Mielőtt elkezded, kérlek, beszélj az orvosoddal, főleg, ha valamilyen betegséged van, vagy régóta nem mozogtál."],
+  [60.5, "Mozgás közben ne tartsd vissza a levegőt. Ha fájdalmat érzel, szédülsz, vagy elfogy a levegőd, állj meg és pihenj."],
+  [70.5, "Menj a saját tempódban, a könnyebb változat is ugyanúgy számít."],
+  [76.5, "Az edzés alatt nem beszélek, mert így jobban tudtam a gyakorlatokra figyelni. A hangot utólag mondtam rá, de mindent együtt csinálunk végig."],
+  [88.5, "Állj fel, készítsd magad mellé a súlyokat, és kezdjük!"],
+]
+
+export const INTERVAL_INTRO_EN: [number, string][] = [
+  [1.5, "Hi everyone! Today we're doing a twelve-minute interval workout together."],
+  [8, "I've put together moves from tai chi and from my circulation booster videos, and there's a bit of boxing too."],
+  [17, "We start with a one-minute warm-up, then ten exercises: forty seconds of moving, twenty seconds of rest. We finish with a one-minute cool-down."],
+  [28.5, "Most of it is cardio, and two exercises use light weights. If you don't have weights, small water bottles are fine, or do it without."],
+  [39, "For every exercise I'll tell you the easier version too, and you don't have to jump: everything has a no-jump version."],
+  [48.5, "Before you start, please talk to your doctor, especially if you have a health condition or haven't exercised in a while."],
+  [58.5, "Don't hold your breath while you move. If you feel pain, feel dizzy, or get out of breath, stop and rest."],
+  [67, "Go at your own pace. The easier version counts just as much."],
+  [72.5, "I didn't talk during the workout, so I could focus on the exercises. I added my voice afterwards, but we do everything together."],
+  [83, "Stand up, put your weights next to you, and let's begin!"],
+]
+
 export function reelPrograms(lang: Lang = 'hu'): Program[] {
   return [
     taiChiMorning(lang),
@@ -754,6 +781,8 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     reelProgram('reel-tai-chi-intro-en', 'Morning tai chi — intro (English)', 92, TAI_CHI_INTRO_EN),
     wallSit(lang),
     interval12(lang),
+    reelProgram('reel-interval-intro-hu', 'Intervall edzés — bevezető (magyar)', 96, INTERVAL_INTRO_HU),
+    reelProgram('reel-interval-intro-en', 'Interval workout — intro (English)', 91, INTERVAL_INTRO_EN),
     holds3Rounds(lang),
     reelProgram('reel-holds3-intro-hu', 'Izometrikus tartás — 3 kör — bevezető (magyar)', 118, HOLDS3_INTRO_HU),
     reelProgram('reel-holds3-intro-en', 'Isometric holds — 3 rounds — intro (English)', 117, HOLDS3_INTRO_EN),
