@@ -378,7 +378,7 @@ const INTERVAL_COPY: Record<Lang, IntervalCopy> = {
     ],
     moves: [
       ['Oldallépés egyenes ütésekkel', 'Lépj oldalra, és üss előre, súly nélkül. Könnyítés: lassabban.'],
-      ['Box step', 'Négy lépés: előre, előre, hátra, hátra. Könnyítés: kisebb lépések.'],
+      ['Oldalazás (shuffle)', 'Gyors, kis lépések oldalra, majd vissza, enyhén hajlított térddel. Könnyítés: lassabb oldallépés.'],
       ['Csillaglépés', 'Lépj ki oldalra, a karok T-be. Könnyítés: a kar csak mellmagasságig.'],
       ['Sarokfelrúgás helyben', 'A sarok a fenék felé. Könnyítés: helyben járás.'],
       ['Guggolás nyomással, könnyű súllyal', 'Guggolj, felálláskor nyomd fel a súlyt. Könnyítés: félguggolás, súly nélkül.'],
@@ -405,7 +405,7 @@ const INTERVAL_COPY: Record<Lang, IntervalCopy> = {
     ],
     moves: [
       ['Step-touch with punches', 'Step to the side and punch forward, no weights. Easier: slower.'],
-      ['Box step', 'Four steps: forward, forward, back, back. Easier: smaller steps.'],
+      ['Side shuffle', 'Quick small steps to the side and back, knees soft. Easier: slower side steps.'],
       ['Star steps', 'Step out to the side, arms out to a T. Easier: arms to chest height.'],
       ['Heel kicks on the spot', 'Heels towards your bottom. Easier: march on the spot.'],
       ['Squat and press, light weights', 'Squat, then push the weights up as you stand. Easier: half squat, no weights.'],
@@ -432,7 +432,7 @@ const INTERVAL_COPY: Record<Lang, IntervalCopy> = {
     ],
     moves: [
       ['Paso lateral con golpes', 'Paso al lado y golpe al frente, sin peso. Más fácil: más despacio.'],
-      ['Box step', 'Cuatro pasos: adelante, adelante, atrás, atrás. Más fácil: pasos cortos.'],
+      ['Desplazamiento lateral (shuffle)', 'Pasos cortos y rápidos al lado y de vuelta, rodillas suaves. Más fácil: pasos laterales lentos.'],
       ['Pasos en estrella', 'Paso al lado, brazos en T. Más fácil: brazos hasta el pecho.'],
       ['Talones al glúteo', 'Talones hacia atrás. Más fácil: marcha en el sitio.'],
       ['Sentadilla con press, peso ligero', 'Baja y al subir empuja las pesas arriba. Más fácil: media sentadilla, sin peso.'],
