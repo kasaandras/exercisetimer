@@ -29,7 +29,7 @@ type ExKey =
   | 'kocogas' | 'lassuFekvotamasz' | 'tempoGuggolas' | 'gyorsTerdemeles'
   | 'terpeszZar' | 'terdKonyok' | 'ollozo' | 'oldallepesSarokBicepsz'
   | 'egeszTestHullam' | 'szokdeles' | 'balettGuggolas' | 'karlendites' | 'terdAlattTaps' | 'boxolas' | 'oldalsoKitores'
-  | 'oldalazas' | 'sarokemeles' | 'kotelugras' | 'jarasKaremelesLegzes' | 'mellkasnyujtas'
+  | 'oldalazas' | 'sarokemeles' | 'kotelugras' | 'jarasKaremelesLegzes' | 'mellkasnyujtas' | 'karnyujtasFel' | 'combfeszitoAllva'
   | 'bicepsz' | 'oldalemeles' | 'elolemeles' | 'hegymaszo' | 'vallTricepsz' | 'setaMellkasnyitas'
 
 type Copy = {
@@ -112,10 +112,12 @@ const hu: Copy = {
     terdKonyok: { name: 'Térd-könyök érintés, gyorsan', note: 'Ellentétes könyök a térdhez, egyenes törzzsel. Könnyítés: lassabban.' },
     ollozo: { name: 'Ollózó szökdelés', note: 'Ellentétes kar és láb előre. Könnyítés: ollózó lépés, ugrás nélkül.' },
     egeszTestHullam: { name: 'Egész test hullám', note: 'Karok fel, majd lazán le, enyhe térdhajlítással, hullámszerűen.' },
+    karnyujtasFel: { name: 'Karnyújtás felfelé', note: 'Egyik kar nyújtva fent, nyújtózz felfelé; majd a másik kar.' },
+    combfeszitoAllva: { name: 'Combfeszítő nyújtása', note: 'Állva, a boka megfogva, sarok a fenék felé; 30 mp / láb. Könnyítés: falnak támaszkodva.' },
     jarasKaremelesLegzes: { name: 'Helyben járás karemeléssel, légzés', note: 'Karok oldalt fel, mély belégzés orron; karok le, lassú kifújás.' },
-    mellkasnyujtas: { name: 'Mellkasnyújtás', note: 'Lapockák hátra, mellkas előre. Folyamatos légzés.' },
+    mellkasnyujtas: { name: 'Mellkasnyújtás', note: 'Kezek a derékon hátul, könyökök hátra, mellkas előre-fel. Folyamatos légzés.' },
     oldalazas: { name: 'Oldalazás (shuffle)', note: 'Gyors, kis lépések oldalra és vissza, hajlított térddel. Könnyítés: lassabb oldallépés.' },
-    sarokemeles: { name: 'Sarokemelés', note: 'Ritmusosan lábujjhegyre fel, sarok le; padba kapaszkodhatsz. Könnyítés: kisebb emelés, lassabban.' },
+    sarokemeles: { name: 'Sarokemelés', note: 'Helyben futás, a sarok a fenék felé lendül. Könnyítés: helyben járás, sarok hátra.' },
     kotelugras: { name: 'Képzeletbeli kötélugrás', note: 'Kis ugrások, a csuklóddal hajtod a képzeletbeli kötelet. Könnyítés: ugrás nélkül, sarokemeléssel.' },
     szokdeles: { name: 'Kis szökdelés helyben', note: 'Puhán, a talp elején érkezz. Könnyítés: sarokemelés, ugrás nélkül.' },
     karlendites: { name: 'Karlendítés', note: 'Karok lazán előre-hátra, térd enyhén hajlítva.' },
@@ -214,10 +216,12 @@ const en: Copy = {
     terdKonyok: { name: 'Fast knee to elbow', note: 'Opposite elbow to knee, stand tall. Easier: go slower.' },
     ollozo: { name: 'Scissor hops', note: 'Opposite arm and leg forward. Easier: scissor steps, no hop.' },
     egeszTestHullam: { name: 'Full body wave', note: 'Arms up, then roll down with soft knees, like a wave.' },
+    karnyujtasFel: { name: 'Arm reach up', note: 'One arm straight up, reach for the ceiling; then the other arm.' },
+    combfeszitoAllva: { name: 'Quad stretch', note: 'Standing, hold your ankle, heel towards your bottom; 30 seconds each leg. Easier: lean on the wall.' },
     jarasKaremelesLegzes: { name: 'March with arm raises and breathing', note: 'Arms up to the side, deep breath in through the nose; arms down, slow breath out.' },
-    mellkasnyujtas: { name: 'Chest stretch', note: 'Shoulder blades back, chest forward. Keep breathing.' },
+    mellkasnyujtas: { name: 'Chest stretch', note: 'Hands on your lower back, elbows back, chest forward and up. Keep breathing.' },
     oldalazas: { name: 'Side shuffle', note: 'Quick small steps to the side and back, knees bent. Easier: slower side steps.' },
-    sarokemeles: { name: 'Heel raises', note: 'Up onto your toes and down, in a steady rhythm; hold the bench if you like. Easier: smaller lift, slower.' },
+    sarokemeles: { name: 'Butt kicks', note: 'Run on the spot, heels kick up towards your bottom. Easier: march, heels back.' },
     kotelugras: { name: 'Imaginary rope skipping', note: 'Small hops, turning an imaginary rope with your wrists. Easier: no jumping, heel raises.' },
     szokdeles: { name: 'Small hops on the spot', note: 'Land softly on the balls of your feet. Easier: heel raises, no hop.' },
     karlendites: { name: 'Arm swings', note: 'Swing your arms loosely forwards and back, knees soft.' },
@@ -316,10 +320,12 @@ const es: Copy = {
     terdKonyok: { name: 'Rodilla al codo, rápido', note: 'Codo contrario a la rodilla, tronco recto. Más fácil: más despacio.' },
     ollozo: { name: 'Saltos de tijera', note: 'Brazo y pierna contrarios adelante. Más fácil: pasos de tijera, sin salto.' },
     egeszTestHullam: { name: 'Onda de cuerpo completo', note: 'Brazos arriba, luego baja con las rodillas flexionadas, como una ola.' },
+    karnyujtasFel: { name: 'Estirar el brazo hacia arriba', note: 'Un brazo estirado arriba, alcanza el techo; luego el otro brazo.' },
+    combfeszitoAllva: { name: 'Estiramiento de cuádriceps', note: 'De pie, sujeta el tobillo, talón hacia el glúteo; 30 s por pierna. Más fácil: apóyate en la pared.' },
     jarasKaremelesLegzes: { name: 'Marcha con brazos y respiración', note: 'Brazos arriba por los lados, inhala hondo por la nariz; brazos abajo, exhala despacio.' },
-    mellkasnyujtas: { name: 'Estiramiento de pecho', note: 'Omóplatos atrás, pecho adelante. Respira con normalidad.' },
+    mellkasnyujtas: { name: 'Estiramiento de pecho', note: 'Manos en la zona lumbar, codos atrás, pecho adelante y arriba. Respira con normalidad.' },
     oldalazas: { name: 'Desplazamiento lateral', note: 'Pasos cortos y rápidos al lado y de vuelta, rodillas flexionadas. Más fácil: pasos laterales lentos.' },
-    sarokemeles: { name: 'Elevación de talones', note: 'Sube de puntillas y baja, con ritmo; puedes apoyarte en el banco. Más fácil: elevar menos, más despacio.' },
+    sarokemeles: { name: 'Talones al glúteo', note: 'Corre en el sitio llevando los talones al glúteo. Más fácil: marcha, talones atrás.' },
     kotelugras: { name: 'Comba imaginaria', note: 'Saltitos girando una comba imaginaria con las muñecas. Más fácil: sin saltar, elevar talones.' },
     szokdeles: { name: 'Saltitos en el sitio', note: 'Aterriza suave sobre la parte delantera del pie. Más fácil: elevar talones, sin saltar.' },
     karlendites: { name: 'Balanceo de brazos', note: 'Balancea los brazos sueltos adelante y atrás, rodillas flexionadas.' },
@@ -526,8 +532,8 @@ const warmUp3 = (c: Copy): Round => ({
   blocks: [
     block('work', c.ex.jaras, 40),
     block('work', c.ex.egeszTestHullam, 40),
+    block('work', c.ex.karnyujtasFel, 40),
     block('work', c.ex.torzsfordulat, 40),
-    block('work', c.ex.karlendites, 40),
     block('work', c.ex.balettGuggolas, 40),
     block('work', c.ex.szokdeles, 40),
   ],
@@ -542,7 +548,7 @@ const coolDown3 = (c: Copy): Block[] => [
   block('work', c.ex.oldallepesLassan, 45),
   block('work', c.ex.jarasKaremelesLegzes, 60),
   block('work', c.ex.mellkasnyujtas, 30),
-  block('work', c.ex.combfeszito, 60),
+  block('work', c.ex.combfeszitoAllva, 60),
   block('work', c.ex.vallTricepsz, 45),
   block('work', c.ex.tubefuzes, 60),
   { ...block('prep', c.ex.elkoszones, 15), quietEnd: true },
