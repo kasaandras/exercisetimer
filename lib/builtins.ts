@@ -29,7 +29,7 @@ type ExKey =
   | 'kocogas' | 'lassuFekvotamasz' | 'tempoGuggolas' | 'gyorsTerdemeles'
   | 'terpeszZar' | 'terdKonyok' | 'ollozo' | 'oldallepesSarokBicepsz'
   | 'egeszTestHullam' | 'szokdeles' | 'balettGuggolas' | 'karlendites' | 'terdAlattTaps' | 'boxolas' | 'oldalsoKitores'
-  | 'oldalazas' | 'sarokemeles' | 'kotelugras'
+  | 'oldalazas' | 'sarokemeles' | 'kotelugras' | 'jarasKaremelesLegzes' | 'mellkasnyujtas'
   | 'bicepsz' | 'oldalemeles' | 'elolemeles' | 'hegymaszo' | 'vallTricepsz' | 'setaMellkasnyitas'
 
 type Copy = {
@@ -112,6 +112,8 @@ const hu: Copy = {
     terdKonyok: { name: 'Térd-könyök érintés, gyorsan', note: 'Ellentétes könyök a térdhez, egyenes törzzsel. Könnyítés: lassabban.' },
     ollozo: { name: 'Ollózó szökdelés', note: 'Ellentétes kar és láb előre. Könnyítés: ollózó lépés, ugrás nélkül.' },
     egeszTestHullam: { name: 'Egész test hullám', note: 'Karok fel, majd lazán le, enyhe térdhajlítással, hullámszerűen.' },
+    jarasKaremelesLegzes: { name: 'Helyben járás karemeléssel, légzés', note: 'Karok oldalt fel, mély belégzés orron; karok le, lassú kifújás.' },
+    mellkasnyujtas: { name: 'Mellkasnyújtás', note: 'Lapockák hátra, mellkas előre. Folyamatos légzés.' },
     oldalazas: { name: 'Oldalazás (shuffle)', note: 'Gyors, kis lépések oldalra és vissza, hajlított térddel. Könnyítés: lassabb oldallépés.' },
     sarokemeles: { name: 'Sarokemelés', note: 'Ritmusosan lábujjhegyre fel, sarok le; padba kapaszkodhatsz. Könnyítés: kisebb emelés, lassabban.' },
     kotelugras: { name: 'Képzeletbeli kötélugrás', note: 'Kis ugrások, a csuklóddal hajtod a képzeletbeli kötelet. Könnyítés: ugrás nélkül, sarokemeléssel.' },
@@ -212,6 +214,8 @@ const en: Copy = {
     terdKonyok: { name: 'Fast knee to elbow', note: 'Opposite elbow to knee, stand tall. Easier: go slower.' },
     ollozo: { name: 'Scissor hops', note: 'Opposite arm and leg forward. Easier: scissor steps, no hop.' },
     egeszTestHullam: { name: 'Full body wave', note: 'Arms up, then roll down with soft knees, like a wave.' },
+    jarasKaremelesLegzes: { name: 'March with arm raises and breathing', note: 'Arms up to the side, deep breath in through the nose; arms down, slow breath out.' },
+    mellkasnyujtas: { name: 'Chest stretch', note: 'Shoulder blades back, chest forward. Keep breathing.' },
     oldalazas: { name: 'Side shuffle', note: 'Quick small steps to the side and back, knees bent. Easier: slower side steps.' },
     sarokemeles: { name: 'Heel raises', note: 'Up onto your toes and down, in a steady rhythm; hold the bench if you like. Easier: smaller lift, slower.' },
     kotelugras: { name: 'Imaginary rope skipping', note: 'Small hops, turning an imaginary rope with your wrists. Easier: no jumping, heel raises.' },
@@ -312,6 +316,8 @@ const es: Copy = {
     terdKonyok: { name: 'Rodilla al codo, rápido', note: 'Codo contrario a la rodilla, tronco recto. Más fácil: más despacio.' },
     ollozo: { name: 'Saltos de tijera', note: 'Brazo y pierna contrarios adelante. Más fácil: pasos de tijera, sin salto.' },
     egeszTestHullam: { name: 'Onda de cuerpo completo', note: 'Brazos arriba, luego baja con las rodillas flexionadas, como una ola.' },
+    jarasKaremelesLegzes: { name: 'Marcha con brazos y respiración', note: 'Brazos arriba por los lados, inhala hondo por la nariz; brazos abajo, exhala despacio.' },
+    mellkasnyujtas: { name: 'Estiramiento de pecho', note: 'Omóplatos atrás, pecho adelante. Respira con normalidad.' },
     oldalazas: { name: 'Desplazamiento lateral', note: 'Pasos cortos y rápidos al lado y de vuelta, rodillas flexionadas. Más fácil: pasos laterales lentos.' },
     sarokemeles: { name: 'Elevación de talones', note: 'Sube de puntillas y baja, con ritmo; puedes apoyarte en el banco. Más fácil: elevar menos, más despacio.' },
     kotelugras: { name: 'Comba imaginaria', note: 'Saltitos girando una comba imaginaria con las muñecas. Más fácil: sin saltar, elevar talones.' },
@@ -533,10 +539,9 @@ const warmUp3 = (c: Copy): Round => ({
  * then down to the floor once for thread the needle and the goodbye.
  */
 const coolDown3 = (c: Copy): Block[] => [
-  block('work', c.ex.jaras, 60),
   block('work', c.ex.oldallepesLassan, 45),
-  block('work', c.ex.setaOldalemeles, 40),
-  block('work', c.ex.setaMellkasnyitas, 45),
+  block('work', c.ex.jarasKaremelesLegzes, 60),
+  block('work', c.ex.mellkasnyujtas, 30),
   block('work', c.ex.combfeszito, 60),
   block('work', c.ex.vallTricepsz, 45),
   block('work', c.ex.tubefuzes, 60),
@@ -544,7 +549,7 @@ const coolDown3 = (c: Copy): Block[] => [
 ]
 
 /**
- * Series 3 — about 28:10. Four blocks, cardio–strength–cardio. Block 3: shuffle / lateral
+ * Series 3 — 27:15 (cool-down: side steps, march with arm raises + breathing, 30 s chest stretch; 2026-11-23). Four blocks, cardio–strength–cardio. Block 3: shuffle / lateral
  * raise / heel raises; block 4: imaginary rope skipping / front raise / tempo squats (2026-11-22). Every jumping move has a
  * no-jump version in its note. Block 4 ends on tempo squats (mountain climbers dropped 2026-11-12).
  */
