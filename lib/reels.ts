@@ -791,6 +791,21 @@ export const SERIES3_INTRO_HU: [number, string][] = [
   [112, "Készítsd magad mellé a súlyzókat, és kezdjük is, helyben járással!"],
 ]
 
+/** English intro: his Hungarian intro take IMG_2986 (2026-11-23, seated) translated, at his timings (take time - 5.0 s tone). */
+export const SERIES3_INTRO_EN: [number, string][] = [
+  [1.1, "Hi everyone, welcome to the third circulation booster workout."],
+  [6, "Today we'll work for about twenty-seven minutes. I've brought you more exercises than last time, and it'll be a bit harder too."],
+  [15.3, "First, as usual, we warm up. Then there are four blocks with three exercises each: cardio, strength, then cardio again, one minute each, so the work time is longer this time."],
+  [28.3, "As before, there's a one-minute rest after each block, and at the end we cool down."],
+  [35.3, "You'll need two light dumbbells. I'm using three-kilo ones; it's important that they're not heavy. We do the bicep curls slowly rather than with heavy weights."],
+  [48.2, "You'll also need a bench or a sofa, like this bench I'm sitting on, and a towel and a yoga mat won't hurt either."],
+  [54.8, "Before you start, please talk to your doctor, especially if you have any health condition or haven't exercised in a while."],
+  [63.1, "Keep breathing the whole time, don't hold your breath. If you feel dizzy or can't catch your breath, stop and rest."],
+  [70.9, "For every exercise I'll show you the easier version too, and you don't have to jump: everything has a no-jump version. Please go at your own pace; you don't have to copy me."],
+  [86.1, "I deliberately don't talk during the workout, so I could focus on the exercises. I'm adding my voice afterwards, but we do everything together, and as usual, the video isn't cut."],
+  [99.5, "Now put your weights next to you, and let's begin!"],
+]
+
 /**
  * Finished reels were taken off the tab on 2026-11-22 (his ask): the isometric 5-hold and 3-round programmes and
  * intros, the wall-sit English intro/demo, BePal reel 1 (HU/EN). Their definitions stay in this file; add a line back
@@ -806,6 +821,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     reelProgram('reel-interval-intro-hu', 'Intervall edzés — bevezető (magyar)', 96, INTERVAL_INTRO_HU),
     reelProgram('reel-interval-intro-en', 'Interval workout — intro (English)', 91, INTERVAL_INTRO_EN),
     reelProgram('reel-series3-intro-hu', 'Keringésfokozó 3 — bevezető (magyar)', 119, SERIES3_INTRO_HU),
+    reelProgram('reel-series3-intro-en', 'Circulation Booster 3 — intro (English)', 106, SERIES3_INTRO_EN),
   ]
 }
 
