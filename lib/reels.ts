@@ -782,11 +782,13 @@ export const SERIES3_INTRO_HU: [number, string][] = [
   [15.5, "Először bemelegítünk, utána négy blokk jön, blokkonként három gyakorlattal: kardió, erősítés, majd megint kardió, egy-egy percig. A blokkok után egy perc pihenő van, a végén pedig levezetünk és nyújtunk."],
   [32, "Két könnyű súlyzóra lesz szükséged. Én most háromkilósat használok, ne legyen túl nehéz: a bicepszhajlítást is inkább lassan csináljuk, mint nehéz súllyal."],
   [45, "Kell még egy pad vagy kanapé, egy törölköző és egy szőnyeg."],
-  [51, "Mielőtt belekezdesz, kérlek, beszélj az orvosoddal, főleg, ha bármilyen betegséged van, vagy régóta nem mozogtál."],
-  [61, "Végig folyamatosan lélegezz, ne tartsd vissza a levegőt. Ha szédülsz, vagy nehezen kapsz levegőt, állj meg és pihenj."],
-  [71.5, "Minden gyakorlatnál megmutatom a könnyített változatot, és ugrani sem kell: mindennek van ugrás nélküli változata. Menj a saját tempódban."],
-  [83.5, "Az edzés alatt nem beszélek, mert így jobban tudtam a gyakorlatokra figyelni. A hangot utólag mondtam rá, de mindent együtt csinálunk végig."],
-  [95.5, "Készítsd magad mellé a súlyzókat, és kezdjük is, helyben járással!"],
+  [51, "Mielőtt belekezdesz, kérlek, nézd át a gyakorlatokat az orvosoddal, főleg, ha bármilyen betegséged van, vagy régóta nem mozogtál."],
+  [61.5, "Ha valamelyik gyakorlat nem alkalmas számodra, cseréld ki egy neked megfelelőre."],
+  [68, "Ha edzés közben rosszul érzed magad, nehezen kapsz levegőt, nagyon magas a pulzusod, vagy szédülsz, állj le, pihenj, és beszélj az orvosoddal."],
+  [80, "Végig folyamatosan lélegezz, ne tartsd vissza a levegőt."],
+  [85, "Minden gyakorlatnál megmutatom a könnyített változatot, és ugrani sem kell: mindennek van ugrás nélküli változata. Menj a saját tempódban, és edzésről edzésre fokozatosan építsd fel."],
+  [100, "Az edzés alatt nem beszélek, mert így jobban tudtam a gyakorlatokra figyelni. A hangot utólag mondtam rá, de mindent együtt csinálunk végig."],
+  [112, "Készítsd magad mellé a súlyzókat, és kezdjük is, helyben járással!"],
 ]
 
 /**
@@ -803,7 +805,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     interval12(lang),
     reelProgram('reel-interval-intro-hu', 'Intervall edzés — bevezető (magyar)', 96, INTERVAL_INTRO_HU),
     reelProgram('reel-interval-intro-en', 'Interval workout — intro (English)', 91, INTERVAL_INTRO_EN),
-    reelProgram('reel-series3-intro-hu', 'Keringésfokozó 3 — bevezető (magyar)', 103, SERIES3_INTRO_HU),
+    reelProgram('reel-series3-intro-hu', 'Keringésfokozó 3 — bevezető (magyar)', 119, SERIES3_INTRO_HU),
   ]
 }
 
