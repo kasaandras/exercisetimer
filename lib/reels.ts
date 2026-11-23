@@ -774,6 +774,21 @@ export const INTERVAL_INTRO_EN: [number, string][] = [
   [83, "Stand up, put your weights next to you, and let's begin!"],
 ]
 
+/** Keringésfokozó 3 — intro prompter (2026-11-23), recorded separately like the holds/interval intros; the workout take
+ * IMG_2982 is silent and dubbed. His points: 3 kg dumbbells, not too heavy, curls slow rather than heavy. */
+export const SERIES3_INTRO_HU: [number, string][] = [
+  [1.5, "Sziasztok! Köszöntök mindenkit a harmadik keringésfokozó edzésen."],
+  [8, "Ma körülbelül huszonhét percig dolgozunk, és több gyakorlatot hoztam, mint a múltkor."],
+  [15.5, "Először bemelegítünk, utána négy blokk jön, blokkonként három gyakorlattal: kardió, erősítés, majd megint kardió, egy-egy percig. A blokkok után egy perc pihenő van, a végén pedig levezetünk és nyújtunk."],
+  [32, "Két könnyű súlyzóra lesz szükséged. Én most háromkilósat használok, ne legyen túl nehéz: a bicepszhajlítást is inkább lassan csináljuk, mint nehéz súllyal."],
+  [45, "Kell még egy pad vagy kanapé, egy törölköző és egy szőnyeg."],
+  [51, "Mielőtt belekezdesz, kérlek, beszélj az orvosoddal, főleg, ha bármilyen betegséged van, vagy régóta nem mozogtál."],
+  [61, "Végig folyamatosan lélegezz, ne tartsd vissza a levegőt. Ha szédülsz, vagy nehezen kapsz levegőt, állj meg és pihenj."],
+  [71.5, "Minden gyakorlatnál megmutatom a könnyített változatot, és ugrani sem kell: mindennek van ugrás nélküli változata. Menj a saját tempódban."],
+  [83.5, "Az edzés alatt nem beszélek, mert így jobban tudtam a gyakorlatokra figyelni. A hangot utólag mondtam rá, de mindent együtt csinálunk végig."],
+  [95.5, "Készítsd magad mellé a súlyzókat, és kezdjük is, helyben járással!"],
+]
+
 /**
  * Finished reels were taken off the tab on 2026-11-22 (his ask): the isometric 5-hold and 3-round programmes and
  * intros, the wall-sit English intro/demo, BePal reel 1 (HU/EN). Their definitions stay in this file; add a line back
@@ -788,6 +803,7 @@ export function reelPrograms(lang: Lang = 'hu'): Program[] {
     interval12(lang),
     reelProgram('reel-interval-intro-hu', 'Intervall edzés — bevezető (magyar)', 96, INTERVAL_INTRO_HU),
     reelProgram('reel-interval-intro-en', 'Interval workout — intro (English)', 91, INTERVAL_INTRO_EN),
+    reelProgram('reel-series3-intro-hu', 'Keringésfokozó 3 — bevezető (magyar)', 103, SERIES3_INTRO_HU),
   ]
 }
 
